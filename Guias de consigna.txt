@@ -1,0 +1,34 @@
+TODAS las pantallas deben poseer:
+1. Logo de la aplicación
+2. Nombre de la aplicación
+3. Nombre de los alumnos
+4. Barra de navegación (debe poder navegar a las páginas disponibles dependiendo en dónde se esté).
+A continuación se detallan las pantallas principales de la aplicación que deben poder ser vistas por un cliente
+/ administrador.
+Nota: no se detallan todas las funcionalidades, sinó las principales.
+Nota: si se nombra como pantalla, debe ser una ruta distinta, no un modal.
+
+Cliente:
+1. Pantalla de bienvenida. En esta pantalla el cliente podrá ingresar su nombre antes de poder
+continuar a ver los productos.
+2. Pantalla de productos. En esta pantalla se deben poder visualizar los productos de la aplicación,
+divididos en categorías (dos categorías como fue mencionado anteriormente), los productos deben
+mostrar todos sus datos e imagen, a la vez que la capacidad para agregarlos o quitarlos del carrito.
+3. Pantalla de carrito. En esta se debe ver el listado de productos que ya fueron añadidos al carrito, a
+su vez se debe poder agregar o quitar distintas cantidades de los productos seleccionados.
+4. Pantalla de ticket. Una vez confirmado el carrito, se debe poder ver un ticket con los productos
+comprados, sus datos y el nombre del usuario.
+
+Administrador:
+1. Pantalla login. Debe poder permitir ingresar un correo y contraseña para acceder.
+2. Pantalla dashboard. Debe poseer el listado de productos, así como las acciones correspondientes
+para el alta, baja y modificación de los mismos.
+3. Pantalla Alta de producto. Debe permitir cargar un nuevo producto con todos sus datos y su
+imagen.
+4. Pantalla Modificar producto. Debe permitir modificar todos los datos de un producto a través de
+su ID. Nota: se puede reutilizar la pantalla de alta.
+
+
+
+- Preparar repositorio y colaboradores, probar commits y pulls
+- Definir el producto a trabajar y maquetar sus atributos
