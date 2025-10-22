@@ -5,9 +5,15 @@ const path = require('path');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+//RUTAS
 app.get('/', function(req, res)
 {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/about', function(req, res)
+{
+    res.sendFile(path.join(__dirname, 'about.html'));
 });
 
 app.listen(port, function()
