@@ -1,14 +1,14 @@
 {
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mysql2": "^3.15.3"
   },
   "name": "p3tp-jacob-blanco-rivas",
   "version": "1.0.0",
   "description": "TP Integrador",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
-      "start": "node app.js"
+    "dev": "node app.js"
   },
   "repository": {
     "type": "git",
