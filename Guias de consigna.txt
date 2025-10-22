@@ -32,3 +32,24 @@ su ID. Nota: se puede reutilizar la pantalla de alta.
 
 - Preparar repositorio y colaboradores, probar commits y pulls
 - Definir el producto a trabajar y maquetar sus atributos
+
+
+class Producto
+{
+    int id;
+    string titulo;
+    string color;
+    string precio;
+    int stock;
+    string imagen;
+}
+
+class Gorras : Producto
+{
+    string tipo;
+}
+
+class Medias : Producto
+{
+    string cania;
+}
