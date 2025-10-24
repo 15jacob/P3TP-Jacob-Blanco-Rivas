@@ -1,0 +1,49 @@
+@layer reset{
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        text-wrap: pretty;
+        text-wrap: balance;
+    }
+
+    p,
+    li {
+        text-wrap: pretty;
+    }
+
+    input,
+    button,
+    textarea,
+    select {
+        font: inherit;
+    }
+}
+
+@layer base {
+    :root{
+        /* typography */
+        --ff-sans: "Fira Sans", sans-serif;
+        --ff-sans-heading: "Outfit", sans-serif;
+    }
+
+    p{
+        font-family: var(--ff-sans) !important;
+    }
+
+    h1, 
+    h2, 
+    h3, 
+    h4,
+    button{
+        font-family: var(--ff-sans-heading) !important;
+    }
+}
