@@ -35,7 +35,9 @@
         --ff-sans-heading: "Outfit", sans-serif;
     }
 
-    p{
+    p, 
+    span,
+    li{
         font-family: var(--ff-sans) !important;
     }
 
