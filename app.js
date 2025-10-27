@@ -16,6 +16,11 @@ app.get('/about', function(req, res)
     res.sendFile(path.join(__dirname, 'about.html'));
 });
 
+app.get('/cart', function(req, res)
+{
+    res.sendFile(path.join(__dirname, 'cart.html'));
+});
+
 app.listen(port, function()
 {
     console.log(`Proyecto ejecutandose en puerto: ${port}`);
