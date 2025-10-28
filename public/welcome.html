@@ -28,16 +28,18 @@
     <main class="">
         <div class="container-sm text-success d-flex flex-column align-items-center justify-content-center position-absolute top-50 start-50 translate-middle gap-4">
             <img width="80" src="assets/img/favicon.svg" alt="">
-            <div class="d-flex flex-column gap-5 bg-success-subtle bg-opacity-25 px-4 py-5 rounded-3">
+            <form class="d-flex flex-column gap-5 bg-success-subtle bg-opacity-25 px-4 py-5 rounded-3">
                 <h2 class="text-center text-uppercase">Bienvenido</h2>
                 <div class="form-floating">
-                    <input type="text" class="form-control text-success" placeholder="nombre">
+                    <input type="text" id="txtNombre" class="form-control text-success" placeholder="nombre" required>
                     <label for="floatingInput">Nombre</label>
+                    <span class="text-danger" id="errorNombre"></span>
                 </div>
-                <button class="btn btn-success">Ingresar</button>
-            </div>
+                <button id="btnIngresar" class="btn btn-success">Ingresar</button>
+            </form>
         </div>
     </main>
 
+    <script src="js/welcome.js"></script>
 </body>
 </html>
