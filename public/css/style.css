@@ -37,7 +37,8 @@
 
     p, 
     span,
-    li{
+    li,
+    label{
         font-family: var(--ff-sans) !important;
     }
 
