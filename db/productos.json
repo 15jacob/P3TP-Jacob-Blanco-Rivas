@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "titulo": "Gorra Negra Clásica",
+    "color": "Negra",
+    "precio": 12000,
+    "stock": 10,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "tipo": "Trucker"
+  },
+  {
+    "id": 2,
+    "titulo": "Gorra Blanca Deportiva",
+    "color": "Blanca",
+    "precio": 12500,
+    "stock": 8,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "tipo": "Snapback"
+  },
+  {
+    "id": 3,
+    "titulo": "Gorra Azul Urbana",
+    "color": "Azul",
+    "precio": 13000,
+    "stock": 6,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "tipo": "Flat"
+  },
+  {
+    "id": 4,
+    "titulo": "Gorra Roja Casual",
+    "color": "Roja",
+    "precio": 11800,
+    "stock": 12,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "tipo": "Trucker"
+  },
+  {
+    "id": 5,
+    "titulo": "Gorra Gris Minimalista",
+    "color": "Gris",
+    "precio": 11900,
+    "stock": 9,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "tipo": "Curva"
+  },
+  {
+    "id": 6,
+    "titulo": "Gorra Verde Militar",
+    "color": "Verde",
+    "precio": 12200,
+    "stock": 5,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "tipo": "Curva"
+  },
+  {
+    "id": 7,
+    "titulo": "Gorra Amarilla Verano",
+    "color": "Amarilla",
+    "precio": 11500,
+    "stock": 11,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "tipo": "Trucker"
+  },
+  {
+    "id": 8,
+    "titulo": "Gorra Bordó Vintage",
+    "color": "Bordó",
+    "precio": 13000,
+    "stock": 4,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "tipo": "Snapback"
+  },
+  {
+    "id": 9,
+    "titulo": "Medias Negras Cortas",
+    "color": "Negras",
+    "precio": 3500,
+    "stock": 20,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "cania": "Corta"
+  },
+  {
+    "id": 10,
+    "titulo": "Medias Blancas Deportivas",
+    "color": "Blancas",
+    "precio": 3600,
+    "stock": 18,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "cania": "Media"
+  },
+  {
+    "id": 11,
+    "titulo": "Medias Grises Urbanas",
+    "color": "Grises",
+    "precio": 3400,
+    "stock": 22,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "cania": "Larga"
+  },
+  {
+    "id": 12,
+    "titulo": "Medias Rojas Clásicas",
+    "color": "Rojas",
+    "precio": 3300,
+    "stock": 25,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "cania": "Media"
+  },
+  {
+    "id": 13,
+    "titulo": "Medias Azules Básicas",
+    "color": "Azules",
+    "precio": 3400,
+    "stock": 20,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "cania": "Corta"
+  },
+  {
+    "id": 14,
+    "titulo": "Medias Verdes Running",
+    "color": "Verdes",
+    "precio": 3700,
+    "stock": 17,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "cania": "Corta"
+  },
+  {
+    "id": 15,
+    "titulo": "Medias Amarillas Retro",
+    "color": "Amarillas",
+    "precio": 3800,
+    "stock": 15,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "cania": "Larga"
+  },
+  {
+    "id": 16,
+    "titulo": "Medias Bordó Premium",
+    "color": "Bordó",
+    "precio": 4000,
+    "stock": 10,
+    "imagen": "https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680",
+    "cania": "Media"
+  }
+]
