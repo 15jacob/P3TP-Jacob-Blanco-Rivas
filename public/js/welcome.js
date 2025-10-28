@@ -47,7 +47,7 @@ class Control {
         const errorSpan = this.Vista.FormCliente.errorNombre;
 
         if(nombre == ""){
-            errorSpan.textContent = "El campo Nombre es obligatorio";
+            errorSpan.textContent = "El campo es obligatorio";
         } else {
             localStorage.setItem("nombreUsuario", nombre);
             window.location.href = "./index.html";
