@@ -5,7 +5,7 @@ import { mostrarProductos } from "./productosView.js";
 export function initProductos() {
     const contenedor = document.getElementById("contenedorProductos");
 
-    fetch("../../db/productos.json")
+    fetch("assets/db/productos.json")
         .then(response => response.json())
         .then(data => {
             const productos = data.map(prod => {
