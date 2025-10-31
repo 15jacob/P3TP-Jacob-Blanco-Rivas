@@ -11,14 +11,14 @@ app.get('/', function(req, res)
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/about', function(req, res)
+app.get('/productos', function(req, res)
 {
-    res.sendFile(path.join(__dirname, 'about.html'));
+    res.sendFile(path.join(__dirname, 'public' ,'productos.html'));
 });
 
 app.get('/cart', function(req, res)
 {
-    res.sendFile(path.join(__dirname, 'cart.html'));
+    res.sendFile(path.join(__dirname, 'public' ,'cart.html'));
 });
 
 app.listen(port, function()
