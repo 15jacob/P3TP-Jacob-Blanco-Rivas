@@ -4,6 +4,8 @@ import { mostrarProductos } from "./productosView.js";
 import { cartManager } from "./cartManager.js";
 
 let productosLista = [];
+let paginaActual = 1;
+const productosPorPagina = 8;
 
 export function initProductos() {
     const contenedor = document.getElementById("contenedorProductos");
@@ -21,12 +23,91 @@ export function initProductos() {
 
             productosLista = productos;
 
-            mostrarProductos(productos, contenedor, cartManager);
+            configurarPaginacion(productosLista);
+            mostrarPagina(paginaActual);
+
+            // mostrarProductos(productos, contenedor, cartManager);
             setupCartEventDelegation(productosLista, cartManager);
             cartManager.actualizarContadorCarrito();
         })
         .catch(error => console.log(error));
 }
+
+function configurarPaginacion(productos) {
+    const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+
+    const btnAnterior = document.getElementById("btnAnterior");
+    const btnSiguiente = document.getElementById("btnSiguiente");
+
+    btnAnterior.addEventListener("click", () => {
+        if (paginaActual > 1) {
+            paginaActual--;
+            mostrarPagina(paginaActual);
+            actualizarEstadoBotones(totalPaginas);
+        }
+    });
+
+    btnSiguiente.addEventListener("click", () => {
+        if (paginaActual < totalPaginas) {
+            paginaActual++;
+            mostrarPagina(paginaActual);
+            actualizarEstadoBotones(totalPaginas);
+        }
+    });
+
+    actualizarEstadoBotones(totalPaginas);
+}
+
+function mostrarPagina(numeroPagina) {
+    const contenedor = document.getElementById("contenedorProductos");
+    const inicio = (numeroPagina - 1) * productosPorPagina;
+    const fin = inicio + productosPorPagina;
+    const productosPagina = productosLista.slice(inicio, fin);
+    
+    mostrarProductos(productosPagina, contenedor, cartManager);
+    
+    // Actualizar indicador de página (opcional)
+    actualizarIndicadorPagina(numeroPagina);
+}
+
+function actualizarEstadoBotones(totalPaginas) {
+    const btnAnterior = document.getElementById('btnAnterior');
+    const btnSiguiente = document.getElementById('btnSiguiente');
+    
+    // Deshabilitar botones cuando corresponda
+    btnAnterior.disabled = paginaActual === 1;
+    btnSiguiente.disabled = paginaActual === totalPaginas;
+    
+    // Cambiar estilos visuales
+    if (paginaActual === 1) {
+        btnAnterior.classList.add('disabled');
+    } else {
+        btnAnterior.classList.remove('disabled');
+    }
+    
+    if (paginaActual === totalPaginas) {
+        btnSiguiente.classList.add('disabled');
+    } else {
+        btnSiguiente.classList.remove('disabled');
+    }
+}
+
+function actualizarIndicadorPagina(paginaActual) {
+    // Opcional: Mostrar indicador de página actual
+    const totalPaginas = Math.ceil(productosLista.length / productosPorPagina);
+    let indicador = document.getElementById('indicadorPagina');
+    
+    if (!indicador) {
+        // Crear indicador si no existe
+        indicador = document.createElement('div');
+        indicador.id = 'indicadorPagina';
+        indicador.className = 'text-center text-success mt-2';
+        document.querySelector('.row.pb-3').appendChild(indicador);
+    }
+    
+    indicador.textContent = `${paginaActual} de ${totalPaginas}`;
+}
+
 
 function setupCartEventDelegation(productosLista, cartManager) {
     document.addEventListener('click', function(e) {
@@ -73,7 +154,6 @@ function setupCartEventDelegation(productosLista, cartManager) {
 }
 
 function recargarProductos() {
-    const contenedor = document.getElementById("contenedorProductos");
-    mostrarProductos(productosLista, contenedor, cartManager);
+    mostrarPagina(paginaActual);
     cartManager.actualizarContadorCarrito();
 }
