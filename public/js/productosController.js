@@ -60,8 +60,14 @@ function setupCartEventDelegation(productosLista, cartManager) {
         else if (e.target.closest('.btn-eliminar')) {
             const button = e.target.closest('.btn-eliminar');
             const productId = button.getAttribute('data-id');
+            console.log('🔄 BOTÓN ELIMINAR - Producto ID:', productId);
+            console.log('Carrito ANTES de eliminar:', cartManager.cart)
             cartManager.eliminarProducto(productId);
+            console.log('Carrito DESPUÉS de eliminar:', cartManager.cart);
             recargarProductos();
+        }
+        else {
+            console.log('❌ Click en elemento no manejado');
         }
     });
 }

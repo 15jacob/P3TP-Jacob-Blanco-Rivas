@@ -27,10 +27,18 @@ class CartManager {
     }
 
     eliminarProducto(id) {
-        this.cart = this.cart.filter(item => item.id !== id);
-        this.guardarCarrito();
-    }
+        const idString = String(id);
+        const producto = this.cart.find(item => String(item.id) === idString);
 
+        if (producto) {
+            if (producto.cantidad > 1) {
+                producto.cantidad--;
+            } else {
+                this.cart = this.cart.filter(item => String(item.id) !== idString);
+            }
+            this.guardarCarrito();
+        }
+    }
     actualizarCantidad(id, cantidad) {
         const producto = this.cart.find(item => item.id === id);
         if (producto) {
