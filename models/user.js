@@ -1,7 +1,7 @@
 const { SEQUELIZE } = require('../db/db.js');
 const { DataTypes } = require("sequelize");
 
-const User = SEQUELIZE.define("User",
+const User = SEQUELIZE.define("admin_users",
 {
     user:
     {

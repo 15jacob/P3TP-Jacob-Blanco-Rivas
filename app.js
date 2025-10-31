@@ -3,7 +3,16 @@ const app = express();
 const port = 3000;
 const path = require('path');
 
-app.use(express.static(path.join(__dirname, 'public')));
+//Adapters
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+
+//MODELOS
+const { SEQUELIZE } = require('./db/db.js');
+const { User } = require('./models/user.js');
+
+//RELACIONES
+//???
 
 //RUTAS
 app.get('/', function(req, res)
@@ -21,7 +30,31 @@ app.get('/cart', function(req, res)
     res.sendFile(path.join(__dirname, 'public' ,'cart.html'));
 });
 
-app.listen(port, function()
+app.get("/users", async function(req, res)
+{
+    try
+    {
+        const users = await User.findAll();
+
+        res.status(200).json(users);
+    }
+    catch(error)
+    {
+        res.status(500).json({ error: "Error en la consulta" });
+    }
+});
+
+//Old?
+/* app.listen(port, function()
 {
     console.log(`Proyecto ejecutandose en puerto: ${port}`);
-});
+}); */
+
+SEQUELIZE
+.sync({ alter: true }) // force: true -> Elimina y vuelve a crear las tablas
+.then(() => console.log(`Database connected successfully.`))
+.then(function()
+{
+    app.listen(port, () => console.log(`Proyecto ejecutandose en puerto: ${port}`));
+})
+.catch(error => console.error("Unable to connect to the database:", error));
