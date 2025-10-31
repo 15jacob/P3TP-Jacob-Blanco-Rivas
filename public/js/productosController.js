@@ -39,7 +39,6 @@ function configurarFiltros() {
     botonesFiltro.forEach(boton => {
         boton.addEventListener('click', (e) => {
             e.preventDefault();
-            sdads
             botonesFiltro.forEach(btn => btn.classList.remove('active'));
             boton.classList.add('active');
             
