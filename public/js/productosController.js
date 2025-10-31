@@ -4,10 +4,11 @@ import { mostrarProductos } from "./productosView.js";
 import { cartManager } from "./cartManager.js";
 
 let productosLista = [];
+let productosFiltrados = [];
+let paginaActual = 1;
+const productosPorPagina = 8;
 
 export function initProductos() {
-    const contenedor = document.getElementById("contenedorProductos");
-
     fetch("/assets/db/productos.json")
         .then(response => response.json())
         .then(data => {
@@ -20,15 +21,119 @@ export function initProductos() {
             });
 
             productosLista = productos;
+            productosFiltrados = productos;
 
-            mostrarProductos(productos, contenedor, cartManager);
-            setupCartEventDelegation(productosLista, cartManager);
+            configurarFiltros();
+            configurarPaginacion();
+            mostrarPagina(paginaActual);
+
+            setupCartEventDelegation();
             cartManager.actualizarContadorCarrito();
         })
         .catch(error => console.log(error));
 }
 
-function setupCartEventDelegation(productosLista, cartManager) {
+function configurarFiltros() {
+    const botonesFiltro = document.querySelectorAll('#pillNav2 .nav-link');
+
+    botonesFiltro.forEach(boton => {
+        boton.addEventListener('click', (e) => {
+            e.preventDefault();
+            botonesFiltro.forEach(btn => btn.classList.remove('active'));
+            boton.classList.add('active');
+            
+            const categoria = boton.textContent.trim().toLowerCase();            
+            aplicarFiltro(categoria);
+            
+            paginaActual = 1;
+            mostrarPagina(paginaActual);
+        });
+    });
+}
+
+function aplicarFiltro(categoria) {
+    switch(categoria) {
+        case 'gorras':
+            productosFiltrados = productosLista.filter(producto => producto.categoria === 'Gorra');
+            break;
+        case 'medias':
+            productosFiltrados = productosLista.filter(producto => producto.categoria === 'Media');
+            break;
+        default:
+            productosFiltrados = productosLista;
+    }
+    
+    actualizarEstadoBotones();
+}
+
+function configurarPaginacion() {
+    const btnAnterior = document.getElementById("btnAnterior");
+    const btnSiguiente = document.getElementById("btnSiguiente");
+
+    btnAnterior.addEventListener("click", () => {
+        if (paginaActual > 1) {
+            paginaActual--;
+            mostrarPagina(paginaActual);
+        }
+    });
+
+    btnSiguiente.addEventListener("click", () => {
+        if (paginaActual < getTotalPaginas()) {
+            paginaActual++;
+            mostrarPagina(paginaActual);
+        }
+    });
+}
+
+function mostrarPagina(numeroPagina) {
+    const contenedor = document.getElementById("contenedorProductos");
+    const inicio = (numeroPagina - 1) * productosPorPagina;
+    const fin = inicio + productosPorPagina;
+    const productosPagina = productosFiltrados.slice(inicio, fin);
+    
+    mostrarProductos(productosPagina, contenedor, cartManager);
+    actualizarEstadoBotones();
+    actualizarIndicadorPagina(numeroPagina);
+}
+
+function getTotalPaginas() {
+    return Math.ceil(productosFiltrados.length / productosPorPagina);
+}
+
+function actualizarEstadoBotones() {
+    const btnAnterior = document.getElementById('btnAnterior');
+    const btnSiguiente = document.getElementById('btnSiguiente');
+    const totalPaginas = getTotalPaginas();
+
+    if (paginaActual > totalPaginas && totalPaginas > 0) {
+        paginaActual = totalPaginas;
+        mostrarPagina(paginaActual);
+        return;
+    }
+    
+    btnAnterior.disabled = paginaActual === 1;
+    btnSiguiente.disabled = paginaActual === totalPaginas;
+    
+    btnAnterior.classList.toggle('disabled', paginaActual === 1);
+    btnSiguiente.classList.toggle('disabled', paginaActual === totalPaginas);
+}
+
+function actualizarIndicadorPagina(paginaActual) {
+    const totalPaginas = getTotalPaginas();
+    let indicador = document.getElementById('indicadorPagina');
+    
+    if (!indicador) {
+        indicador = document.createElement('div');
+        indicador.id = 'indicadorPagina';
+        indicador.className = 'text-center text-success mt-2';
+        document.querySelector('.row.pb-3').appendChild(indicador);
+    }
+    
+    indicador.innerHTML = `${paginaActual} de ${totalPaginas}`;
+}
+
+
+function setupCartEventDelegation() {
     document.addEventListener('click', function(e) {
         if (e.target.closest('.btn-agregar')) {
             const button = e.target.closest('.btn-agregar');
@@ -48,32 +153,18 @@ function setupCartEventDelegation(productosLista, cartManager) {
                 
                 cartManager.agregarProducto(productData);
                 recargarProductos();
-                
-                button.innerHTML = '<i class="bi bi-check"></i> Agregado';
-                button.disabled = true;
-                setTimeout(() => {
-                    button.innerHTML = '<i class="bi bi-cart"></i> Agregar';
-                    button.disabled = false;
-                }, 500);
             }
         }
         else if (e.target.closest('.btn-eliminar')) {
             const button = e.target.closest('.btn-eliminar');
             const productId = button.getAttribute('data-id');
-            console.log('🔄 BOTÓN ELIMINAR - Producto ID:', productId);
-            console.log('Carrito ANTES de eliminar:', cartManager.cart)
             cartManager.eliminarProducto(productId);
-            console.log('Carrito DESPUÉS de eliminar:', cartManager.cart);
             recargarProductos();
-        }
-        else {
-            console.log('❌ Click en elemento no manejado');
         }
     });
 }
 
 function recargarProductos() {
-    const contenedor = document.getElementById("contenedorProductos");
-    mostrarProductos(productosLista, contenedor, cartManager);
+    mostrarPagina(paginaActual);
     cartManager.actualizarContadorCarrito();
 }
