@@ -6,6 +6,7 @@ const path = require('path');
 //Adapters
 //app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+app.set('view engine', 'ejs');
 
 //MODELOS
 const { SEQUELIZE } = require('./db/db.js');
@@ -34,9 +35,14 @@ app.get("/users", async function(req, res)
 {
     try
     {
-        const users = await User.findAll();
+        //const users = await User.findAll();
+        //res.render('test', users);
+        
+        //res.status(200).json(users);
 
-        res.status(200).json(users);
+        const rutaVista = path.join(__dirname, 'views', 'test.ejs');
+        const html = await ejs.renderFile(rutaVista, {persona:'fulano'});
+        res.send(html);
     }
     catch(error)
     {
