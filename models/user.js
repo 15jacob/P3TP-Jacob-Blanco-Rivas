@@ -19,7 +19,6 @@ const User = SEQUELIZE.define("User",
         allowNull: false,
         validate:
         {
-            is: /[^a-zA-Z\s]+/,
             len: [8, 16]
         },
     },
