@@ -28,14 +28,14 @@ export class CartView {
                         <div class="d-flex gap-2 align-items-center mt-2">
                             <button class="btn btn-sm bg-success-subtle rounded-2 btn-decrease" data-id="${item.id}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#198754" class="bi bi-dash-lg" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
-</svg>
+                                    <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
+                                </svg>
                             </button>
                             <span class="fw-bold fs-5">${item.cantidad}</span>
                             <button class="btn btn-sm bg-success-subtle rounded-2 btn-increase" data-id="${item.id}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#198754" class="bi bi-plus" viewBox="0 0 16 16">
-  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-</svg>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                                </svg>
                             </button>
                         </div>
                         <button class="mt-2 btn btn-outline-danger btn-sm btn-eliminar-todo" data-id="${item.id}">

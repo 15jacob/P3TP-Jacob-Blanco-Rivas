@@ -22,8 +22,7 @@ export function crearCardProducto(producto, cartManager) {
                 <h3 class="fs-4">$${producto.precio}</h3>
                 ${cantidadEnCarrito > 0 ? `
                     <div class="d-grid mb-2">
-                        <button class="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center gap-1 btn-eliminar"
-                                data-id="${producto.id}">
+                        <button class="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center gap-1 btn-eliminar" data-id="${producto.id}">
                             <i class="bi bi-trash"></i> Eliminar (${cantidadEnCarrito})
                         </button>
                     </div>
