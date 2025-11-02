@@ -14,21 +14,4 @@ export class Producto {
         this.stock = stock;
         this.imagen = imagen;
     }
-
-    toJsonString() {
-        return JSON.stringify(this);
-    }
-
-    static createFromJsonString(json){
-        const jsonParsed = JSON.parse(json);
-
-        return new Producto(
-            jsonParsed.id,
-            jsonParsed.titulo,
-            jsonParsed.color,
-            jsonParsed.precio,
-            jsonParsed.stock,
-            jsonParsed.imagen
-        );
-    }
 }

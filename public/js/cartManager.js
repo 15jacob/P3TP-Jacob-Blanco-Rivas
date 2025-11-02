@@ -39,16 +39,12 @@ class CartManager {
             this.guardarCarrito();
         }
     }
-    actualizarCantidad(id, cantidad) {
-        const producto = this.cart.find(item => item.id === id);
-        if (producto) {
-            if(cantidad <= 0) {
-                this.eliminarProducto(id);
-            } else {
-                producto.cantidad = cantidad;
-                this.guardarCarrito();
-            }
-        }
+
+
+    eliminarProductoCompletamente(id) {
+        const idString = String(id);
+        this.cart = this.cart.filter(item => String(item.id) !== idString);
+        this.guardarCarrito();
     }
 
     limpiarCarrito() {

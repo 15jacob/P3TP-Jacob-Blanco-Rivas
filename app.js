@@ -4,9 +4,9 @@ const port = 3000;
 const path = require('path');
 
 //Adapters
-//app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
-app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.json());
+// app.set('view engine', 'ejs');
 
 //MODELOS
 const { SEQUELIZE } = require('./db/db.js');
@@ -51,16 +51,16 @@ app.get("/users", async function(req, res)
 });
 
 //Old?
-/* app.listen(port, function()
+app.listen(port, function()
 {
     console.log(`Proyecto ejecutandose en puerto: ${port}`);
-}); */
+});
 
-SEQUELIZE
-.sync({ alter: true }) // force: true -> Elimina y vuelve a crear las tablas
-.then(() => console.log(`Database connected successfully.`))
-.then(function()
-{
-    app.listen(port, () => console.log(`Proyecto ejecutandose en puerto: ${port}`));
-})
-.catch(error => console.error("Unable to connect to the database:", error));
+// SEQUELIZE
+// .sync({ alter: true }) // force: true -> Elimina y vuelve a crear las tablas
+// .then(() => console.log(`Database connected successfully.`))
+// .then(function()
+// {
+//     app.listen(port, () => console.log(`Proyecto ejecutandose en puerto: ${port}`));
+// })
+// .catch(error => console.error("Unable to connect to the database:", error));
