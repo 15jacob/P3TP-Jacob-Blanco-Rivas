@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Cap&Sock - Ticket</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body class="min-vh-100">
     <header class="text-center text-white">
@@ -28,25 +30,21 @@
 
     <main>
         <div class="container py-4">
-            <!-- Header de éxito -->
             <div class="text-center mb-4 text-success">
                 <i class="bi bi-check-circle-fill text-success display-4"></i>
                 <h1 class="h2 mt-3">¡Compra realizada con éxito!</h1>
                 <p>Tu ticket ha sido generado correctamente</p>
             </div>
 
-            <!-- Ticket -->
             <div class="row justify-content-center">
-                <div class="col-12 col-md-8 col-lg-6">
-                    <div id="ticketContent" class="text-dark rounded-3 p-4 shadow bg-success-subtle">
-                        <!-- Header del ticket -->
+                <div class="col-12 col-md-10 col-lg-8">
+                    <div id="ticketContent" class="text-dark rounded-3 p-4 shadow">
                         <div class="text-center mb-4">
-                            <img src="assets/img/favicon.svg" alt="Cap&Sock" class="mb-3" width="60">
+                            <img src="assets/img/favicon.svg" alt="Cap&Sock" class="mb-3" width="60" style="filter: invert(44%) sepia(98%) saturate(391%) hue-rotate(85deg) brightness(95%) contrast(87%);">
                             <h4 class="text-success mb-1">Cap&Sock</h4>
                         </div>
 
-                        <!-- Información de la venta -->
-                        <div class="mb-3">
+                        <div class="mb-3 text-muted">
                             <div class="d-flex justify-content-between border-bottom pb-1">
                                 <span class="text-muted">Ticket N°:</span>
                                 <span class="fw-bold" id="ticketNumber">-</span>
@@ -61,29 +59,25 @@
                             </div>
                         </div>
 
-                        <!-- Línea separadora -->
                         <hr class="my-3">
 
-                        <!-- Productos -->
-                        <div class="mb-3">
-                            <h5 class="text-center mb-3 text-muted">Productos adquiridos</h5>
+                        <div class="mb-2">
+                            <h6 class="text-center mb-2 text-muted fw-bold">PRODUCTOS</h6>
                             
-                            <div class="d-flex justify-content-between fw-bold border-bottom pb-1 small text-muted">
-                                <span class="flex-grow-1">Producto</span>
-                                <span class="text-center" style="width: 50px;">Cant.</span>
-                                <span class="text-end" style="width: 70px;">Precio</span>
-                                <span class="text-end" style="width: 70px;">Total</span>
+                            <div class="d-flex justify-content-between small fw-bold text-muted mb-1">
+                                <span class="w-50">Producto</span>
+                                <span class="text-center" style="width: 40px;">Cant</span>
+                                <span class="text-end" style="width: 60px;">Precio</span>
+                                <span class="text-end" style="width: 60px;">Total</span>
                             </div>
 
-                            <div id="ticketProducts">
+                            <div id="ticketProducts" class="small">
                                 <!-- Aquí se cargan los productos -->
                             </div>
                         </div>
 
-                        <!-- Línea separadora -->
                         <hr class="my-3">
 
-                        <!-- Total -->
                         <div class="text-end text-muted ">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="fw-bold fs-5">TOTAL:</span>
@@ -91,7 +85,6 @@
                             </div>
                         </div>
 
-                        <!-- Footer del ticket -->
                         <div class="text-center mt-4 pt-3 border-top">
                             <p class="text-muted small mb-1">¡Gracias por tu compra!</p>
                             <p class="text-muted small">Conserva este ticket como comprobante</p>
@@ -100,7 +93,6 @@
                 </div>
             </div>
 
-            <!-- Acciones -->
             <div class="text-center mt-4">
                 <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
                     <button id="btnDownloadPDF" class="btn btn-success d-flex align-items-center justify-content-center gap-2">
@@ -116,7 +108,7 @@
         </div>
     </main>
 
-    <script src="js/ticketController.js"></script>
+    <script type="module" src="./js/ticketController.js"></script>
     <script src="js/tema.js"></script>
 </body>
 </html>

@@ -74,9 +74,25 @@ export class CartController {
     }
 
     finalizarCompra() {
-        if (this.cartManager.cart.length > 0) {
-            this.view.mostrarAlerta('¡Compra finalizada! Redirigiendo al ticket...');
-            // window.location.href = '/ticket.html';
+        if (this.cartManager.cart.length === 0) {
+            this.view.mostrarAlerta('El carrito está vacío');
+            return;
+        }
+
+        if (confirm('¿Confirmar compra?')) {
+            const ticketData = {
+                numeroVenta: `VTA-${Date.now()}`,
+                fecha: new Date().toISOString(),
+                productos: this.cartManager.cart,
+                total: this.cartManager.getTotal(),
+                cantidadProductos: this.cartManager.getCantidadProductos()
+            };
+
+            localStorage.setItem('ultimaVenta', JSON.stringify(ticketData));
+
+            this.cartManager.limpiarCarrito();
+
+            window.location.href = './ticket.html';
         }
     }
 }
