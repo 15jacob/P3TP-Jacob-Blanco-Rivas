@@ -63,4 +63,14 @@
     .transition-all {
         transition: all 0.3s ease;
     }
+
+    #temaFlotante {
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    #temaFlotante:hover {
+        transform: scale(1.1);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
 }
