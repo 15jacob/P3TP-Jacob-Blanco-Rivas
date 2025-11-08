@@ -6,6 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-    <% persona %>
+    <h1>
+        <%= persona %>
+    </h1>
+
+    <button id="boton">CLICK ME</button>
 </body>
+
+<script>
+
+    window.addEventListener('load', function()
+    {
+        document.getElementById('boton').addEventListener('click', function()
+        {
+            console.log("click");
+        })
+    })
+
+</script>
+
 </html>

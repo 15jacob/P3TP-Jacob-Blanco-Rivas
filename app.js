@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const path = require('path');
+const ejs = require('ejs');
 
 //Adapters
 //app.use(express.static(path.join(__dirname, 'public')));
@@ -41,11 +42,13 @@ app.get("/users", async function(req, res)
         //res.status(200).json(users);
 
         const rutaVista = path.join(__dirname, 'views', 'test.ejs');
+        console.log(rutaVista);
         const html = await ejs.renderFile(rutaVista, {persona:'fulano'});
         res.send(html);
     }
     catch(error)
     {
+        console.log(error);
         res.status(500).json({ error: "Error en la consulta" });
     }
 });
