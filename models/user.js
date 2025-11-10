@@ -22,6 +22,8 @@ const User = SEQUELIZE.define("admin_users",
             len: [8, 16]
         },
     },
+}, {
+    timestamps: false,
 });
 
 module.exports = { User };

@@ -38,7 +38,8 @@
     p, 
     span,
     li,
-    label{
+    label,
+    td{
         font-family: var(--ff-sans) !important;
     }
 
@@ -46,7 +47,11 @@
     h2, 
     h3, 
     h4,
-    button{
+    h5,
+    h6,
+    th,
+    button,
+    a{
         font-family: var(--ff-sans-heading) !important;
     }
 }

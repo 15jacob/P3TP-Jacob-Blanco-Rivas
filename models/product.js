@@ -1,0 +1,62 @@
+const { SEQUELIZE } = require('../db/db.js');
+const { DataTypes } = require("sequelize");
+
+const Product = SEQUELIZE.define("product_items",
+{
+    id_category:
+    {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    title:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:
+        {
+            len: [3, 50]
+        },
+    },
+    color:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:
+        {
+            len: [3, 50]
+        },
+    },
+    price:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    stock:
+    {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate:
+        {
+            min: 0
+        },
+    },
+    image_url:
+    {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    attributes:
+    {
+        type: DataTypes.TEXT,
+        allowNull: false,
+    },
+    status:
+    {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+    },
+}, {
+    timestamps: false,
+});
+
+module.exports = { Product };
