@@ -12,6 +12,7 @@ app.set('view engine', 'ejs');
 //MODELOS
 const { SEQUELIZE } = require('./db/db.js');
 const { User } = require('./models/user.js');
+const { ProductItem } = require('./models/product/item.js');
 
 //RELACIONES
 //???
@@ -32,19 +33,37 @@ app.get('/cart', function(req, res)
     res.sendFile(path.join(__dirname, 'public' ,'cart.html'));
 });
 
+app.get("/home", async function(req, res)
+{
+    try
+    {
+        const HTML = await ProductItem.findAll({
+            where:
+            {
+                status: true
+            }
+        })
+        .then(data => data.map(user => user.toJSON()))
+        .then(data => ejs.renderFile(path.join(__dirname, 'views', 'home.ejs'), {data: data}))
+
+        res.send(HTML);
+    }
+    catch(error)
+    {
+        console.log(error);
+        res.status(500).json({ error: "Error en la consulta" });
+    }
+});
+
 app.get("/users", async function(req, res)
 {
     try
     {
-        //const users = await User.findAll();
-        //res.render('test', users);
-        
-        //res.status(200).json(users);
+        const HTML = await User.findAll()
+        .then(data => data.map(user => user.toJSON()))
+        .then(data => ejs.renderFile(path.join(__dirname, 'views', 'test.ejs'), {data: data}))
 
-        const rutaVista = path.join(__dirname, 'views', 'test.ejs');
-        console.log(rutaVista);
-        const html = await ejs.renderFile(rutaVista, {persona:'fulano'});
-        res.send(html);
+        res.send(HTML);
     }
     catch(error)
     {
