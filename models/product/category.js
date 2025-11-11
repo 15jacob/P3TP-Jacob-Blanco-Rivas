@@ -1,6 +1,8 @@
 const { SEQUELIZE } = require('../../db/db.js');
 const { DataTypes } = require("sequelize");
 
+const { ProductItem } = require('./item.js');
+
 const ProductCategory = SEQUELIZE.define("product_categories",
 {
     name:
@@ -17,10 +19,10 @@ const ProductCategory = SEQUELIZE.define("product_categories",
 
 ProductCategory.associate = function(models)
 {
-    Categoria.hasMany(models.Producto,
+    ProductCategory.hasMany(models.ProductItem,
     {
         foreignKey: 'id_category',
-        as: 'products'
+        as: 'category'
     });
 };
 

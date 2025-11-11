@@ -1,6 +1,8 @@
 const { SEQUELIZE } = require('../../db/db.js');
 const { DataTypes } = require("sequelize");
 
+const { ProductCategory } = require('./category.js');
+
 const ProductItem = SEQUELIZE.define("product_items",
 {
     id_category:
@@ -76,7 +78,7 @@ const ProductItem = SEQUELIZE.define("product_items",
 
 ProductItem.associate = function(models)
 {
-    Producto.belongsTo(models.Categoria,
+    ProductItem.belongsTo(models.ProductCategory,
     {
         foreignKey: 'id_category',
         as: 'category'

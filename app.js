@@ -13,9 +13,17 @@ app.set('view engine', 'ejs');
 const { SEQUELIZE } = require('./db/db.js');
 const { User } = require('./models/user.js');
 const { ProductItem } = require('./models/product/item.js');
+const { ProductCategory } = require('./models/product/category.js');
 
 //RELACIONES
-//???
+const models = { ProductItem, ProductCategory };
+
+Object.keys(models).forEach(function(modelName)
+{
+    if(models[modelName].associate)
+        models[modelName].associate(models);
+});
+
 
 //RUTAS
 app.get('/', function(req, res)
@@ -41,6 +49,11 @@ app.get("/home", async function(req, res)
             where:
             {
                 status: true
+            },
+            include:
+            {
+                model: ProductCategory,
+                as: 'category'
             }
         })
         .then(data => data.map(user => user.toJSON()))
