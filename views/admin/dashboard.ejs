@@ -98,9 +98,23 @@
                                         <a href="/admin/editar-producto/<%= producto.id %>" class="btn btn-outline-primary" title="Modificar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a href="/admin/productos/eliminar/<%= producto.id %>" class="btn btn-outline-danger" title="Eliminar">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
+
+
+                                        <% if (producto.status) { %>
+                                            <button type="button" class="btn btn-outline-danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalDesactivar<%= producto.id %>"
+                                                    title="Eliminar producto">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        <% } else { %>
+                                            <button type="button" class="btn btn-outline-success"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalActivar<%= producto.id %>"
+                                                    title="Activar producto">
+                                                <i class="bi bi-check-circle"></i>
+                                            </button>
+                                        <% } %>
                                     </div>
                                 </td>
                                 <td><%= producto.id %></td>
@@ -123,6 +137,53 @@
                                     <% } %>
                                 </td>
                             </tr>
+                            <!-- Modal para DESACTIVAR -->
+                            <% if (producto.status) { %>
+                            <div class="modal fade" id="modalDesactivar<%= producto.id %>" tabindex="-1" aria-labelledby="modalDesactivarLabel<%= producto.id %>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalDesactivarLabel<%= producto.id %>">Confirmar desactivación</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Estás seguro de que deseas <strong>desactivar</strong> el producto "<%= producto.title %>"?<br>
+                                            <small class="text-muted">Los productos desactivados no se mostrarán en la tienda.</small>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <a href="/admin/productos/eliminar/<%= producto.id %>" class="btn btn-danger">
+                                                <i class="bi bi-trash me-1"></i>Desactivar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+
+                            <!-- Modal para ACTIVAR -->
+                            <% if (!producto.status) { %>
+                            <div class="modal fade" id="modalActivar<%= producto.id %>" tabindex="-1" aria-labelledby="modalActivarLabel<%= producto.id %>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalActivarLabel<%= producto.id %>">Confirmar activación</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Estás seguro de que deseas <strong>activar</strong> el producto "<%= producto.title %>"?<br>
+                                            <small class="text-muted">El producto volverá a estar disponible en la tienda.</small>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <a href="/admin/productos/activar/<%= producto.id %>" class="btn btn-success">
+                                                <i class="bi bi-check-circle me-1"></i>Activar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
                             <% }); %>
                         </tbody>
                     </table>
