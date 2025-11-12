@@ -26,4 +26,13 @@ const User = SEQUELIZE.define("admin_users",
     timestamps: false,
 });
 
+User.beforeCreate(async (user) => {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    user.password = hashedPassword;
+});
+
+User.prototype.validatePassword = async function (password) {
+    return await bcrypt.compare(password, this.password);
+};
+
 module.exports = { User };
