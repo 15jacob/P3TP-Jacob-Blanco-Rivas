@@ -2,21 +2,21 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const path = require('path');
-const ejs = require('ejs');
-const multer = require('multer');
+// const ejs = require('ejs');
+// const multer = require('multer');
 const session = require('express-session');
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb)
-    {
-        cb(null, 'public/assets/img/');
-    },
-    filename: function(req, file, cb)
-    {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-const upload = multer({ storage: storage });
+// const storage = multer.diskStorage({
+//     destination: function(req, file, cb)
+//     {
+//         cb(null, 'public/assets/img/');
+//     },
+//     filename: function(req, file, cb)
+//     {
+//         cb(null, Date.now() + '-' + file.originalname);
+//     }
+// });
+// const upload = multer({ storage: storage });
 
 //Adapters
 app.use(express.static(path.join(__dirname, 'public')));
@@ -86,214 +86,220 @@ app.get("/users", async function(req, res)
     }
 });
 
-app.get('/admin/login', (req, res) => {
-    if (req.session.user) {
-        return res.redirect('/admin/dashboard');
-    }
-    res.render('admin/login', { 
-        title: 'Login - Cap&Sock',
-        error: req.query.error 
-    });
-});
+const adminAuthRoutes = require('./routes/admin/auth');
+const adminProductRoutes = require('./routes/admin/products');
 
-app.post('/admin/login', async (req, res) => {
-    try {
-        const { user, password } = req.body;
+app.use('/admin', adminAuthRoutes);
+app.use('/admin', requireAuth, adminProductRoutes);
 
-        console.log('Intento de login con:', { user, password });
+// app.get('/admin/login', (req, res) => {
+//     if (req.session.user) {
+//         return res.redirect('/admin/dashboard');
+//     }
+//     res.render('admin/login', { 
+//         title: 'Login - Cap&Sock',
+//         error: req.query.error 
+//     });
+// });
 
-        const adminUser = await User.findOne({ 
-            where: { 
-                user: user
-            } 
-        });
+// app.post('/admin/login', async (req, res) => {
+//     try {
+//         const { user, password } = req.body;
 
-        console.log('Usuario encontrado en BD:', adminUser ? 'Sí' : 'No');
+//         console.log('Intento de login con:', { user, password });
 
-        if (adminUser) {
+//         const adminUser = await User.findOne({ 
+//             where: { 
+//                 user: user
+//             } 
+//         });
 
-            if (adminUser.password === password) {
-                req.session.user = {
-                    id: adminUser.id,
-                    username: adminUser.user,
-                    nombre: 'Administrador',
-                    role: 'admin'
-                };
-                console.log('Login exitoso para:', adminUser.user);
-                return res.redirect('/admin/dashboard');
-            } else {
-                console.log('Contraseña incorrecta');
-            }
-        } else {
-            console.log('Usuario no encontrado en la BD');
-        }
+//         console.log('Usuario encontrado en BD:', adminUser ? 'Sí' : 'No');
+
+//         if (adminUser) {
+
+//             if (adminUser.password === password) {
+//                 req.session.user = {
+//                     id: adminUser.id,
+//                     username: adminUser.user,
+//                     nombre: 'Administrador',
+//                     role: 'admin'
+//                 };
+//                 console.log('Login exitoso para:', adminUser.user);
+//                 return res.redirect('/admin/dashboard');
+//             } else {
+//                 console.log('Contraseña incorrecta');
+//             }
+//         } else {
+//             console.log('Usuario no encontrado en la BD');
+//         }
         
-        res.redirect('/admin/login?error=Credenciales incorrectas');
-    } catch (error) {
-        console.error('Error en login:', error);
-        res.redirect('/admin/login?error=Error interno del servidor');
-    }
-});
+//         res.redirect('/admin/login?error=Credenciales incorrectas');
+//     } catch (error) {
+//         console.error('Error en login:', error);
+//         res.redirect('/admin/login?error=Error interno del servidor');
+//     }
+// });
 
-app.get('/admin/dashboard', requireAuth, async (req, res) => {
-    try {
-        const productos = await Product.findAll({ include: [Category] });
-        const ventas = await Order.findAll({
-            order: [['date', 'DESC']],
-            limit: 10
-        });
-        const categorias = await Category.findAll();
+// app.get('/admin/dashboard', requireAuth, async (req, res) => {
+//     try {
+//         const productos = await Product.findAll({ include: [Category] });
+//         const ventas = await Order.findAll({
+//             order: [['date', 'DESC']],
+//             limit: 10
+//         });
+//         const categorias = await Category.findAll();
         
-        const productosActivos = productos.filter(p => p.status === true).length;
-        const totalVentas = ventas.length;
-        const ingresosTotales = ventas.reduce((sum, venta) => sum + parseFloat(venta.total), 0);
-        const stockTotal = productos.reduce((sum, producto) => sum + producto.stock, 0);
+//         const productosActivos = productos.filter(p => p.status === true).length;
+//         const totalVentas = ventas.length;
+//         const ingresosTotales = ventas.reduce((sum, venta) => sum + parseFloat(venta.total), 0);
+//         const stockTotal = productos.reduce((sum, producto) => sum + producto.stock, 0);
 
-        res.render('admin/dashboard', {
-            productos: productos,
-            ventas: ventas,
-            categorias: categorias,
-            estadisticas: {
-                productosActivos: productosActivos,
-                totalVentas: totalVentas,
-                ingresosTotales: ingresosTotales,
-                stockTotal: stockTotal
-            },
-            user: req.session.user,
-            success: req.query.success,
-            error: req.query.error
-        });
-    } catch (error) {
-        console.error('Error en dashboard:', error);
-        res.status(500).send('Error al cargar el dashboard');
-    }
-});
+//         res.render('admin/dashboard', {
+//             productos: productos,
+//             ventas: ventas,
+//             categorias: categorias,
+//             estadisticas: {
+//                 productosActivos: productosActivos,
+//                 totalVentas: totalVentas,
+//                 ingresosTotales: ingresosTotales,
+//                 stockTotal: stockTotal
+//             },
+//             user: req.session.user,
+//             success: req.query.success,
+//             error: req.query.error
+//         });
+//     } catch (error) {
+//         console.error('Error en dashboard:', error);
+//         res.status(500).send('Error al cargar el dashboard');
+//     }
+// });
 
-app.get('/admin/agregar-producto', requireAuth, async (req, res) => {
-    try {
-        const categorias = await Category.findAll();
-        res.render('admin/agregar-producto', {
-            title: 'Alta de Producto - Cap&Sock',
-            categorias: categorias,
-            user: req.session.user,
-            success: req.query.success,
-            error: req.query.error
-        });
-    } catch (error) {
-        console.error('Error al cargar formulario:', error);
-        res.status(500).send('Error al cargar el formulario');
-    }
-});
+// app.get('/admin/agregar-producto', requireAuth, async (req, res) => {
+//     try {
+//         const categorias = await Category.findAll();
+//         res.render('admin/agregar-producto', {
+//             title: 'Alta de Producto - Cap&Sock',
+//             categorias: categorias,
+//             user: req.session.user,
+//             success: req.query.success,
+//             error: req.query.error
+//         });
+//     } catch (error) {
+//         console.error('Error al cargar formulario:', error);
+//         res.status(500).send('Error al cargar el formulario');
+//     }
+// });
 
-app.get('/admin/editar-producto/:id', requireAuth, async (req, res) => {
-    try {
-        const producto = await Product.findByPk(req.params.id);
-        if (!producto) {
-            return res.status(404).send('Producto no encontrado');
-        }
+// app.get('/admin/editar-producto/:id', requireAuth, async (req, res) => {
+//     try {
+//         const producto = await Product.findByPk(req.params.id);
+//         if (!producto) {
+//             return res.status(404).send('Producto no encontrado');
+//         }
 
-        const categorias = await Category.findAll();
+//         const categorias = await Category.findAll();
 
-        res.render('admin/editar-producto', {
-            title: 'Editar Producto - Cap&Sock',
-            producto: producto,
-            categorias: categorias,
-            user:  req.session.user,
-            success: req.query.success || null,
-            error: req.query.error || null
-        });
-    } catch (error) {
-        console.error('Error al cargar formulario de edición:', error);
-        res.status(500).send('Error al cargar el formulario');
-    }
-});
+//         res.render('admin/editar-producto', {
+//             title: 'Editar Producto - Cap&Sock',
+//             producto: producto,
+//             categorias: categorias,
+//             user:  req.session.user,
+//             success: req.query.success || null,
+//             error: req.query.error || null
+//         });
+//     } catch (error) {
+//         console.error('Error al cargar formulario de edición:', error);
+//         res.status(500).send('Error al cargar el formulario');
+//     }
+// });
 
-app.post('/admin/productos/crear', requireAuth, upload.single('imagen'), async (req, res) => {
-    try {  
-        const { title, id_category, color, price, stock, status } = req.body;
-        const attributes = req.body.attributes || {};
+// app.post('/admin/productos/crear', requireAuth, upload.single('imagen'), async (req, res) => {
+//     try {  
+//         const { title, id_category, color, price, stock, status } = req.body;
+//         const attributes = req.body.attributes || {};
         
-        const nuevoProducto = await Product.create({
-            title,
-            id_category: parseInt(id_category),
-            color,
-            price: parseFloat(price),
-            stock: parseInt(stock),
-            status: status === 'on',
-            attributes: JSON.stringify(attributes),
-            image_url: req.file ? `/assets/img/${req.file.filename}` : '/assets/img/placeholder.jpg'
-        });
+//         const nuevoProducto = await Product.create({
+//             title,
+//             id_category: parseInt(id_category),
+//             color,
+//             price: parseFloat(price),
+//             stock: parseInt(stock),
+//             status: status === 'on',
+//             attributes: JSON.stringify(attributes),
+//             image_url: req.file ? `/assets/img/${req.file.filename}` : '/assets/img/placeholder.jpg'
+//         });
 
-        console.log('Producto creado exitosamente:', nuevoProducto.id);
-        res.redirect('/admin/dashboard?success=Producto creado correctamente');
-    } catch (error) {
-        console.error('Error al crear producto:', error);
-        res.redirect('/admin/agregar-producto?error=Error al crear el producto: ' + error.message);
-    }
-});
+//         console.log('Producto creado exitosamente:', nuevoProducto.id);
+//         res.redirect('/admin/dashboard?success=Producto creado correctamente');
+//     } catch (error) {
+//         console.error('Error al crear producto:', error);
+//         res.redirect('/admin/agregar-producto?error=Error al crear el producto: ' + error.message);
+//     }
+// });
 
-app.post('/admin/productos/actualizar/:id', requireAuth, upload.single('imagen'), async (req, res) => {
-    try {  
-        const { title, id_category, color, price, stock, status } = req.body;
-        const attributes = req.body.attributes || {};
-        const producto = await Product.findByPk(req.params.id);
+// app.post('/admin/productos/actualizar/:id', requireAuth, upload.single('imagen'), async (req, res) => {
+//     try {  
+//         const { title, id_category, color, price, stock, status } = req.body;
+//         const attributes = req.body.attributes || {};
+//         const producto = await Product.findByPk(req.params.id);
         
-        if (!producto) {
-            return res.redirect('/admin/dashboard?error=Producto no encontrado');
-        }
+//         if (!producto) {
+//             return res.redirect('/admin/dashboard?error=Producto no encontrado');
+//         }
 
-        const updateData = {
-            title,
-            id_category: parseInt(id_category),
-            color,
-            price: parseFloat(price),
-            stock: parseInt(stock),
-            status: status === 'on',
-            attributes: JSON.stringify(attributes)
-        };
+//         const updateData = {
+//             title,
+//             id_category: parseInt(id_category),
+//             color,
+//             price: parseFloat(price),
+//             stock: parseInt(stock),
+//             status: status === 'on',
+//             attributes: JSON.stringify(attributes)
+//         };
 
-        if (req.file) {
-            updateData.image_url = `/assets/img/${req.file.filename}`;
-        }
+//         if (req.file) {
+//             updateData.image_url = `/assets/img/${req.file.filename}`;
+//         }
 
-        await producto.update(updateData);
-        res.redirect('/admin/dashboard?success=Producto actualizado correctamente');
-    } catch (error) {
-        console.error('Error al actualizar producto:', error);
-        res.redirect('/admin/editar-producto/' + req.params.id + '?error=Error al actualizar el producto');
-    }
-});
+//         await producto.update(updateData);
+//         res.redirect('/admin/dashboard?success=Producto actualizado correctamente');
+//     } catch (error) {
+//         console.error('Error al actualizar producto:', error);
+//         res.redirect('/admin/editar-producto/' + req.params.id + '?error=Error al actualizar el producto');
+//     }
+// });
 
-app.get('/admin/productos/eliminar/:id', requireAuth, async (req, res) => {
-    try {
-        const producto = await Product.findByPk(req.params.id);
-        if (producto) {
-            await producto.update({ status: false });
-        }
-        res.redirect('/admin/dashboard?success=Producto desactivado correctamente');
-    } catch (error) {
-        console.error('Error al eliminar producto:', error);
-        res.redirect('/admin/dashboard?error=Error al desactivar el producto');
-    }
-});
+// app.get('/admin/productos/eliminar/:id', requireAuth, async (req, res) => {
+//     try {
+//         const producto = await Product.findByPk(req.params.id);
+//         if (producto) {
+//             await producto.update({ status: false });
+//         }
+//         res.redirect('/admin/dashboard?success=Producto desactivado correctamente');
+//     } catch (error) {
+//         console.error('Error al eliminar producto:', error);
+//         res.redirect('/admin/dashboard?error=Error al desactivar el producto');
+//     }
+// });
 
-app.get('/admin/productos/activar/:id', async (req, res) => {
-    try {
-        const producto = await Product.findByPk(req.params.id);
-        if (producto) {
-            await producto.update({ status: true });
-        }
-        res.redirect('/admin/dashboard?success=Producto activado correctamente');
-    } catch (error) {
-        console.error('Error al activar producto:', error);
-        res.redirect('/admin/dashboard?error=Error al activar el producto');
-    }
-});
+// app.get('/admin/productos/activar/:id', async (req, res) => {
+//     try {
+//         const producto = await Product.findByPk(req.params.id);
+//         if (producto) {
+//             await producto.update({ status: true });
+//         }
+//         res.redirect('/admin/dashboard?success=Producto activado correctamente');
+//     } catch (error) {
+//         console.error('Error al activar producto:', error);
+//         res.redirect('/admin/dashboard?error=Error al activar el producto');
+//     }
+// });
 
-app.get('/admin/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/admin/login');
-});
+// app.get('/admin/logout', (req, res) => {
+//     req.session.destroy();
+//     res.redirect('/admin/login');
+// });
 
 // app.get('/admin/productos', async (req, res) => {
 //     const productos = [
