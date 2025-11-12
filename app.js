@@ -14,6 +14,7 @@ const { SEQUELIZE } = require('./db/db.js');
 const { User } = require('./models/user.js');
 const { ProductItem } = require('./models/product/item.js');
 const { ProductCategory } = require('./models/product/category.js');
+const { getProducts } = require('./controllers/product/item.js');
 
 //RELACIONES
 const models = { ProductItem, ProductCategory };
@@ -45,21 +46,7 @@ app.get("/home", async function(req, res)
 {
     try
     {
-        const HTML = await ProductItem.findAll({
-            where:
-            {
-                status: true
-            },
-            include:
-            {
-                model: ProductCategory,
-                as: 'category'
-            }
-        })
-        .then(data => data.map(user => user.toJSON()))
-        .then(data => ejs.renderFile(path.join(__dirname, 'views', 'home.ejs'), {data: data}))
-
-        res.send(HTML);
+        getProducts(req, res);
     }
     catch(error)
     {

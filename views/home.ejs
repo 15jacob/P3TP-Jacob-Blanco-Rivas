@@ -6,11 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>
-        <%= data[0].title %>
-        <%= data[0].color %>
-        <%= data[0].category.name %>
-    </h1>
+    <!-- Prueba de listado de productos sin paginar -->
+    <% for(let i = 0; i < data.length; i++) {%>
+        <span><%= data[i].title %></span>
+        <br>
+        <span><%= data[i].color %></span>
+        <br>
+        <span><%= data[i].category.name %></span>
+        <hr>
+    <% } %>
 
     <button id="boton">CLICK ME</button>
 </body>
