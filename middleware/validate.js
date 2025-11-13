@@ -2,25 +2,42 @@ const validateProduct = (req, res, next) => {
     const { title, id_category, price, stock } = req.body;
 
     if (!title || !id_category || !price || !stock) {
-        return res.status(400).json({ error: 'Todos los campos obligatorios deben estar presentes.' });
+        if (req.originalUrl.includes('/api/')) {
+            return res.status(400).json({ error: 'Todos los campos obligatorios deben estar presentes.' });
+        }
+
+        req.flash('error', 'Faltan campos obligatorios.');
+        return res.redirect('back');
     }
 
     if (isNaN(price) || isNaN(stock)) {
-        return res.status(400).json({ error: 'Precio y stock deben ser números válidos.' });
+        if (req.originalUrl.includes('/api/')) {
+            return res.status(400).json({ error: 'Precio y stock deben ser números válidos.' });
+        }
+        req.flash('error', 'Precio y stock deben ser números válidos.');
+        return res.redirect('back');
     }
 
     next();
 };
 
 const validateUser = (req, res, next) => {
-    const { username, password } = req.body;
+    const { user, password } = req.body;
 
-    if (!username || !password) {
-        return res.status(400).json({ error: 'Usuario y contraseña son obligatorios.' });
+    if (!user || !password) {
+        if (req.originalUrl.includes('/api/')) {
+            return res.status(400).json({ error: 'Usuario y contraseña son obligatorios.' });
+        }
+        req.flash('error', 'Usuario y contraseña son obligatorios.');
+        return res.redirect('back');
     }
 
-    if (password.length < 6) {
-        return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres.' });
+    if (password.length < 8) {
+        if (req.originalUrl.includes('/api/')) {
+            return res.status(400).json({ error: 'La contraseña debe tener al menos 8 caracteres.' });
+        }
+        req.flash('error', 'La contraseña debe tener al menos 8 caracteres.');
+        return res.redirect('back');
     }
 
     next();
