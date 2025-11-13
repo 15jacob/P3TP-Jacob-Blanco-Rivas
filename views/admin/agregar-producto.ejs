@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <title>Alta de Producto - Cap&Sock</title>
+    <style>
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header class="text-center text-white">
+        <div class="container-fluid">
+            <div class="row p-3 bg-success d-flex align-items-center">
+                <div class="col-4 col-md-2">
+                    <a href="/admin/dashboard"><img src="/assets/img/favicon.svg" alt="Cap&Sock"></a>
+                </div>
+                <div class="col-4 col-md-8">
+                    <h1 class="h3 text-center flex-grow-1 m-0">Cap&Sock - Alta de Producto</h1>
+                </div>
+                <div class="col-4 col-md-2 text-end">
+                    <a href="/admin/dashboard" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container my-4">
+        <div class="form-container">
+            <% if (success) { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <%= success %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <% } %>
+            
+            <% if (error) { %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%= error %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <% } %>
+
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-plus-circle me-2"></i>Nuevo Producto
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/productos/crear" method="POST" enctype="multipart/form-data" id="productoForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="text-success mb-3">Información Básica</h6>
+                                
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Nombre del Producto *</label>
+                                    <input type="text" class="form-control" id="title" name="title" required 
+                                           placeholder="Ej: Gorra Snapback Negra">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_category" class="form-label">Categoría *</label>
+                                    <select class="form-select" id="id_category" name="id_category" required>
+                                        <option value="">Seleccionar categoría</option>
+                                        <% categorias.forEach(categoria => { %>
+                                            <option value="<%= categoria.id %>"><%= categoria.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="color" class="form-label">Color</label>
+                                    <input type="text" class="form-control" id="color" name="color" 
+                                           placeholder="Ej: Negro, Azul, Rojo">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="price" class="form-label">Precio *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="text" class="form-control" id="price" name="price" required 
+                                               placeholder="0.00" pattern="^\d+(\.\d{1,2})?$">
+                                    </div>
+                                    <div class="form-text">Formato: 12000 o 12000.00</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h6 class="text-success mb-3">Inventario e Imagen</h6>
+
+                                <div class="mb-3">
+                                    <label for="stock" class="form-label">Stock *</label>
+                                    <input type="number" class="form-control" id="stock" name="stock" required 
+                                           min="0" value="0">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Atributos Específicos</label>
+                                    
+                                    <div id="gorraAttributes" class="attribute-group" style="display: none;">
+                                        <label for="tipo" class="form-label">Tipo de Gorra</label>
+                                        <select class="form-select" id="tipo" name="attributes[tipo]">
+                                            <option value="">Seleccionar tipo</option>
+                                            <option value="Snapback">Snapback</option>
+                                            <option value="Trucker">Trucker</option>
+                                            <option value="Fitted">Fitted</option>
+                                            <option value="Flexfit">Flexfit</option>
+                                        </select>
+                                    </div>
+
+                                    <div id="mediaAttributes" class="attribute-group" style="display: none;">
+                                        <label for="cania" class="form-label">Tipo de Caña</label>
+                                        <select class="form-select" id="cania" name="attributes[cania]">
+                                            <option value="">Seleccionar caña</option>
+                                            <option value="Corta">Corta</option>
+                                            <option value="Larga">Larga</option>
+                                            <option value="Media">Media</option>
+                                            <option value="Deportiva">Deportiva</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="imagen" class="form-label">Imagen del Producto</label>
+                                    <input type="file" class="form-control" id="imagen" name="imagen" 
+                                           accept="image/*">
+                                    <div class="form-text">Formatos: JPG, PNG, WEBP. Máx: 2MB</div>
+                                    
+                                    <div class="mt-2">
+                                        <img id="imagePreview" class="image-preview" style="display: none;">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="status" name="status" checked>
+                                        <label class="form-check-label" for="status">Producto activo</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <a href="/admin/dashboard" class="btn btn-outline-secondary">
+                                        <i class="bi bi-x-circle me-2"></i>Cancelar
+                                    </a>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="bi bi-check-circle me-2"></i>Crear Producto
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/agregar-producto.js"></script>
+</body>
+</html>

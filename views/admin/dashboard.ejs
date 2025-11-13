@@ -1,0 +1,244 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&amp;family=Outfit:wght@100..900&amp;display=swap&amp;_cacheOverride=1761267552926" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Dashboard - Cap&Sock</title>
+</head>
+<body>
+    <header class="text-center text-white">
+        <div class="container-fluid">
+            <div class="row p-3 bg-success d-flex align-items-center">
+                <div class="col-4 col-md-2">
+                    <a href="./index.html"><img src="/assets/img/favicon.svg" alt="Cap&Sock"></a>
+                </div>
+                <div class="col-4 col-md-8">
+                    <h1 class="h3 text-center flex-grow-1 m-0">Cap&Sock</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container my-4">
+        
+        <div class="row flex">
+            <div class="col-6 col-md-3 d-flex pb-3">
+                <div class="card text-success border-success flex-grow-1">
+                    <div class="card-body">
+                        <h5 class="card-title">Productos Activos</h5>
+                        <h2><%= estadisticas.productosActivos %></h2>
+                        <span>Total: <%= productos.length %></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 d-flex pb-3">
+                <div class="card text-success border-success flex-grow-1">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Ventas</h5>
+                        <h2><%= estadisticas.totalVentas %></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 d-flex pb-3">
+                <div class="card text-success border-success flex-grow-1">
+                    <div class="card-body">
+                        <h5 class="card-title">Ingresos</h5>
+                        <h2>$<%= estadisticas.ingresosTotales.toLocaleString() %></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 d-flex pb-3">
+                <div class="card text-success border-success flex-grow-1">
+                    <div class="card-body">
+                        <h5 class="card-title">Stock Total</h5>
+                        <h2><%= estadisticas.stockTotal %></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mb-3">
+            <a href="/admin/agregar-producto" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Agregar Producto
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-box-seam me-2"></i>Productos
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Acciones</th>
+                                <th>ID</th>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% productos.forEach(producto => { %>
+                            <tr>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="/admin/editar-producto/<%= producto.id %>" class="btn btn-outline-primary" title="Modificar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+
+
+                                        <% if (producto.status) { %>
+                                            <button type="button" class="btn btn-outline-danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalDesactivar<%= producto.id %>"
+                                                    title="Eliminar producto">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        <% } else { %>
+                                            <button type="button" class="btn btn-outline-success"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalActivar<%= producto.id %>"
+                                                    title="Activar producto">
+                                                <i class="bi bi-check-circle"></i>
+                                            </button>
+                                        <% } %>
+                                    </div>
+                                </td>
+                                <td><%= producto.id %></td>
+                                <td><%= producto.title %></td>
+                                <td>
+                                    <span class="badge bg-secondary">
+                                        <%
+                                            const categoria = categorias.find(c => c.id === producto.id_category);
+                                        %>
+                                        <%= categoria ? categoria.name : 'N/A' %>
+                                    </span>
+                                </td>
+                                <td>$<%= producto.price %></td>
+                                <td><%= producto.stock %></td>
+                                <td>
+                                    <% if (producto.status === true) { %>
+                                        <span class="badge bg-success">Activo</span>
+                                    <% } else { %>
+                                        <span class="badge bg-danger">Inactivo</span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <!-- Modal para DESACTIVAR -->
+                            <% if (producto.status) { %>
+                            <div class="modal fade" id="modalDesactivar<%= producto.id %>" tabindex="-1" aria-labelledby="modalDesactivarLabel<%= producto.id %>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalDesactivarLabel<%= producto.id %>">Confirmar desactivación</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Estás seguro de que deseas <strong>desactivar</strong> el producto "<%= producto.title %>"?<br>
+                                            <small class="text-muted">Los productos desactivados no se mostrarán en la tienda.</small>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <a href="/admin/productos/eliminar/<%= producto.id %>" class="btn btn-danger">
+                                                <i class="bi bi-trash me-1"></i>Desactivar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+
+                            <!-- Modal para ACTIVAR -->
+                            <% if (!producto.status) { %>
+                            <div class="modal fade" id="modalActivar<%= producto.id %>" tabindex="-1" aria-labelledby="modalActivarLabel<%= producto.id %>" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalActivarLabel<%= producto.id %>">Confirmar activación</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Estás seguro de que deseas <strong>activar</strong> el producto "<%= producto.title %>"?<br>
+                                            <small class="text-muted">El producto volverá a estar disponible en la tienda.</small>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <a href="/admin/productos/activar/<%= producto.id %>" class="btn btn-success">
+                                                <i class="bi bi-check-circle me-1"></i>Activar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-receipt me-2"></i>Últimas Ventas
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Productos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% ventas.forEach(venta => { %>
+                            <tr>
+                                <td><%= venta.id %></td>
+                                <td><strong><%= venta.name %></strong></td>
+                                <td><%= new Date(venta.date).toLocaleDateString('es-AR') %></td>
+                                <td class="fw-bold text-success">$<%= venta.total %></td>
+                                <td>
+                                    <small class="text-muted">
+                                        <% 
+                                            try {
+                                                const productosVenta = JSON.parse(venta.products);
+                                                out.write(productosVenta.length + ' productos');
+                                            } catch (e) {
+                                                out.write('Error al cargar');
+                                            }
+                                        %>
+                                    </small>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/tema.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+const jwt = require('jsonwebtoken');
+
+const authApi = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+
+    if (!token) {
+        return res.status(401).json({ error: 'Acceso denegado. Token no proporcionado.' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'clave_super_secreta_pero_enserio');
+        req.user = decoded;
+        next();
+    } catch (error) {
+        return res.status(403).json({ error: 'Token inválido o expirado.' });
+    }
+};
+
+module.exports = authApi;
