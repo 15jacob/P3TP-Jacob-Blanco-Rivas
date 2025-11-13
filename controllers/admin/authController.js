@@ -1,32 +1,20 @@
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User } = require('../../models/user');
-const secretKey = process.env.JWT_SECRET || 'clave_secreta';
-
-// const loginForm = (req, res) => {
-//     if (req.session.user) {
-//         return res.redirect('/admin/dashboard');
-//     }
-//     res.render('admin/login', { 
-//         title: 'Login - Cap&Sock',
-//         error: req.query.error 
-//     });
-// };
+const secret = process.env.JWT_SECRET || 'clave_secreta';
 
 const register = async (req, res) => {
     try {
-        const { username, password } = req.body;
-        if (!username || !password) {
+        const { user, password } = req.body;
+        if (!user || !password) {
             return res.status(400).json({ error: 'Usuario y contraseña son obligatorios.' });
         }
-        if (password.length < 6) {
-            return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres.' });
+        if (password.length < 8) {
+            return res.status(400).json({ error: 'La contraseña debe tener al menos 8 caracteres.' });
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ username, password: hashedPassword });
+        const newUser = await User.create({ user, password });
 
-        res.status(201).json({ message: 'Usuario creado', user });
+        res.status(201).json({ message: 'Usuario creado', user: { id: newUser.id, user: newUser.user }});
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -34,23 +22,29 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const user = await User.findOne({ where: { username } });
+        const { user, password } = req.body; //
+        const adminUser = await User.findOne({ where: { user } });
 
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ error: 'Credenciales inválidas' });
+        if (adminUser && await adminUser.validatePassword(password)) {
+            req.session.user = {
+                id: adminUser.id,
+                username: adminUser.user,
+                nombre: 'Administrador',
+                role: 'admin'
+            };
+            return res.redirect('/admin/dashboard');
         }
-
-        const token = jwt.sign({ id: user.id, username: user.username }, secret, { expiresIn: '24h' });
-        res.json({ token, user: { id: user.id, username: user.username } });
+        
+        res.redirect('/admin/login?error=Credenciales incorrectas');
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Error en login:', error);
+        res.redirect('/admin/login?error=Error interno del servidor');
     }
 };
 
-// const logout = (req, res) => {
-//     req.session.destroy();
-//     res.redirect('/admin/login');
-// };
+const logout = (req, res) => {
+    req.session.destroy();
+    res.redirect('/admin/login');
+};
 
-module.exports = { register, login };
+module.exports = { register, login, logout };
