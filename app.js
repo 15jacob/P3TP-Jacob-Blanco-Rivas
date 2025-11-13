@@ -5,6 +5,7 @@ const path = require('path');
 // const ejs = require('ejs');
 // const multer = require('multer');
 const session = require('express-session');
+app.use(express.json());
 
 // const storage = multer.diskStorage({
 //     destination: function(req, file, cb)
@@ -20,7 +21,7 @@ const session = require('express-session');
 
 //Adapters
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
+// app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(session({
@@ -37,13 +38,13 @@ const { Product } = require('./models/product.js');
 const { Order } = require('./models/order.js');
 const { Category } = require('./models/category.js');
 
-const requireAuth = (req, res, next) => {
-    if (req.session.user) {
-        next();
-    } else {
-        res.redirect('/admin/login');
-    }
-};
+// const requireAuth = (req, res, next) => {
+//     if (req.session.user) {
+//         next();
+//     } else {
+//         res.redirect('/admin/login');
+//     }
+// };
 //RELACIONES
 //???
 Category.hasMany(Product, { foreignKey: 'id_category' });
@@ -86,11 +87,11 @@ app.get("/users", async function(req, res)
     }
 });
 
-const adminAuthRoutes = require('./routes/admin/auth');
-const adminProductRoutes = require('./routes/admin/products');
+const adminAuthRoutes = require('./routes/admin/views');
+const adminProductRoutes = require('./routes/admin/api');
 
 app.use('/admin', adminAuthRoutes);
-app.use('/admin', requireAuth, adminProductRoutes);
+app.use('/admin', adminProductRoutes);
 
 // app.get('/admin/login', (req, res) => {
 //     if (req.session.user) {
