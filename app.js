@@ -12,31 +12,14 @@ app.set('view engine', 'ejs');
 //MODELOS
 const { SEQUELIZE } = require('./db/db.js');
 const { User } = require('./models/user.js');
-<<<<<<< HEAD:app.js
 const { Product } = require('./models/product.js');
 const { Order } = require('./models/order.js');
 const { Category } = require('./models/category.js');
-=======
-const { ProductItem } = require('./models/product/item.js.bak');
-const { ProductCategory } = require('./models/product/category.js.bak');
-const { getProducts } = require('./controllers/product/item.js.bak');
->>>>>>> c25c09b00f576a39d5551137859532167d41979c:app.js.bak
 
 //RELACIONES
-<<<<<<< HEAD:app.js
 //???
 Category.hasMany(Product, { foreignKey: 'id_category' });
 Product.belongsTo(Category, { foreignKey: 'id_category' });
-=======
-const models = { ProductItem, ProductCategory };
-
-Object.keys(models).forEach(function(modelName)
-{
-    if(models[modelName].associate)
-        models[modelName].associate(models);
-});
-
->>>>>>> c25c09b00f576a39d5551137859532167d41979c:app.js.bak
 
 //RUTAS
 app.get('/', function(req, res)
