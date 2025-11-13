@@ -12,9 +12,9 @@ app.set('view engine', 'ejs');
 //MODELOS
 const { SEQUELIZE } = require('./db/db.js');
 const { User } = require('./models/user.js');
-const { ProductItem } = require('./models/product/item.js');
-const { ProductCategory } = require('./models/product/category.js');
-const { getProducts } = require('./controllers/product/item.js');
+const { ProductItem } = require('./models/product/item.js.bak');
+const { ProductCategory } = require('./models/product/category.js.bak');
+const { getProducts } = require('./controllers/product/item.js.bak');
 
 //RELACIONES
 const models = { ProductItem, ProductCategory };
@@ -42,11 +42,13 @@ app.get('/cart', function(req, res)
     res.sendFile(path.join(__dirname, 'public' ,'cart.html'));
 });
 
-app.get("/home", async function(req, res)
+app.get("/home/:page", async function(req, res)
 {
     try
     {
-        getProducts(req, res);
+        getProducts(req, res)
+        .then(data => ejs.renderFile(path.join(__dirname, 'views', 'home.ejs'), {data: data}))
+        .then(data => res.send(data));
     }
     catch(error)
     {

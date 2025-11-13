@@ -1,31 +1,27 @@
-import { ProductItem } from '../../models/product/item';
+import { ProductItem } from '../../models/product/item.js.bak';
+import { ProductCategory } from '../../models/product/category.js.bak';
 
 export async function getProducts(req, res)
 {
-    try
+    const PAGE = req.params.page ?? 0;
+    const RESULTS_PER_PAGE = 2;
+    const OFFSET = RESULTS_PER_PAGE * PAGE;
+
+    return await ProductItem.findAll(
     {
-        const { page } = req.params;
-        const RESULTS_PER_PAGE = 10;
-        const OFFSET = RESULTS_PER_PAGE * page;
-
-        const FETCHED = await ProductItem.findAll({
-            where:
-            {
-                status: true
-            },
-            include:
-            {
-                model: ProductCategory,
-                as: 'category'
-            }
-        })
-        .then(data => data.map(user => user.toJSON()))
-        .then(data => ejs.renderFile(path.join(__dirname, 'views', 'home.ejs'), {data: data}));
-
-        console.log(FETCHED);
-        res.send(FETCHED);
-    }
-    catch {}
+        where:
+        {
+            status: true
+        },
+        include:
+        {
+            model: ProductCategory,
+            as: 'category'
+        },
+        limit: RESULTS_PER_PAGE,
+        offset: OFFSET,
+    })
+    .then(data => data.map(user => user.toJSON()))
 };
 
 /* export async function createdAlquiler(req, res)
