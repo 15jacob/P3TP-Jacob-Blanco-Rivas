@@ -87,8 +87,8 @@ app.get("/users", async function(req, res)
     }
 });
 
-const adminAuthRoutes = require('./routes/admin/views');
-const adminProductRoutes = require('./routes/admin/api');
+const adminAuthRoutes = require('./routes/admin/views.js');
+const adminProductRoutes = require('./routes/admin/api.js');
 
 app.use('/admin', adminAuthRoutes);
 app.use('/admin', adminProductRoutes);
