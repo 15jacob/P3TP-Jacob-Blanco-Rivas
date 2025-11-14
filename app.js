@@ -8,6 +8,7 @@ const { SEQUELIZE } = require('./db/db.js');
 
 //APP CONFIG
 app.use(express.json());
+app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(session({

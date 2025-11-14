@@ -1,19 +1,38 @@
-const { Product, Category, Order } = require('../../models/index');
+const { ProductItem, ProductCategory, Order } = require('../../models/index');
 
 const dashboard = async (req, res) => {
     try {
-        const productos = await Product.findAll({ include: [Category] });
-        const ventas = await Order.findAll({ order: [['date', 'DESC']], limit: 10 });
-        const categorias = await Category.findAll();
+        const productos = await ProductItem.findAll(
+            {
+                include:
+                [
+                    {
+                        model: ProductCategory,
+                        as: 'category', // Specify the alias used in the association definition
+                        attributes: ['name'] // Select specific attributes from the associated model
+                    }
+                ]
+            }
+        );
+
+        //Puenteado momentaneamente
+        //const ventas = await Order.findAll({ order: [['date', 'DESC']], limit: 10 });
+        const ventas = [];
+        const categorias = await ProductCategory.findAll();
         
         const productosActivos = productos.filter(p => p.status === true).length;
-        const totalVentas = ventas.length;
-        const ingresosTotales = ventas.reduce((sum, venta) => sum + parseFloat(venta.total), 0);
+        //Puenteado momentaneamente
+        //const totalVentas = ventas.length;
+        //const ingresosTotales = ventas.reduce((sum, venta) => sum + parseFloat(venta.total), 0);
+        const totalVentas = 0;
+        const ingresosTotales = 0;
         const stockTotal = productos.reduce((sum, producto) => sum + producto.stock, 0);
 
-        res.render('admin/dashboard', {
-            productos, ventas, categorias,
-            estadisticas: { productosActivos, totalVentas, ingresosTotales, stockTotal },
+        res.render('admin/dashboard/dashboard.ejs', {
+            productos,
+            ventas,
+            categorias,
+            estadisticas: { productosActivos, totalVentas,  ingresosTotales, stockTotal },
             user: req.session.user,
             success: req.query.success,
             error: req.query.error
@@ -26,8 +45,8 @@ const dashboard = async (req, res) => {
 
 const agregarProductoForm = async (req, res) => {
     try {
-        const categorias = await Category.findAll();
-        res.render('admin/agregar-producto', {
+        const categorias = await ProductCategory.findAll();
+        res.render('admin/product/create.ejs', {
             title: 'Alta de Producto - Cap&Sock',
             categorias,
             user: req.session.user,
@@ -42,10 +61,10 @@ const agregarProductoForm = async (req, res) => {
 
 const editarProductoForm = async (req, res) => {
     try {
-        const producto = await Product.findByPk(req.params.id);
+        const producto = await ProductItem.findByPk(req.params.id);
         if (!producto) return res.status(404).send('Producto no encontrado');
-        const categorias = await Category.findAll();
-        res.render('admin/editar-producto', {
+        const categorias = await ProductCategory.findAll();
+        res.render('admin/product/edit.ejs', {
             title: 'Editar Producto - Cap&Sock',
             producto,
             categorias,
@@ -63,7 +82,7 @@ const crearProducto = async (req, res) => {
     try {  
         const { title, id_category, color, price, stock, status } = req.body;
         const attributes = req.body.attributes || {};
-        const nuevoProducto = await Product.create({
+        const nuevoProducto = await ProductItem.create({
             title,
             id_category: parseInt(id_category),
             color,
@@ -73,10 +92,10 @@ const crearProducto = async (req, res) => {
             attributes: JSON.stringify(attributes),
             image_url: req.file ? `/assets/img/${req.file.filename}` : '/assets/img/placeholder.jpg'
         });
-        res.redirect('/admin/dashboard?success=Producto creado correctamente');
+        res.redirect('/admin/dashboard/dashboard.ejs?success=Producto creado correctamente');
     } catch (error) {
         console.error('Error al crear producto:', error);
-        res.redirect('/admin/agregar-producto?error=' + encodeURIComponent(error.message));
+        res.redirect('/admin/productY/create.ejs?error=' + encodeURIComponent(error.message));
     }
 };
 
@@ -84,8 +103,8 @@ const actualizarProducto = async (req, res) => {
     try {  
         const { title, id_category, color, price, stock, status } = req.body;
         const attributes = req.body.attributes || {};
-        const producto = await Product.findByPk(req.params.id);
-        if (!producto) return res.redirect('/admin/dashboard?error=Producto no encontrado');
+        const producto = await ProductItem.findByPk(req.params.id);
+        if (!producto) return res.redirect('/admin/dashboard/dashboard.ejs?error=Producto no encontrado');
 
         const updateData = {
             title,
@@ -98,32 +117,32 @@ const actualizarProducto = async (req, res) => {
         };
         if (req.file) updateData.image_url = `/assets/img/${req.file.filename}`;
         await producto.update(updateData);
-        res.redirect('/admin/dashboard?success=Producto actualizado correctamente');
+        res.redirect('/admin/dashboard/dashboard.ejs?success=Producto actualizado correctamente');
     } catch (error) {
         console.error('Error al actualizar:', error);
-        res.redirect(`/admin/editar-producto/${req.params.id}?error=${encodeURIComponent('Error al actualizar')}`);
+        res.redirect(`/admin/product/edit.ejs/${req.params.id}?error=${encodeURIComponent('Error al actualizar')}`);
     }
 };
 
 const desactivarProducto = async (req, res) => {
     try {
-        const producto = await Product.findByPk(req.params.id);
+        const producto = await ProductItem.findByPk(req.params.id);
         if (producto) await producto.update({ status: false });
-        res.redirect('/admin/dashboard?success=Producto desactivado correctamente');
+        res.redirect('/admin/dashboard/dashboard.ejs?success=Producto desactivado correctamente');
     } catch (error) {
         console.error('Error al desactivar:', error);
-        res.redirect('/admin/dashboard?error=Error al desactivar el producto');
+        res.redirect('/admin/dashboard/dashboard.ejs?error=Error al desactivar el producto');
     }
 };
 
 const activarProducto = async (req, res) => {
     try {
-        const producto = await Product.findByPk(req.params.id);
+        const producto = await ProductItem.findByPk(req.params.id);
         if (producto) await producto.update({ status: true });
-        res.redirect('/admin/dashboard?success=Producto activado correctamente');
+        res.redirect('/admin/dashboard/dashboard.ejs?success=Producto activado correctamente');
     } catch (error) {
         console.error('Error al activar:', error);
-        res.redirect('/admin/dashboard?error=Error al activar el producto');
+        res.redirect('/admin/dashboard/dashboard.ejs?error=Error al activar el producto');
     }
 };
 

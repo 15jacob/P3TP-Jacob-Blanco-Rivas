@@ -32,15 +32,6 @@ const Order = SEQUELIZE.define("orders",
     timestamps: false,
 });
 
-//Order.belongsToMany(ProductItem, { through: OrderProduct, foreignKey: 'orderId' });
-
-Order.associate = function(models)
-{
-    Order.belongsTo(models.ProductItem,
-    {
-        foreignKey: 'id_order',
-        as: 'order'
-    });
-};
+Order.belongsToMany(ProductItem, { through: OrderProduct, foreignKey: 'orderId' });
 
 module.exports = { Order };

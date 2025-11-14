@@ -2,8 +2,10 @@ const { SEQUELIZE } = require('../db/db.js');
 const { DataTypes } = require("sequelize");
 const bcrypt = require('bcrypt');
 
-const User = SEQUELIZE.define("admin_users", {
-    user: {
+const User = SEQUELIZE.define("admin_users",
+{
+    user:
+    {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -11,14 +13,16 @@ const User = SEQUELIZE.define("admin_users", {
             len: [3, 50]
         },
     },
-    password: {
+    password:
+    {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
             len: [8, 16]
         },
     },
-}, {
+},
+{
     timestamps: false,
 });
 

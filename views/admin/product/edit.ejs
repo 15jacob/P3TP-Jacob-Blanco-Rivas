@@ -1,28 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <title>Alta de Producto - Cap&Sock</title>
-    <style>
-        .form-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .image-preview {
-            max-width: 200px;
-            max-height: 200px;
-            border: 2px dashed #dee2e6;
-            border-radius: 8px;
-        }
-    </style>
-</head>
+<%- include('../misc/head.ejs', { title: 'Editar Producto - Cap&Sock', css: ['product.css'] }); %>
+
 <body>
     <header class="text-center text-white">
         <div class="container-fluid">
@@ -31,7 +10,7 @@
                     <a href="/admin/dashboard"><img src="/assets/img/favicon.svg" alt="Cap&Sock"></a>
                 </div>
                 <div class="col-4 col-md-8">
-                    <h1 class="h3 text-center flex-grow-1 m-0">Cap&Sock - Alta de Producto</h1>
+                    <h1 class="h3 text-center flex-grow-1 m-0">Cap&Sock - Editar Producto</h1>
                 </div>
                 <div class="col-4 col-md-2 text-end">
                     <a href="/admin/dashboard" class="btn btn-outline-light btn-sm">
@@ -59,21 +38,21 @@
             <% } %>
 
             <div class="card">
-                <div class="card-header bg-success text-white">
+                <div class="card-header bg-primary text-white">
                     <h5 class="card-title mb-0">
-                        <i class="bi bi-plus-circle me-2"></i>Nuevo Producto
+                        <i class="bi bi-pencil me-2"></i>Editar Producto: <%= producto.title %>
                     </h5>
                 </div>
                 <div class="card-body">
-                    <form action="/admin/productos/crear" method="POST" enctype="multipart/form-data" id="productoForm">
+                    <form action="/admin/productos/actualizar/<%= producto.id %>" method="POST" enctype="multipart/form-data" id="productoForm">
                         <div class="row">
                             <div class="col-md-6">
-                                <h6 class="text-success mb-3">Información Básica</h6>
+                                <h6 class="text-primary mb-3">Información Básica</h6>
                                 
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Nombre del Producto *</label>
                                     <input type="text" class="form-control" id="title" name="title" required 
-                                           placeholder="Ej: Gorra Snapback Negra">
+                                           value="<%= producto.title %>">
                                 </div>
 
                                 <div class="mb-3">
@@ -81,7 +60,10 @@
                                     <select class="form-select" id="id_category" name="id_category" required>
                                         <option value="">Seleccionar categoría</option>
                                         <% categorias.forEach(categoria => { %>
-                                            <option value="<%= categoria.id %>"><%= categoria.name %></option>
+                                            <option value="<%= categoria.id %>" 
+                                                    <%= producto.id_category == categoria.id ? 'selected' : '' %>>
+                                                <%= categoria.name %>
+                                            </option>
                                         <% }); %>
                                     </select>
                                 </div>
@@ -89,7 +71,7 @@
                                 <div class="mb-3">
                                     <label for="color" class="form-label">Color</label>
                                     <input type="text" class="form-control" id="color" name="color" 
-                                           placeholder="Ej: Negro, Azul, Rojo">
+                                           value="<%= producto.color || '' %>">
                                 </div>
 
                                 <div class="mb-3">
@@ -97,32 +79,39 @@
                                     <div class="input-group">
                                         <span class="input-group-text">$</span>
                                         <input type="text" class="form-control" id="price" name="price" required 
-                                               placeholder="0.00" pattern="^\d+(\.\d{1,2})?$">
+                                               value="<%= producto.price %>">
                                     </div>
-                                    <div class="form-text">Formato: 12000 o 12000.00</div>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <h6 class="text-success mb-3">Inventario e Imagen</h6>
+                                <h6 class="text-primary mb-3">Inventario e Imagen</h6>
 
                                 <div class="mb-3">
                                     <label for="stock" class="form-label">Stock *</label>
                                     <input type="number" class="form-control" id="stock" name="stock" required 
-                                           min="0" value="0">
+                                           value="<%= producto.stock %>" min="0">
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">Atributos Específicos</label>
+                                    <% 
+                                        let atributos = {};
+                                        try {
+                                            atributos = producto.attributes ? JSON.parse(producto.attributes) : {};
+                                        } catch (e) {
+                                            atributos = {};
+                                        }
+                                    %>
                                     
                                     <div id="gorraAttributes" class="attribute-group" style="display: none;">
                                         <label for="tipo" class="form-label">Tipo de Gorra</label>
                                         <select class="form-select" id="tipo" name="attributes[tipo]">
                                             <option value="">Seleccionar tipo</option>
-                                            <option value="Snapback">Snapback</option>
-                                            <option value="Trucker">Trucker</option>
-                                            <option value="Fitted">Fitted</option>
-                                            <option value="Flexfit">Flexfit</option>
+                                            <option value="Snapback" <%= atributos.tipo === 'Snapback' ? 'selected' : '' %>>Snapback</option>
+                                            <option value="Trucker" <%= atributos.tipo === 'Trucker' ? 'selected' : '' %>>Trucker</option>
+                                            <option value="Fitted" <%= atributos.tipo === 'Fitted' ? 'selected' : '' %>>Fitted</option>
+                                            <option value="Flexfit" <%= atributos.tipo === 'Flexfit' ? 'selected' : '' %>>Flexfit</option>
                                         </select>
                                     </div>
 
@@ -130,28 +119,36 @@
                                         <label for="cania" class="form-label">Tipo de Caña</label>
                                         <select class="form-select" id="cania" name="attributes[cania]">
                                             <option value="">Seleccionar caña</option>
-                                            <option value="Corta">Corta</option>
-                                            <option value="Larga">Larga</option>
-                                            <option value="Media">Media</option>
-                                            <option value="Deportiva">Deportiva</option>
+                                            <option value="Corta" <%= atributos.cania === 'Corta' ? 'selected' : '' %>>Corta</option>
+                                            <option value="Larga" <%= atributos.cania === 'Larga' ? 'selected' : '' %>>Larga</option>
+                                            <option value="Media" <%= atributos.cania === 'Media' ? 'selected' : '' %>>Media</option>
+                                            <option value="Deportiva" <%= atributos.cania === 'Deportiva' ? 'selected' : '' %>>Deportiva</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="imagen" class="form-label">Imagen del Producto</label>
+                                    
+                                    <% if (producto.image_url) { %>
+                                        <div class="mb-2">
+                                            <p class="small text-muted mb-1">Imagen actual:</p>
+                                            <img src="<%= producto.image_url %>" alt="Imagen actual" class="current-image">
+                                        </div>
+                                    <% } %>
+                                    
                                     <input type="file" class="form-control" id="imagen" name="imagen" 
                                            accept="image/*">
-                                    <div class="form-text">Formatos: JPG, PNG, WEBP. Máx: 2MB</div>
+                                    <div class="form-text">Dejar vacío para mantener la imagen actual</div>
                                     
                                     <div class="mt-2">
                                         <img id="imagePreview" class="image-preview" style="display: none;">
-                                    </div>
+                                    </div>      
                                 </div>
-
-                                <div class="mb-3">
+                                                                                                <div class="mb-3">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="status" name="status" checked>
+                                        <input class="form-check-input" type="checkbox" id="status" name="status" 
+                                            <%= producto.status ? 'checked' : '' %>>
                                         <label class="form-check-label" for="status">Producto activo</label>
                                     </div>
                                 </div>
@@ -160,13 +157,15 @@
 
                         <div class="row mt-4">
                             <div class="col-12">
-                                <div class="d-flex gap-2 justify-content-end">
+                                <div class="d-flex gap-2 justify-content-between">
                                     <a href="/admin/dashboard" class="btn btn-outline-secondary">
-                                        <i class="bi bi-x-circle me-2"></i>Cancelar
+                                        <i class="bi bi-arrow-left me-2"></i>Volver al Dashboard
                                     </a>
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="bi bi-check-circle me-2"></i>Crear Producto
-                                    </button>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-check-circle me-2"></i>Guardar Cambios
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -177,6 +176,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/agregar-producto.js"></script>
+    <script src="/js/editar-producto.js"></script>
 </body>
 </html>

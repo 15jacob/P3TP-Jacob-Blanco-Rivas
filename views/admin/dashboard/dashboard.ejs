@@ -1,17 +1,7 @@
+<!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&amp;family=Outfit:wght@100..900&amp;display=swap&amp;_cacheOverride=1761267552926" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Dashboard - Cap&Sock</title>
-</head>
+<%- include('../misc/head.ejs', { title: 'Dashboard - Cap&Sock' }); %>
+
 <body>
     <header class="text-center text-white">
         <div class="container-fluid">
@@ -65,7 +55,7 @@
         </div>
 
         <div class="d-flex justify-content-end mb-3">
-            <a href="/admin/agregar-producto" class="btn btn-success">
+            <a href="/admin/product/create" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> Agregar Producto
             </a>
         </div>
@@ -95,7 +85,7 @@
                             <tr>
                                 <td>
                                     <div class="btn-group btn-group-sm">
-                                        <a href="/admin/editar-producto/<%= producto.id %>" class="btn btn-outline-primary" title="Modificar">
+                                        <a href="/admin/product/edit/<%= producto.id %>" class="btn btn-outline-primary" title="Modificar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
 

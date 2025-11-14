@@ -32,7 +32,7 @@ const login = async (req, res) => {
                 nombre: 'Administrador',
                 role: 'admin'
             };
-            return res.redirect('/admin/dashboard');
+            return res.redirect('/admin/dashboard/');
         }
         
         res.redirect('/admin/login?error=Credenciales incorrectas');

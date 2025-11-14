@@ -1,0 +1,14 @@
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+}
+.current-image {
+    max-width: 150px;
+    border-radius: 8px;
+}

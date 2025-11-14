@@ -1,9 +1,12 @@
 const authViews = (req, res, next) => {
-    if (req.session.user) {
+    //Puenteado momentaneamente
+    next()
+    
+/*     if (req.session.user) {
         next();
     } else {
         res.redirect('/admin/login');
-    }
+    } */
 };
 
 module.exports = authViews;
