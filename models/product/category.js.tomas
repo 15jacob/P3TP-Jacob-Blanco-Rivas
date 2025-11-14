@@ -1,4 +1,4 @@
-const { SEQUELIZE } = require('../db/db.js');
+const { SEQUELIZE } = require('../../db/db.js');
 const { DataTypes } = require("sequelize");
 
 const Category = SEQUELIZE.define("product_categories",

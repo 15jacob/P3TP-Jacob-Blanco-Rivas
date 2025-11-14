@@ -1,10 +1,9 @@
 const { User } = require('./user');
-const { Product } = require('./product');
-const { Order } = require('./order');
-const { Category } = require('./category');
-const { OrderProduct } = require('./orderProduct');
+const { ProductItem } = require('./product/item');
+const { ProductCategory } = require('./product/category');
 
-Order.belongsToMany(Product, { through: OrderProduct, foreignKey: 'orderId' });
-Product.belongsToMany(Order, { through: OrderProduct, foreignKey: 'productId' });
+//Revisar estas tablas y su relacion
+//const { Order } = require('./order');
+//const { OrderProduct } = require('./productOrder');
 
-module.exports = { User, Product, Order, Category, OrderProduct };
+module.exports = { User, ProductItem, ProductCategory };
