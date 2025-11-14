@@ -3,15 +3,11 @@ const { DataTypes } = require("sequelize");
 
 const ProductItem = SEQUELIZE.define("product_items",
 {
-    id_category:
+    id:
     {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references:
-        {
-            model: 'product_categories',
-            key: 'id'
-        }
+        primaryKey: true,
+        autoIncrement: true
     },
     title:
     {
@@ -73,14 +69,5 @@ const ProductItem = SEQUELIZE.define("product_items",
         allowNull: false
     }
 });
-
-ProductItem.associate = function(models)
-{
-    ProductItem.hasOne(models.ProductCategory,
-    {
-        foreignKey: 'id_category',
-        as: 'category'
-    });
-};
 
 module.exports = { ProductItem };

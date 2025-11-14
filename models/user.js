@@ -4,6 +4,12 @@ const bcrypt = require('bcrypt');
 
 const User = SEQUELIZE.define("admin_users",
 {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     user:
     {
         type: DataTypes.STRING,

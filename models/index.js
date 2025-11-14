@@ -4,12 +4,28 @@ const { ProductCategory } = require('./productCategory.js');
 const { Order } = require('./order.js');
 const { OrderProduct } = require('./productOrder.js');
 
-const models = { ProductItem, ProductCategory };
-/* 
-Object.keys(models).forEach(function(modelName)
+ProductCategory.hasMany(ProductItem,
 {
-    if(models[modelName].associate)
-        models[modelName].associate(models);
+    foreignKey: 'id_category',
+    as: 'category'
 });
- */
+
+ProductItem.belongsTo(ProductCategory,
+{
+    foreignKey: 'id_category',
+    as: 'category'
+});
+
+OrderProduct.belongsTo(ProductItem,
+{
+    foreignKey: 'id_product',
+    as: 'product'
+});
+
+OrderProduct.belongsTo(Order,
+{
+    foreignKey: 'id_order',
+    as: 'order'
+});
+
 module.exports = { User, ProductItem, ProductCategory, Order, OrderProduct };

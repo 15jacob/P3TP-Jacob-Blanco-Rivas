@@ -3,28 +3,14 @@ const { ProductItem, ProductCategory, Order } = require('../../models/index.js')
 const dashboard = async (req, res) => {
     try {
         const productos = await ProductItem.findAll(
-            /* {
+            {
                 include:
                 {
                     model: ProductCategory,
-                    as: 'category'
-                },
-            } */
-        );
-        /* const productos = await ProductItem.findAll(
-            {
-                include:
-                [
-                    {
-                        model: ProductCategory,
-                        as: 'category', // Specify the alias used in the association definition
-                        attributes: ['name'] // Select specific attributes from the associated model
-                    }
-                ]
+                    as: 'category', // Specify the alias used in the association definition
+                }
             }
-        ); */
-
-        console.log(productos);
+        );
 
         const productosActivos = productos.filter(p => p.status === true);
         const categorias = await ProductCategory.findAll();

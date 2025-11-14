@@ -3,6 +3,12 @@ const { DataTypes } = require("sequelize");
 
 const OrderProduct = SEQUELIZE.define("product_orders",
 {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     quantity:
     {
         type: DataTypes.INTEGER,
@@ -17,21 +23,11 @@ const OrderProduct = SEQUELIZE.define("product_orders",
     {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references:
-        {
-            model: 'orders',
-            key: 'id'
-        }
     },
     id_product:
     {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references:
-        {
-            model: 'product_items',
-            key: 'id'
-        },
     },
 },
 {

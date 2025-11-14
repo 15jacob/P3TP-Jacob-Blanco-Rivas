@@ -3,6 +3,12 @@ const { DataTypes } = require("sequelize");
 
 const ProductCategory = SEQUELIZE.define("product_categories",
 {
+    id:
+    {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     name:
     {
         type: DataTypes.STRING,
@@ -14,14 +20,5 @@ const ProductCategory = SEQUELIZE.define("product_categories",
         },
     }
 });
-
-/* ProductCategory.associate = function(models)
-{
-    ProductCategory.hasMany(models.ProductItem,
-    {
-        foreignKey: 'id_category',
-        as: 'category'
-    });
-}; */
 
 module.exports = { ProductCategory };
