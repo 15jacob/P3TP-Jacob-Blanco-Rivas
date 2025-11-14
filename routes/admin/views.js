@@ -7,8 +7,7 @@ const router = express.Router();
 
 router.get('/login', function(req, res)
 {
-    //Puenteado hasta que consultemos a tomas el tipo de hasheo actual
-    //if(req.session.user)
+    if(req.session.user)
         return res.redirect('/admin/dashboard/dashboard.ejs');
     
     res.render('admin/login/login.ejs',
@@ -23,7 +22,7 @@ router.post('/login', login);
 
 router.get('/logout', logout);
 router.get('/dashboard', requireAuth, dashboard);
-router.get('/product/create', requireAuth, agregarProductoForm);
+router.get('/product/new', requireAuth, agregarProductoForm);
 router.get('/product/edit/:id', requireAuth, editarProductoForm);
 
 router.post('/productos/crear', requireAuth, upload.single('imagen'), crearProducto);

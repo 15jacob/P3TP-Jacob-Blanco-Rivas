@@ -31,20 +31,11 @@ const OrderProduct = SEQUELIZE.define("product_orders",
         {
             model: 'product_items',
             key: 'id'
-        }
+        },
     },
 },
 {
     timestamps: false,
 });
-
-OrderProduct.associate = function(models)
-{
-    OrderProduct.belongsTo(models.OrderProduct,
-    {
-        foreignKey: 'id_product',
-        as: 'product'
-    });
-};
 
 module.exports = { OrderProduct };

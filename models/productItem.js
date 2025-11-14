@@ -44,7 +44,7 @@ const ProductItem = SEQUELIZE.define("product_items",
     },
     stock:
     {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate:
         {
@@ -76,7 +76,7 @@ const ProductItem = SEQUELIZE.define("product_items",
 
 ProductItem.associate = function(models)
 {
-    ProductItem.belongsTo(models.ProductCategory,
+    ProductItem.hasOne(models.ProductCategory,
     {
         foreignKey: 'id_category',
         as: 'category'

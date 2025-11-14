@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 const session = require('express-session');
 const { SEQUELIZE } = require('./db/db.js');
-// const multer = require('multer');
+
 
 //APP CONFIG
 app.use(express.json());
@@ -16,6 +16,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+
 
 //ROUTING
 const adminAuthRoutes = require('./routes/admin/views.js');

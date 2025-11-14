@@ -1,8 +1,17 @@
-const { ProductItem, ProductCategory, Order } = require('../../models/index');
+const { ProductItem, ProductCategory, Order } = require('../../models/index.js');
 
 const dashboard = async (req, res) => {
     try {
         const productos = await ProductItem.findAll(
+            /* {
+                include:
+                {
+                    model: ProductCategory,
+                    as: 'category'
+                },
+            } */
+        );
+        /* const productos = await ProductItem.findAll(
             {
                 include:
                 [
@@ -13,26 +22,28 @@ const dashboard = async (req, res) => {
                     }
                 ]
             }
-        );
+        ); */
 
-        //Puenteado momentaneamente
-        //const ventas = await Order.findAll({ order: [['date', 'DESC']], limit: 10 });
-        const ventas = [];
+        console.log(productos);
+
+        const productosActivos = productos.filter(p => p.status === true);
         const categorias = await ProductCategory.findAll();
         
-        const productosActivos = productos.filter(p => p.status === true).length;
         //Puenteado momentaneamente
+        //const ventas = await Order.findAll({ order: [['date', 'DESC']], limit: 10 });
         //const totalVentas = ventas.length;
         //const ingresosTotales = ventas.reduce((sum, venta) => sum + parseFloat(venta.total), 0);
+        const ventas = [];
         const totalVentas = 0;
         const ingresosTotales = 0;
-        const stockTotal = productos.reduce((sum, producto) => sum + producto.stock, 0);
+
+        const stockTotal = productosActivos.reduce((sum, producto) => sum + producto.stock, 0);
 
         res.render('admin/dashboard/dashboard.ejs', {
             productos,
             ventas,
             categorias,
-            estadisticas: { productosActivos, totalVentas,  ingresosTotales, stockTotal },
+            estadisticas: { productosActivos: productosActivos.length, totalVentas, ingresosTotales, stockTotal },
             user: req.session.user,
             success: req.query.success,
             error: req.query.error
@@ -46,7 +57,7 @@ const dashboard = async (req, res) => {
 const agregarProductoForm = async (req, res) => {
     try {
         const categorias = await ProductCategory.findAll();
-        res.render('admin/product/create.ejs', {
+        res.render('admin/product/new.ejs', {
             title: 'Alta de Producto - Cap&Sock',
             categorias,
             user: req.session.user,
@@ -95,7 +106,7 @@ const crearProducto = async (req, res) => {
         res.redirect('/admin/dashboard/dashboard.ejs?success=Producto creado correctamente');
     } catch (error) {
         console.error('Error al crear producto:', error);
-        res.redirect('/admin/productY/create.ejs?error=' + encodeURIComponent(error.message));
+        res.redirect('/admin/productY/new.ejs?error=' + encodeURIComponent(error.message));
     }
 };
 

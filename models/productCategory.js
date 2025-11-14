@@ -15,13 +15,13 @@ const ProductCategory = SEQUELIZE.define("product_categories",
     }
 });
 
-ProductCategory.associate = function(models)
+/* ProductCategory.associate = function(models)
 {
     ProductCategory.hasMany(models.ProductItem,
     {
         foreignKey: 'id_category',
         as: 'category'
     });
-};
+}; */
 
 module.exports = { ProductCategory };

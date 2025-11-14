@@ -17,21 +17,10 @@ const Order = SEQUELIZE.define("orders",
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
-    },
-    products:
-    {
-        type: DataTypes.TEXT,
-        allowNull: false,
-    },
-    total:
-    {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-}, {
+    }
+},
+{
     timestamps: false,
 });
-
-Order.belongsToMany(ProductItem, { through: OrderProduct, foreignKey: 'orderId' });
 
 module.exports = { Order };
