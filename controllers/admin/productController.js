@@ -7,7 +7,7 @@ const dashboard = async (req, res) => {
                 include:
                 {
                     model: ProductCategory,
-                    as: 'category', // Specify the alias used in the association definition
+                    as: 'category',
                 }
             }
         );

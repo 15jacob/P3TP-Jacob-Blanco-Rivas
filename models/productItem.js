@@ -66,7 +66,8 @@ const ProductItem = SEQUELIZE.define("product_items",
     status:
     {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: true
     }
 });
 
