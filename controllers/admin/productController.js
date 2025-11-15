@@ -87,7 +87,7 @@ const crearProducto = async (req, res) => {
         res.redirect('/admin/dashboard?success=Producto creado correctamente');
     } catch (error) {
         console.error('Error al crear producto:', error);
-        res.redirect('/admin/productY/new.ejs?error=' + encodeURIComponent(error.message));
+        res.redirect('/admin/product/new?error=' + encodeURIComponent(error.message));
     }
 };
 

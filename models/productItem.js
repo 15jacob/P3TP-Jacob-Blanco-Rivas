@@ -14,7 +14,7 @@ const ProductItem = SEQUELIZE.define("product_items",
         type: DataTypes.STRING,
         validate:
         {
-            is: /[^a-zA-Z\s]+/,
+            is: /^[a-zA-Z\s]+$/,
             len: [3, 100]
         },
     },
@@ -24,7 +24,7 @@ const ProductItem = SEQUELIZE.define("product_items",
         allowNull: false,
         validate:
         {
-            is: /[^a-zA-Z\s]+/,
+            is: /^[a-zA-Z\s]+$/,
             len: [3, 20]
         },
     },
