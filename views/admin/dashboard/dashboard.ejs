@@ -19,7 +19,7 @@
     <div class="container my-4">
         
         <div class="row flex">
-            <div class="col-6 col-md-3 d-flex pb-3">
+            <div class="col-6 col-md-4 d-flex pb-3">
                 <div class="card text-success border-success flex-grow-1">
                     <div class="card-body">
                         <h5 class="card-title">Productos Activos</h5>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3 d-flex pb-3">
+            <div class="col-6 col-md-4 d-flex pb-3">
                 <div class="card text-success border-success flex-grow-1">
                     <div class="card-body">
                         <h5 class="card-title">Total Ventas</h5>
@@ -36,15 +36,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3 d-flex pb-3">
+<!--             <div class="col-6 col-md-3 d-flex pb-3">
                 <div class="card text-success border-success flex-grow-1">
                     <div class="card-body">
                         <h5 class="card-title">Ingresos</h5>
-                        <h2>$<%= estadisticas.ingresosTotales.toLocaleString() %></h2>
+                        <h2>$<%= estadisticas.ingresosTotales.toString() %></h2>
                     </div>
                 </div>
-            </div>
-            <div class="col-6 col-md-3 d-flex pb-3">
+            </div> -->
+            <div class="col-6 col-md-4 d-flex pb-3">
                 <div class="card text-success border-success flex-grow-1">
                     <div class="card-body">
                         <h5 class="card-title">Stock Total</h5>
@@ -94,7 +94,7 @@
                                             <button type="button" class="btn btn-outline-danger"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalDesactivar<%= producto.id %>"
-                                                    title="Eliminar producto">
+                                                    title="Deshabilitar producto">
                                                 <i class="bi bi-x-circle"></i>
                                             </button>
                                         <% } else { %>
@@ -142,7 +142,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <a href="/admin/productos/eliminar/<%= producto.id %>" class="btn btn-danger">
+                                            <a href="/admin/productos/desactivar/<%= producto.id %>" class="btn btn-danger">
                                                 <i class="bi bi-trash me-1"></i>Desactivar
                                             </a>
                                         </div>
@@ -200,7 +200,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% ventas.forEach(venta => { %>
+                            <!-- <% ventas.forEach(venta => { %>
                             <tr>
                                 <td><%= venta.id %></td>
                                 <td><strong><%= venta.name %></strong></td>
@@ -209,17 +209,17 @@
                                 <td>
                                     <small class="text-muted">
                                         <% 
-                                            try {
+                                            /* try {
                                                 const productosVenta = JSON.parse(venta.products);
                                                 out.write(productosVenta.length + ' productos');
                                             } catch (e) {
                                                 out.write('Error al cargar');
-                                            }
+                                            } */
                                         %>
                                     </small>
                                 </td>
                             </tr>
-                            <% }); %>
+                            <% }); %> -->
                         </tbody>
                     </table>
                 </div>
