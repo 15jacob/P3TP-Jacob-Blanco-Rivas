@@ -84,7 +84,7 @@ const crearProducto = async (req, res) => {
             attributes: JSON.stringify(attributes),
             image_url: req.file ? `/assets/img/${req.file.filename}` : '/assets/img/placeholder.jpg'
         });
-        res.redirect('/admin/dashboardsuccess=Producto creado correctamente');
+        res.redirect('/admin/dashboard?success=Producto creado correctamente');
     } catch (error) {
         console.error('Error al crear producto:', error);
         res.redirect('/admin/productY/new.ejs?error=' + encodeURIComponent(error.message));
@@ -109,7 +109,7 @@ const actualizarProducto = async (req, res) => {
         };
         if (req.file) updateData.image_url = `/assets/img/${req.file.filename}`;
         await producto.update(updateData);
-        res.redirect('/admin/dashboardsuccess=Producto actualizado correctamente');
+        res.redirect('/admin/dashboard?success=Producto actualizado correctamente');
     } catch (error) {
         console.error('Error al actualizar:', error);
         res.redirect(`/admin/product/edit.ejs/${req.params.id}?error=${encodeURIComponent('Error al actualizar')}`);
@@ -120,7 +120,7 @@ const desactivarProducto = async (req, res) => {
     try {
         const producto = await ProductItem.findByPk(req.params.id);
         if (producto) await producto.update({ status: false });
-        res.redirect('/admin/dashboardsuccess=Producto desactivado correctamente');
+        res.redirect('/admin/dashboard?success=Producto desactivado correctamente');
     } catch (error) {
         console.error('Error al desactivar:', error);
         res.redirect('/admin/dashboarderror=Error al desactivar el producto');
@@ -131,7 +131,7 @@ const activarProducto = async (req, res) => {
     try {
         const producto = await ProductItem.findByPk(req.params.id);
         if (producto) await producto.update({ status: true });
-        res.redirect('/admin/dashboardsuccess=Producto activado correctamente');
+        res.redirect('/admin/dashboard?success=Producto activado correctamente');
     } catch (error) {
         console.error('Error al activar:', error);
         res.redirect('/admin/dashboarderror=Error al activar el producto');
