@@ -1,9 +1,11 @@
 const express = require('express');
-const { getHomePage } = require('../controllers/storeController');
+const { viewLogin, viewHome } = require('../controllers/storeController');
 const router = express.Router();
 
-router.get('/home', getHomePage);
-router.get('/home/page=:page', getHomePage);
-router.get('/home/id=:id/page=:page', getHomePage);
+router.get('/', viewLogin);
+
+router.get('/home', viewHome);
+router.get('/home/page=:page', viewHome);
+router.get('/home/id=:id/page=:page', viewHome);
 
 module.exports = router;

@@ -1,7 +1,13 @@
 import { ProductItem, ProductCategory, Order } from '../models/index.js';
 import { uint } from '../public/js/misc.js';
 
-export async function getHomePage(req, res)
+
+export async function viewLogin(req, res)
+{
+    res.render('index.ejs');
+}
+
+export async function viewHome(req, res)
 {
     try
     {
@@ -24,15 +30,10 @@ export async function getHomePage(req, res)
             offset: OFFSET,
         }
 
-        let id_category = 0;
+        let id_category = uint(req.params.id);
 
-        if(req.params.id)
-        {
-            id_category = uint(req.params.id);
-
-            if(id_category > 0)
-                query.where.id_category = id_category;
-        }
+        if(id_category > 0)
+            query.where.id_category = id_category;
 
         const { count : COUNT_PRODUCTS, rows : PRODUCTS } = await ProductItem.findAndCountAll(query);
         const CATEGORIES = await ProductCategory.findAll();
@@ -44,8 +45,8 @@ export async function getHomePage(req, res)
             params:
             {
                 page: PAGE + 1,
+                total_pages: Math.ceil(COUNT_PRODUCTS / RESULTS_PER_PAGE),
                 id_category: id_category,
-                total_pages: Math.ceil(COUNT_PRODUCTS / RESULTS_PER_PAGE)
             }
         });
     }

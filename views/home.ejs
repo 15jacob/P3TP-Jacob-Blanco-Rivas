@@ -16,27 +16,8 @@
 
             </div>
 
-            <div class="row pb-3">
-                <div class="col-6 text-end">
-                    <button
-                        class="btn btn-outline-success page-select <%- params.page == 1 ? 'disabled' : '' %>"
-                        data-page="<%- params.page > 0 ? params.page - 1 : 0 %>"
-                        data-id-category="<%- params.id_category %>"
-                        id="btnAnterior">
-                        Anterior
-                    </button>
-                </div>
-                
-                <div class="col-6 text-start">
-                    <button
-                        class="btn btn-outline-success page-select <%- params.page == params.total_pages ? 'disabled' : '' %>"
-                        data-page="<%- params.page < params.total_pages ? params.page + 1 : params.page %>"
-                        data-id-category="<%- params.id_category %>"
-                        id="btnSiguiente">
-                        Siguiente
-                    </button>
-                </div>
-            </div>
+            <%- include('./misc/product/pager.ejs', { page: params.page, total_pages: params.total_pages, id_category: params.id_category }) %>
+            
         </div>
     </main>
 

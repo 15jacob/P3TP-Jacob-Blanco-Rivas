@@ -1,0 +1,21 @@
+<div class="row pb-3">
+    <div class="col-6 text-end">
+        <button
+            class="btn btn-outline-success page-select <%- page == 1 ? 'disabled' : '' %>"
+            data-page="<%- page > 0 ? page - 1 : 0 %>"
+            data-id-category="<%- id_category %>"
+            id="btnAnterior">
+            Anterior
+        </button>
+    </div>
+    
+    <div class="col-6 text-start">
+        <button
+            class="btn btn-outline-success page-select <%- page == total_pages ? 'disabled' : '' %>"
+            data-page="<%- page < total_pages ? page + 1 : page %>"
+            data-id-category="<%- id_category %>"
+            id="btnSiguiente">
+            Siguiente
+        </button>
+    </div>
+</div>
