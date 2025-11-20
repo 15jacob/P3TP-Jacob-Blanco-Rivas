@@ -50,7 +50,7 @@ class Control {
             errorSpan.textContent = "El campo es obligatorio";
         } else {
             localStorage.setItem("nombreUsuario", nombre);
-            window.location.href = "./home.html";
+            window.location.href = "./home";
         }
     }
 }

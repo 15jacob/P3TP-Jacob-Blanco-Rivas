@@ -1,0 +1,39 @@
+<header class="text-center">
+    <div class="container-fluid">
+        <div class="row p-3 bg-success d-flex align-items-center">
+            <div class="col-4 col-md-2">
+                <a href="./index.html"><img src="/assets/img/favicon.svg" alt=""></a>
+            </div>
+            <div class="col-4 col-md-8">
+                <h1 class="h3 text-center flex-grow-1 m-0">Cap&Sock</h1>
+            </div>
+            <div class="col-4 col-md-2">
+                <a href="./cart.html" class="text-white text-decoration-none d-inline-flex align-items-center justify-content-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                    </svg>
+                    <span id="contadorCarrito" class="fs-4">0</span>
+                </a>
+            </div>
+        </div>
+        <nav class="container-sm p-3">
+            <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-success rounded-5 shadow-sm" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-success); --bs-nav-pills-link-active-bg: var(--bs-white);">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link <%- 0 == id_category ? 'active' : '' %> rounded-5" id="home-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="true" data-id="0">Todos</button>
+                </li>
+
+                <% for(let i = 0; i < categories.length; i++) { %>
+                    
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link rounded-5 <%- categories[i].id == id_category ? 'active' : '' %>" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab" aria-selected="false" data-id="<%- categories[i].id %>"><%- categories[i].name %></button>
+                    </li>
+
+                <% } %>
+
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<script type="text/javascript" src="/js/store.js"></script>

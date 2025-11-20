@@ -21,9 +21,11 @@ app.use(session({
 //ROUTING
 const adminAuthRoutes = require('./routes/admin/views.js');
 const adminProductRoutes = require('./routes/admin/api.js');
+const storeViews = require('./routes/storeViews.js');
 
 app.use('/admin', adminAuthRoutes);
 app.use('/admin', adminProductRoutes);
+app.use('/', storeViews);
 
 
 //SEQUELIZE INIT
