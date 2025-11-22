@@ -28,4 +28,26 @@ OrderProduct.belongsTo(Order,
     as: 'order'
 });
 
+Order.hasMany(OrderProduct, {
+    foreignKey: 'id_order',
+    as: 'orderProducts' 
+});
+
+ProductItem.hasMany(OrderProduct, {
+    foreignKey: 'id_product',
+    as: 'orderItems'
+});
+
+Order.belongsToMany(ProductItem, {
+    through: OrderProduct,
+    foreignKey: 'id_order',
+    as: 'productItems'
+});
+
+ProductItem.belongsToMany(Order, {
+    through: OrderProduct,
+    foreignKey: 'id_product',
+    as: 'orders'
+});
+
 module.exports = { User, ProductItem, ProductCategory, Order, OrderProduct };

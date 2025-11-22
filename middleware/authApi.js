@@ -9,7 +9,7 @@ const authApi = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'clave_super_secreta_pero_enserio');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
         req.user = decoded;
         next();
     } catch (error) {

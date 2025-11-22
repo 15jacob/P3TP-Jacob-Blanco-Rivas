@@ -1,4 +1,4 @@
-const { Product, Category, Order, OrderProduct } = require('../../models');
+const { ProductItem, ProductCategory, Order, OrderProduct } = require('../../models');
 
 const getAllProducts = async (req, res) => {
     try {
@@ -6,8 +6,12 @@ const getAllProducts = async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const offset = (page - 1) * limit;
 
-        const { rows: productos, count } = await Product.findAndCountAll({
-            include: [Category],
+        const { rows: productos, count } = await ProductItem.findAndCountAll({
+            include: [                {
+                    model: ProductCategory,
+                    as: 'category'
+                }
+            ],
             limit,
             offset,
             order: [['id', 'ASC']]
@@ -18,7 +22,7 @@ const getAllProducts = async (req, res) => {
             totalPages: Math.ceil(count / limit),
             currentPage: page,
             total: count
-        });S
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -26,7 +30,14 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
     try {
-        const producto = await Product.findByPk(req.params.id, { include: [Category] });
+        const producto = await ProductItem.findByPk(req.params.id, {            
+            include: [                
+                {
+                    model: ProductCategory,
+                    as: 'category'
+                }
+            ], 
+        });
         if (!producto) return res.status(404).json({ error: 'Producto no encontrado' });
         res.json(producto);
     } catch (error) {
@@ -36,7 +47,7 @@ const getProductById = async (req, res) => {
 
 const createProduct = async (req, res) => {
     try {
-        const nuevoProducto = await Product.create({
+        const nuevoProducto = await ProductItem.create({
             ...req.body,
             image_url: req.file ? `/assets/img/${req.file.filename}` : null
         });
@@ -48,11 +59,11 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
-        const [updated] = await Product.update(req.body, {
+        const [updated] = await ProductItem.update(req.body, {
             where: { id: req.params.id }
         });
         if (updated) {
-            const updatedProduct = await Product.findByPk(req.params.id);
+            const updatedProduct = await ProductItem.findByPk(req.params.id);
             return res.json(updatedProduct);
         }
         res.status(404).json({ error: 'Producto no encontrado' });
@@ -63,7 +74,7 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
-        const deleted = await Product.destroy({
+        const deleted = await ProductItem.destroy({
             where: { id: req.params.id }
         });
         if (deleted) {
@@ -77,7 +88,7 @@ const deleteProduct = async (req, res) => {
 
 const deactivateProduct = async (req, res) => {
     try {
-        const [updated] = await Product.update({ status: false }, {
+        const [updated] = await ProductItem.update({ status: false }, {
             where: { id: req.params.id }
         });
         if (updated) {
@@ -93,7 +104,8 @@ const getOrdersWithProducts = async (req, res) => {
     try {
         const orders = await Order.findAll({
             include: [{
-                model: Product,
+                model: ProductItem,
+                as: 'productItems',
                 through: { attributes: ['quantity', 'price'] }
             }],
             order: [['date', 'DESC']]

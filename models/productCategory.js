@@ -19,6 +19,9 @@ const ProductCategory = SEQUELIZE.define("product_categories",
             len: [3, 100]
         },
     }
+},
+{
+    timestamps: false,
 });
 
 module.exports = { ProductCategory };

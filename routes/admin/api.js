@@ -14,7 +14,7 @@ const { validateProduct, validateUser } = require('../../middleware/validate');
 const upload = require('../../middleware/upload');
 const authApi = require('../../middleware/authApi');
 
-router.post('/register', validateUser, register);
+router.post('/api/register', validateUser, register);
 
 router.get('/api/products', authApi, getAllProducts);
 router.get('/api/products/:id', authApi, getProductById);

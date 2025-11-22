@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../../models/user');
-const secret = process.env.JWT_SECRET || 'clave_secreta';
+const secret = process.env.JWT_SECRET || 'secret'; 
 
 const register = async (req, res) => {
     try {
@@ -14,7 +14,13 @@ const register = async (req, res) => {
 
         const newUser = await User.create({ user, password });
 
-        res.status(201).json({ message: 'Usuario creado', user: { id: newUser.id, user: newUser.user }});
+        const token = jwt.sign(
+            { id: newUser.id, user: newUser.user },
+            secret,
+            { expiresIn: '8h' }
+        );
+
+        res.status(201).json({ message: 'Usuario creado', user: { id: newUser.id, user: newUser.user }, token });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

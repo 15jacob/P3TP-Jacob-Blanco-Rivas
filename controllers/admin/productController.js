@@ -1,4 +1,4 @@
-const { ProductItem, ProductCategory, Order } = require('../../models/index.js');
+const { ProductItem, ProductCategory, Order, OrderProduct } = require('../../models/index.js');
 
 const dashboard = async (req, res) => {
     try {
@@ -11,17 +11,52 @@ const dashboard = async (req, res) => {
                 }
             }
         );
-
+        const productosConAtributos = productos.map(prod => prod.toJSON());
         const productosActivos = productos.filter(p => p.status === true);
         const categorias = await ProductCategory.findAll();
         
-        const ventas = await Order.findAll({ order: [['date', 'DESC']], limit: 10 });
+        const ventas = await Order.findAll({
+            include: [{
+                model: OrderProduct,
+                as: 'orderProducts',
+                include: [{
+                    model: ProductItem,
+                    as: 'product',
+                    attributes: ['id', 'title', 'image_url']
+                }]
+            }],
+            order: [['date', 'DESC']],
+            limit: 10
+        });
+
+        ventas.forEach(venta => {
+            let totalVenta = 0;
+            if (venta.orderProducts && venta.orderProducts.length > 0) {
+                totalVenta = venta.orderProducts.reduce((sum, item) => {
+                    const precio = parseFloat(item.price) || 0;
+                    const cantidad = parseInt(item.quantity) || 0;
+                    return sum + (precio * cantidad);
+                }, 0);
+            }
+
+            venta.total = totalVenta;
+
+            if (venta.orderProducts && venta.orderProducts.length > 0) {
+                venta.productosTexto = venta.orderProducts.length + ' producto(s): ' +
+                    venta.orderProducts.map(item => 
+                        item.product.title + ' (' + item.quantity + ' x $' + item.price + ')'
+                    ).join(', ');
+            } else {
+                venta.productosTexto = 'Sin productos';
+            }
+        });
+
         const totalVentas = ventas.length;
         const ingresosTotales = ventas.reduce((sum, venta) => parseFloat(sum) + parseFloat(venta.total), 0);
         const stockTotal = productosActivos.reduce((sum, producto) => sum + producto.stock, 0);
 
         res.render('admin/dashboard/dashboard.ejs', {
-            productos,
+            productos: productosConAtributos,
             ventas,
             categorias,
             estadisticas: { productosActivos: productosActivos.length, totalVentas, ingresosTotales, stockTotal },
@@ -81,7 +116,7 @@ const crearProducto = async (req, res) => {
             price: parseFloat(price),
             stock: parseInt(stock),
             status: status === 'on',
-            attributes: JSON.stringify(attributes),
+            attributes: attributes,
             image_url: req.file ? `/assets/img/${req.file.filename}` : '/assets/img/placeholder.jpg'
         });
         res.redirect('/admin/dashboard?success=Producto creado correctamente');
@@ -105,14 +140,14 @@ const actualizarProducto = async (req, res) => {
             price: parseFloat(price),
             stock: parseInt(stock),
             status: status === 'on',
-            attributes: JSON.stringify(attributes)
+            attributes: attributes
         };
         if (req.file) updateData.image_url = `/assets/img/${req.file.filename}`;
         await producto.update(updateData);
         res.redirect('/admin/dashboard?success=Producto actualizado correctamente');
     } catch (error) {
         console.error('Error al actualizar:', error);
-        res.redirect(`/admin/product/edit.ejs/${req.params.id}?error=${encodeURIComponent('Error al actualizar')}`);
+        res.redirect(`/admin/product/edit/${req.params.id}?error=${encodeURIComponent('Error al actualizar')}`);
     }
 };
 

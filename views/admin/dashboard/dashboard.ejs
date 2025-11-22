@@ -200,26 +200,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <% ventas.forEach(venta => { %>
-                            <tr>
-                                <td><%= venta.id %></td>
-                                <td><strong><%= venta.name %></strong></td>
-                                <td><%= new Date(venta.date).toLocaleDateString('es-AR') %></td>
-                                <td class="fw-bold text-success">$<%= venta.total %></td>
-                                <td>
-                                    <small class="text-muted">
-                                        <% 
-                                            /* try {
-                                                const productosVenta = JSON.parse(venta.products);
-                                                out.write(productosVenta.length + ' productos');
-                                            } catch (e) {
-                                                out.write('Error al cargar');
-                                            } */
-                                        %>
-                                    </small>
-                                </td>
-                            </tr>
-                            <% }); %> -->
+                            <% ventas.forEach(venta => { %>
+                                <tr>
+                                    <td><%= venta.id %></td>
+                                    <td><strong><%= venta.name %></strong></td>
+                                    <td><%= new Date(venta.date).toLocaleDateString('es-AR') %></td>
+                                    <td class="fw-bold text-success">$<%= venta.total %></td>
+                                    <td><small class="text-muted"><%= venta.productosTexto %></small></td>
+                                </tr>
+                            <% }); %>
                         </tbody>
                     </table>
                 </div>

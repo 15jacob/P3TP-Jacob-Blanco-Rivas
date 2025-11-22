@@ -1,6 +1,22 @@
 const { SEQUELIZE } = require('../db/db.js');
 const { DataTypes } = require("sequelize");
 
+const parseAttributes = (attributes) => {
+    if (!attributes) return {};
+    if (typeof attributes === 'string') {
+        try {
+            return JSON.parse(attributes);
+        } catch (e) {
+            console.warn('Error al parsear attributes:', e.message);
+            return {};
+        }
+    }
+    if (typeof attributes === 'object') {
+        return attributes;
+    }
+    return {};
+};
+
 const ProductItem = SEQUELIZE.define("product_items",
 {
     id:
@@ -60,8 +76,28 @@ const ProductItem = SEQUELIZE.define("product_items",
     },
     attributes:
     {
-        type: DataTypes.JSON,
+        type: DataTypes.STRING,
         allowNull: true,
+        get() {
+            const value = this.getDataValue('attributes');
+            if(value && typeof value === 'string') {
+                try{
+                    return JSON.parse(value);
+                } catch(e) {
+                    console.warn('Error al parsear attributes:', e.message);
+                    return value;
+                }
+            }
+            return value;
+        },
+        set(value) {
+            if(value && typeof value === 'object') {
+                this.setDataValue('attributes', JSON.stringify(value));
+            }
+            else {
+                this.setDataValue('attributes', value);
+            }
+        }
     },
     status:
     {
@@ -69,6 +105,9 @@ const ProductItem = SEQUELIZE.define("product_items",
         allowNull: false,
         defaultValue: true
     }
+},
+{
+    timestamps: false,
 });
 
 module.exports = { ProductItem };

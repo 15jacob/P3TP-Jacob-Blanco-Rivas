@@ -7,10 +7,15 @@ document.addEventListener('DOMContentLoaded', function() {
         gorraAttributes.style.display = 'none';
         mediaAttributes.style.display = 'none';
         
+        gorraAttributes.querySelectorAll('select').forEach(select => select.disabled = true);
+        mediaAttributes.querySelectorAll('select').forEach(select => select.disabled = true);
+        
         if (categoriaId === '1') {
             gorraAttributes.style.display = 'block';
+            gorraAttributes.querySelectorAll('select').forEach(select => select.disabled = false);
         } else if (categoriaId === '2') {
             mediaAttributes.style.display = 'block';
+            mediaAttributes.querySelectorAll('select').forEach(select => select.disabled = false);
         }
     });
 

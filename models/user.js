@@ -15,7 +15,7 @@ const User = SEQUELIZE.define("admin_users",
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            is: /[^a-zA-Z\s]+/, 
+            is: /^[a-zA-Z0-9]+$/, 
             len: [3, 50]
         },
     },

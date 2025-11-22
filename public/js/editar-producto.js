@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const categoriaId = document.getElementById('id_category').value;
-    mostrarAtributos(categoriaId);
+    setTimeout(() => {
+        const categoriaId = document.getElementById('id_category').value;
+        if (categoriaId) {
+            mostrarAtributos(categoriaId);
+        }
+    }, 50);
 
     document.getElementById('id_category').addEventListener('change', function() {
         mostrarAtributos(this.value);
@@ -30,9 +34,19 @@ function mostrarAtributos(categoriaId) {
     gorraAttributes.style.display = 'none';
     mediaAttributes.style.display = 'none';
     
+    gorraAttributes.querySelectorAll('select').forEach(select => select.disabled = true);
+    mediaAttributes.querySelectorAll('select').forEach(select => select.disabled = true);
+    
     if (categoriaId === '1') {
         gorraAttributes.style.display = 'block';
+        gorraAttributes.querySelectorAll('select').forEach(select => {
+            select.disabled = false;
+
+        });
     } else if (categoriaId === '2') {
         mediaAttributes.style.display = 'block';
+        mediaAttributes.querySelectorAll('select').forEach(select => {
+            select.disabled = false;
+        });
     }
 }
