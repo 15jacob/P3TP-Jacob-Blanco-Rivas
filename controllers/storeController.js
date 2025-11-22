@@ -1,7 +1,6 @@
 import { ProductItem, ProductCategory, Order } from '../models/index.js';
 import { uint } from '../public/js/misc.js';
 
-
 export async function viewLogin(req, res)
 {
     res.render('index.ejs');
