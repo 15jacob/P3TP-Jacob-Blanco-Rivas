@@ -55,3 +55,21 @@ export async function viewHome(req, res)
         res.status(500).send('ERROR: ' + error);
     }
 };
+
+export async function viewCart(req, res)
+{
+    try
+    {
+        const CATEGORIES = await ProductCategory.findAll();
+
+        res.render('cart.ejs',
+        {
+            categories: CATEGORIES
+        });
+    }
+    catch (error)
+    {
+        console.error('ERROR: ', error);
+        res.status(500).send('ERROR: ' + error);
+    }
+};
