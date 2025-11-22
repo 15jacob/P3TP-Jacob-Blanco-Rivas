@@ -55,7 +55,7 @@ export class CartView {
         this.elementos.cartItemsContainer.innerHTML = `
             <li class="text-center py-4">
                 <p class="text-light">Tu carrito está vacío</p>
-                <a href="./home.html" class="btn btn-outline-light btn-sm">Ir a comprar</a>
+                <a href="./home" class="btn btn-outline-light btn-sm">Ir a comprar</a>
             </li>
         `;
         this.elementos.totalElement.textContent = 'Total: $0';

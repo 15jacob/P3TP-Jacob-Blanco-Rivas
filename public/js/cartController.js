@@ -92,7 +92,7 @@ export class CartController {
 
             this.cartManager.limpiarCarrito();
 
-            window.location.href = './ticket.html';
+            window.location.href = './ticket';
         }
     }
 }

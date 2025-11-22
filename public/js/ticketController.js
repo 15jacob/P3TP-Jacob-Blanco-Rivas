@@ -18,7 +18,7 @@ class TicketController {
             this.ticketData = JSON.parse(ticketGuardado);
         } else {
             alert('No se encontraron datos de compra. Serás redirigido al carrito.');
-            window.location.href = './cart.html';
+            window.location.href = './cart';
             return;
         }
 
@@ -136,7 +136,7 @@ class TicketController {
             window.cartManager.limpiarCarrito();
         }
         
-        window.location.href = './index.html';
+        window.location.href = './index';
     }
 }
 

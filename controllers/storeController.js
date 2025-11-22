@@ -73,3 +73,8 @@ export async function viewCart(req, res)
         res.status(500).send('ERROR: ' + error);
     }
 };
+
+export async function viewTicket(req, res)
+{
+    res.render('ticket.ejs');
+}
