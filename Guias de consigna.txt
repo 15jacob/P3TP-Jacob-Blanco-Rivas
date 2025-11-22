@@ -1,4 +1,4 @@
-1) Convertir archivos lado cliente a ejs y enrutarlos
-2) Generar los tickets de compra y poder imprimirlos con puppeter
-3) Revisar boton eliminar, listado productos admin
-4) Revisar abm productos lado admin
+1) Refactorizar la logica de home y cart
+2) Generación de tickets e impresion con puppeter
+3) Actualizar script de base de datos
+4) Hacer el readme.txt
