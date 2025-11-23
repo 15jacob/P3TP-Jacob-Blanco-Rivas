@@ -32,12 +32,6 @@
         </div>
     </main>
 
-    <script type="module">
-        import { CartController } from './js/cartController.js'
-        new CartController()
-    </script>
-
-    <script src="/js/tema.js"></script>
-
+    <%- include('./misc/scripts.ejs', { ['tema.js'] }); %>
 </body>
 </html>

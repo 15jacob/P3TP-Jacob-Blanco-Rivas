@@ -1,0 +1,9 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<% if(typeof js != 'undefined' && js.length > 0){ %>
+    <% for (let i = 0; i < js.length; i++) { %>
+
+        <script type="text/javascript" src="/js/<%- js[i] %>"></script>
+    
+    <% }; %> 
+<% }; %> 
