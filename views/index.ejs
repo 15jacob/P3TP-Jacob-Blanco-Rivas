@@ -31,7 +31,6 @@
         </div>
     </main>
 
-    <script src="/js/welcome.js"></script>
-    <script src="/js/tema.js"></script>
+    <%- include('./misc/scripts.ejs', { ['tema.js', 'welcome.js'] }); %>
 </body>
 </html>

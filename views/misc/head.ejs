@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/style.css">
 
-    <% if(typeof css != 'undefined'){ %>
+    <% if(typeof css != 'undefined' && css.length > 0){ %>
         <% for (let i = 0; i < css.length; i++) { %>
 
             <link rel="stylesheet" href="/css/<%- css[i] %>">
