@@ -3,7 +3,7 @@
 <% if(typeof js != 'undefined' && js.length > 0){ %>
     <% for (let i = 0; i < js.length; i++) { %>
 
-        <script type="text/javascript" src="/js/<%- js[i] %>"></script>
+        <script type="module" src="/js/<%- js[i] %>"></script>
     
     <% }; %> 
 <% }; %> 

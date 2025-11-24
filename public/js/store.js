@@ -1,8 +1,13 @@
+
+import { Cart } from "./cart.js";
+import { Product } from "./product.js";
+
 window.addEventListener('load', function()
 {
     initNavLinks();
     initPageSelectors();
-})
+    initProductEvents();
+});
 
 function initNavLinks()
 {
@@ -34,5 +39,21 @@ function initPageSelectors()
             else
                 window.location.href = `/home/id=${IDCATEGORY.toString()}/page=${PAGE.toString()}`;
         });
+    });
+}
+
+function initProductEvents()
+{
+    document.querySelectorAll('.product-card').forEach(function(product)
+    {
+        const PRODUCT = new Product(
+            {
+                id: product.dataset.id,
+                price: product.dataset.price
+            }
+        );
+
+        product.querySelector('.btn-add').addEventListener('click', () => PRODUCT.addProductCart());
+        product.querySelector('.btn-delete').addEventListener('click', () => PRODUCT.deleteProductCart());
     });
 }

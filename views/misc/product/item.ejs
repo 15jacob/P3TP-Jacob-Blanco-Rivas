@@ -1,6 +1,6 @@
 <% if(typeof product != 'undefined'){ %>
 
-    <div class="col-6 col-md-4 col-lg-3 pb-3 d-flex">
+    <div class="product-card col-6 col-md-4 col-lg-3 pb-3 d-flex" data-id="<%- product.id %>" data-price="<%- product.price %>">
         <div class="d-flex flex-column p-3 bg-success bg-gradient rounded-4 transition-all hover-scale hover-shadow w-100">
             <div class="pb-3 h-20 flex-shrink-0">
                 <img class="rounded-4 w-100" src="<%- product.image_url %>" alt="<%- product.title %>">
@@ -13,18 +13,16 @@
             <div class="mt-auto">
                 <h3 class="fs-4">$<%- product.price %></h3>
 
-                <!-- IF cantidadEnCarrito > 0
-                
-                <div class="d-grid mb-2">
-                    <button class="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center gap-1 btn-eliminar" data-id="<%- product.id %>">
+                <!-- Delete from cart -->
+                <div class="delete-container d-grid d-none mb-2">
+                    <button class="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center gap-1 btn-delete" >
                         <i class="bi bi-trash"></i> Eliminar (%cantidadEnCarrito%)
                     </button>
                 </div>
                 
-                ELSE -->
-                
-                <div class="d-grid">
-                    <button class="btn btn-outline-light btn-sm d-flex align-items-center justify-content-center gap-1 btn-agregar" data-id="<%- product.id %>">
+                <!-- Add to cart -->
+                <div class="add-container d-grid d-none">
+                    <button class="btn btn-outline-light btn-sm d-flex align-items-center justify-content-center gap-1 btn-add">
                         <i class="bi bi-cart"></i> Agregar
                     </button>
                 </div>
