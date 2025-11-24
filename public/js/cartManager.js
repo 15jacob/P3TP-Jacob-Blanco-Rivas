@@ -1,4 +1,4 @@
-class CartManager {
+export class CartManager {
     constructor() {
         this.cart = this.cargarCarrito();
     }
@@ -21,7 +21,6 @@ class CartManager {
         } else {
             this.cart.push({ ...producto, cantidad: 1 });
         }
-
 
         this.guardarCarrito();
     }
@@ -67,5 +66,3 @@ class CartManager {
         }
     }
 }
-
-export const cartManager = new CartManager();

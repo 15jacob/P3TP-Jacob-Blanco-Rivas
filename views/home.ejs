@@ -9,7 +9,6 @@
         <div class="container">
             <div id="contenedorProductos" class="row">
 
-                <!-- Aqui se cargan los productos -->
                 <% for (let i = 0; i < products.length; i++) { %>
                     <%- include('./misc/product/item.ejs', { product: products[i] }) %>
                 <% } %>
@@ -17,10 +16,9 @@
             </div>
 
             <%- include('./misc/product/pager.ejs', { page: params.page, total_pages: params.total_pages, id_category: params.id_category }) %>
-            
         </div>
     </main>
 
-    <%- include('./misc/scripts.ejs', { ['tema.js', 'store.js'] }); %>
+    <%- include('./misc/scripts.ejs', { js: ['tema.js', 'store.js'] }); %>
 </body>
 </html>
