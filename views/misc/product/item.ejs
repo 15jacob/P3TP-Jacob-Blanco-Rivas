@@ -14,16 +14,28 @@
                 <h3 class="fs-4">$<%- product.price %></h3>
 
                 <!-- Delete from cart -->
-                <div class="delete-container d-grid d-none mb-2">
-                    <button class="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center gap-1 btn-delete" >
-                        <i class="bi bi-trash"></i> Eliminar (%cantidadEnCarrito%)
-                    </button>
+                <div class="row delete-container gap-1 d-flex d-none">
+                    <div class="col-auto">
+                        <button class="btn btn-dark btn-delete">
+                            <i class="bi bi-dash"></i>
+                        </button>
+                    </div>
+
+                    <div class="col d-flex justify-content-center align-items-center">
+                        <span class="mx-10 quantity"></span>
+                    </div>
+
+                    <div class="col-auto">
+                        <button class="btn btn-dark btn-add">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Add to cart -->
                 <div class="add-container d-grid d-none">
-                    <button class="btn btn-outline-light btn-sm d-flex align-items-center justify-content-center gap-1 btn-add">
-                        <i class="bi bi-cart"></i> Agregar
+                    <button class="btn btn-light btn-sm d-flex align-items-center justify-content-center gap-1 p-2 btn-add">
+                        <i class="bi bi-cart mr-2"></i><span>Agregar</span>
                     </button>
                 </div>
             </div>

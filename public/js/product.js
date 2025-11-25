@@ -10,15 +10,21 @@ export class Product
         Product.inCart(id, Cart.getProduct(id) !== false);
     }
 
-    addProductCart()
+    async addProductCart()
     {
-        Cart.addProduct(this);
-        Product.inCart(this.id, true);
+        await Cart.addProduct(this)
+        .then(() => Product.inCart(this.id, true));
     }
 
-    deleteProductCart()
+    async deleteProductCart()
     {
-        Cart.deleteProduct(this.id);
+        Cart.deleteProduct(this.id)
+        .then(quantity => Product.inCart(this.id, quantity > 0));
+    }
+
+    removeProductCart()
+    {
+        Cart.removeProduct(this.id);
         Product.inCart(this.id, false);
     }
 
@@ -40,6 +46,8 @@ export class Product
             {
                 DELETE.classList.remove('d-none');
                 ADD.classList.add('d-none');
+
+                PRODUCT_CARD.querySelector('span.quantity').textContent = Cart.getProduct(id).quantity;
             }
             else
             {
