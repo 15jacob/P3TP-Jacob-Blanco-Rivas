@@ -53,7 +53,7 @@ function initProductEvents()
             }
         );
 
-        product.querySelector('.btn-add').addEventListener('click', () => PRODUCT.addProductCart());
+        product.querySelectorAll('.btn-add').forEach(btn => btn.addEventListener('click', () => PRODUCT.addProductCart()));
         product.querySelector('.btn-delete').addEventListener('click', () => PRODUCT.deleteProductCart());
     });
 }

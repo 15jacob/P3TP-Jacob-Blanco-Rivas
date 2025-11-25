@@ -21,10 +21,10 @@ export class Cart
         Cart.updateCounter(products.length);
     }
 
-    static addProduct(product)
+    static async addProduct(that)
     {
         const PRODUCTS = Cart.getAllProducts();
-        const PRODUCT_ON_CART = PRODUCTS.find(product => product.id === product.id);
+        const PRODUCT_ON_CART = PRODUCTS.find(product => product.id === that.id);
 
         if (PRODUCT_ON_CART)
             PRODUCT_ON_CART.quantity++;
@@ -32,8 +32,8 @@ export class Cart
         {
             PRODUCTS.push(
                 {
-                    id: product.id,
-                    price: product.price,
+                    id: that.id,
+                    price: that.price,
                     quantity: 1 
                 }
             );
@@ -42,21 +42,30 @@ export class Cart
         Cart.saveProducts(PRODUCTS);
     }
 
-    static deleteProduct(id)
+    static async deleteProduct(id)
     {
-        const ID = String(id);
-        const PRODUCTS = Cart.getAllProducts();
-        const PRODUCT = PRODUCTS.find(product => String(product.id) === ID);
+        let quantity = 0;
 
-        if(PRODUCT)
-        {
-            if(PRODUCT.quantity > 1)
-                PRODUCT.quantity--;
-            else
-                PRODUCTS = Cart.getAllProducts().filter(product => String(product.id) !== ID);
+        Cart.saveProducts(
+            Cart.getAllProducts().filter(function(product)
+            {
+                if(product.id == id)
+                {
+                    if(product.quantity > 1)
+                    {
+                        product.quantity--;
+                        quantity = product.quantity;
+                        return product;
+                    }
+                    else
+                        Cart.removeProduct(id);
+                }
+                else
+                    return product;
+            })
+        );
 
-            Cart.saveProducts(PRODUCTS);
-        }
+        return quantity;
     }
 
     static removeProduct(id)
