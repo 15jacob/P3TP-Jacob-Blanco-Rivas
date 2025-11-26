@@ -93,9 +93,6 @@ export class Cart
 
     static updateCounter(productQuantity)
     {
-        const CART_COUNTER = document.getElementById('cart-counter');
-
-        if(CART_COUNTER)
-            CART_COUNTER.textContent = productQuantity;
+        document.getElementById('cart-counter').textContent = productQuantity;
     }
 }

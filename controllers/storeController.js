@@ -1,4 +1,5 @@
 import { ProductItem, ProductCategory, Order } from '../models/index.js';
+import { Cart } from '../public/js/cart.js';
 import { uint } from '../public/js/misc.js';
 
 export async function viewLogin(req, res)
@@ -54,25 +55,50 @@ export async function viewHome(req, res)
         console.error('ERROR: ', error);
         res.status(500).send('ERROR: ' + error);
     }
-};
+}
 
 export async function viewCart(req, res)
 {
+    //Dado que los productos se van cargando en un espacio de localstorage, el renderizado queda delegaod al lado cliente
+    res.render('cart.ejs')
+}
+
+export async function getCartProducts(req, res)
+{
     try
     {
-        const CATEGORIES = await ProductCategory.findAll();
-
-        res.render('cart.ejs',
+        let query = 
         {
-            categories: CATEGORIES
+            include:
+            [
+                {
+                    model: ProductCategory,
+                    as: 'category'
+                }
+            ],
+            where:
+            {
+                status: 1
+            }
+        }
+
+        const IDS = req.body.ids.filter(id => parseInt(id));
+
+        if(IDS.length > 0)
+            query.where.id = IDS;
+
+        const PRODUCTS = await ProductItem.findAll(query);
+
+        res.json(
+        {
+            products: PRODUCTS,
         });
     }
     catch (error)
     {
-        console.error('ERROR: ', error);
-        res.status(500).send('ERROR: ' + error);
+        res.status(500).json({ error: error.message });
     }
-};
+}
 
 export async function viewTicket(req, res)
 {
