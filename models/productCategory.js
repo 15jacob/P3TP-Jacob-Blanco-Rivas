@@ -15,7 +15,7 @@ const ProductCategory = SEQUELIZE.define("product_categories",
         allowNull: false,
         validate:
         {
-            is: /[^a-zA-Z\s]+/,
+            is: /^[a-zA-Z\s]+$/,
             len: [3, 100]
         },
     }
