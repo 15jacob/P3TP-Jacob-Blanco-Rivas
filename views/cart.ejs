@@ -3,7 +3,7 @@
 <%- include('./misc/head.ejs', { title: 'Cart - Cap&Sock' }); %>
 
 <body class="min-vh-100 text-white">
-    <%- include('./misc/header.ejs', { categories, id_category: 0 }); %>
+    <%- include('./misc/header.ejs', { categories: [], id_category: 0 }); %>
 
     <main>
         <div class="container py-3">
@@ -23,15 +23,17 @@
                         </svg> Seguir comprando
                     </a>
                 </div>
-                <ul class="list-unstyled">
-                    <!-- Aquí se muestra el carrito -->
-                </ul>
+
+                <div id="cart-container">
+                
+                </div>
+
                 <p class="fw-bold fs-4 text-end">Total: $0</p>
                 <button class="btn btn-outline-light">Finalizar compra</button>
             </div>
         </div>
     </main>
 
-    <%- include('./misc/scripts.ejs', { js: ['tema.js'] }); %>
+    <%- include('./misc/scripts.ejs', { js: ['tema.js', 'store.js'] }); %>
 </body>
 </html>

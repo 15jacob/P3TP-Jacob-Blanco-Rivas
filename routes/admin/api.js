@@ -10,6 +10,7 @@ const {
     deactivateProduct,
     getOrdersWithProducts 
 } = require('../../controllers/admin/apiProductController');
+
 const { validateProduct, validateUser } = require('../../middleware/validate');
 const upload = require('../../middleware/upload');
 const authApi = require('../../middleware/authApi');
