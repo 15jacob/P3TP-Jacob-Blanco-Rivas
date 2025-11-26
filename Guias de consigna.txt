@@ -1,4 +1,19 @@
+Cristopher
 1) Refactorizar la logica de home y cart
 2) Generación de tickets e impresion con puppeter
-3) Actualizar script de base de datos
+5) Agregar footer con nombres de alumnos
+8) Agregar boton de administrador en cliente
+13) Revisar relacion muchos a muchos de tabla productItem - order
+
+Tomas
+3) Actualizar script de base de datos (contraseña de usuario)
+9) Cambiar user por correo en base de datos
 4) Hacer el readme.txt
+7) Generar archivo de creación de DB
+10) Separar el listado de productos por categoria administrador
+11) Generar el token de API en el login
+12) Revisar JWT
+14) Revisar listado de ventas con los productos asociados a las mismas
+
+Pendiente
+6) Eliminar stock
