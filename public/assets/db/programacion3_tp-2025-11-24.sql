@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 14, 2025 at 11:35 PM
+-- Generation Time: Nov 24, 2025 at 11:35 PM
 -- Server version: 10.11.11-MariaDB
 -- PHP Version: 8.4.14
 
@@ -99,22 +99,22 @@ CREATE TABLE `product_items` (
 --
 
 INSERT INTO `product_items` (`id`, `id_category`, `title`, `color`, `price`, `stock`, `image_url`, `attributes`, `status`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 'Gorra Negra Clásica', 'Negra', '12000', 10, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"tipo\": \"Trucker\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 1, 'Gorra Blanca Deportiva', 'Blanca', '12500', 8, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"tipo\": \"Snapback\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 1, 'Gorra Azul Urbana', 'Azul', '13000', 6, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"tipo\": \"Flat\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 1, 'Gorra Roja Casual', 'Roja', '11800', 12, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"tipo\": \"Trucker\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 1, 'Gorra Gris Minimalista', 'Gris', '11900', 9, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"tipo\": \"Curva\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 1, 'Gorra Verde Militar', 'Verde', '12200', 5, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"tipo\": \"Curva\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 1, 'Gorra Amarilla Verano', 'Amarilla', '11500', 11, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"tipo\": \"Trucker\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(8, 1, 'Gorra Bordó Vintage', 'Bordó', '13000', 4, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"tipo\": \"Snapback\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(9, 2, 'Medias Negras Cortas', 'Negras', '3500', 20, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"caña\": \"Corta\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(10, 2, 'Medias Blancas Deportivas', 'Blancas', '3600', 18, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"caña\": \"Media\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(11, 2, 'Medias Grises Urbanas', 'Grises', '3400', 22, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"caña\": \"Larga\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(12, 2, 'Medias Rojas Clásicas', 'Rojas', '3300', 25, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"caña\": \"Media\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(13, 2, 'Medias Azules Básicas', 'Azules', '3400', 20, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"caña\": \"Corta\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(14, 2, 'Medias Verdes Running', 'Verdes', '3700', 17, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"caña\": \"Corta\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(15, 2, 'Medias Amarillas Retro', 'Amarillas', '3800', 15, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"caña\": \"Larga\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(16, 2, 'Medias Bordó Premium', 'Bordó', '4000', 10, 'https://www.newera.com.ar/cdn/shop/files/70515092_59FIFTY_59FIFTYGOLWARBLACKWHITE_GOLWAR_OTC_3QL.jpg?v=1759859183&width=1680', '{\"caña\": \"Media\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 1, 'Gorra Negra Trucker', 'Negro', '12000', 10, '/assets/img/trucker-negra.webp', '{\"tipo\": \"Trucker\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, 'Gorra Blanca Trucker', 'Blanco', '12500', 8, '/assets/img/trucker-blanca.webp', '{\"tipo\": \"Trucker\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 1, 'Gorra Azul Trucker', 'Azul', '13000', 6, '/assets/img/trucker-azul.webp', '{\"tipo\": \"Trucker\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 1, 'Gorra Roja Snapback', 'Rojo', '11800', 12, '/assets/img/snapback-roja.webp', '{\"tipo\": \"Snapback\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 1, 'Gorra Azul Snapback', 'Azul', '11900', 9, '/assets/img/snapback-azul.webp', '{\"tipo\": \"Snapback\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 1, 'Gorra Verde Snapback', 'Verde', '12200', 5, '/assets/img/snapback-verde.webp', '{\"tipo\": \"Snapback\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 1, 'Gorra Negra Fitted', 'Negro', '11500', 11, '/assets/img/fitted-negra.webp', '{\"tipo\": \"Fitted\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 1, 'Gorra Verde Fitted', 'Verde', '13000', 4, '/assets/img/fitted-verde.webp', '{\"tipo\": \"Fitted\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 2, 'Media Negra Corta', 'Negro', '3500', 20, '/assets/img/corta-negro.webp', '{\"caña\": \"Corta\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 2, 'Media Blanca Corta', 'Blanco', '3600', 18, '/assets/img/corta-blanco.webp', '{\"caña\": \"Corta\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, 2, 'Media Azul Corta', 'Azul', '3400', 22, '/assets/img/corta-azul.webp', '{\"caña\": \"Corta\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, 2, 'Media Negra Media', 'Negro', '3300', 25, '/assets/img/media-negra.jpg', '{\"caña\": \"Media\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, 2, 'Media Azul Media', 'Azul', '3400', 20, '/assets/img/media-azul.webp', '{\"caña\": \"Corta\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, 2, 'Media Verde Media', 'Verde', '3700', 17, '/assets/img/media-verde.webp', '{\"caña\": \"Corta\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, 2, 'Media Negra Larga', 'Negro', '3800', 15, '/assets/img/larga-negro.webp', '{\"caña\": \"Larga\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, 2, 'Media Azul Larga', 'Azul', '4000', 10, '/assets/img/larga-azul.webp', '{\"caña\": \"Larga\"}', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -223,3 +223,13 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- Insertar 2 órdenes en la tabla `orders`
+INSERT INTO `orders` (`name`, `date`) VALUES
+('Cliente A', '2025-11-20 10:30:00'),
+('Cliente B', '2025-11-20 11:45:00');
+
+-- Insertar 2 relaciones en la tabla `product_orders` (asociando productos a las órdenes)
+INSERT INTO `product_orders` (`quantity`, `price`, `id_order`, `id_product`) VALUES
+(1, '12000', 1, 1), -- Cliente A compra 1 unidad del producto ID 1
+(3, '3500', 2, 9);  -- Cliente B compra 3 unidades del producto ID 9
