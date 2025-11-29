@@ -4,21 +4,21 @@ const secret = process.env.JWT_SECRET || 'secret';
 
 const register = async (req, res) => {
     try {
-        const { user, password } = req.body;
-        if (!user || !password) {
+        const { email, password } = req.body;
+        if (!email || !password) {
             return res.status(400).json({ error: 'Usuario y contraseña son obligatorios.' });
         }
         if (password.length < 8) {
             return res.status(400).json({ error: 'La contraseña debe tener al menos 8 caracteres.' });
         }
 
-        const newUser = await User.create({ user, password });
+        const newUser = await User.create({ email, password });
 
-        const token = jwt.sign(
-            { id: newUser.id, user: newUser.user },
-            secret,
-            { expiresIn: '8h' }
-        );
+        // const token = jwt.sign(
+        //     { id: newUser.id, user: newUser.user },
+        //     secret,
+        //     { expiresIn: '8h' }
+        // );
 
         res.status(201).json({ message: 'Usuario creado', user: { id: newUser.id, user: newUser.user }, token });
     } catch (error) {
@@ -28,8 +28,8 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { user, password } = req.body; //
-        const adminUser = await User.findOne({ where: { user } });
+        const { email, password } = req.body;
+        const adminUser = await User.findOne({ where: { email } });
 
         if (adminUser && await adminUser.validatePassword(password)) {
             req.session.user = {

@@ -22,13 +22,22 @@ const validateProduct = (req, res, next) => {
 };
 
 const validateUser = (req, res, next) => {
-    const { user, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!user || !password) {
+    if (!email || !password) {
         if (req.originalUrl.includes('/api/')) {
             return res.status(400).json({ error: 'Usuario y contraseña son obligatorios.' });
         }
         req.flash('error', 'Usuario y contraseña son obligatorios.');
+        return res.redirect('back');
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        if (req.originalUrl.includes('/api/')) {
+            return res.status(400).json({ error: 'Formato de email inválido.' });
+        }
+        req.flash('error', 'Formato de email inválido.');
         return res.redirect('back');
     }
 

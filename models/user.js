@@ -10,13 +10,13 @@ const User = SEQUELIZE.define("admin_users",
         primaryKey: true,
         autoIncrement: true
     },
-    user:
+    email:
     {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
         validate: {
-            is: /^[a-zA-Z0-9]+$/, 
-            len: [3, 50]
+            isEmail: true
         },
     },
     password:
