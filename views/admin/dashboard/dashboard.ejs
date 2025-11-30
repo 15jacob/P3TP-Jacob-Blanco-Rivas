@@ -36,14 +36,6 @@
                     </div>
                 </div>
             </div>
-<!--             <div class="col-6 col-md-3 d-flex pb-3">
-                <div class="card text-success border-success flex-grow-1">
-                    <div class="card-body">
-                        <h5 class="card-title">Ingresos</h5>
-                        <h2>$<%= estadisticas.ingresosTotales.toString() %></h2>
-                    </div>
-                </div>
-            </div> -->
             <div class="col-6 col-md-4 d-flex pb-3">
                 <div class="card text-success border-success flex-grow-1">
                     <div class="card-body">
@@ -59,11 +51,26 @@
                 <i class="bi bi-plus-circle"></i> Agregar Producto
             </a>
         </div>
+        <% 
+        const productosPorCategoria = {};
+        productos.forEach(producto => {
+            const categoriaId = producto.id_category;
+            if (!productosPorCategoria[categoriaId]) {
+                productosPorCategoria[categoriaId] = [];
+            }
+            productosPorCategoria[categoriaId].push(producto);
+        });
+        %>
 
-        <div class="card">
-            <div class="card-header">
+        <% categorias.forEach(categoria => { 
+            const productosCategoria = productosPorCategoria[categoria.id] || [];
+            if (productosCategoria.length === 0) return;
+        %>
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
                 <h5 class="card-title mb-0">
-                    <i class="bi bi-box-seam me-2"></i>Productos
+                    <i class="bi bi-box-seam me-2"></i><%= categoria.name %>
+                    <span class="badge bg-light text-success ms-2"><%= productosCategoria.length %> productos</span>
                 </h5>
             </div>
             <div class="card-body">
@@ -74,21 +81,20 @@
                                 <th>Acciones</th>
                                 <th>ID</th>
                                 <th>Producto</th>
-                                <th>Categoría</th>
+                                <th>Color</th>
                                 <th>Precio</th>
                                 <th>Stock</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% productos.forEach(producto => { %>
+                            <% productosCategoria.forEach(producto => { %>
                             <tr>
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <a href="/admin/product/edit/<%= producto.id %>" class="btn btn-outline-primary" title="Modificar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-
 
                                         <% if (producto.status) { %>
                                             <button type="button" class="btn btn-outline-danger"
@@ -109,14 +115,7 @@
                                 </td>
                                 <td><%= producto.id %></td>
                                 <td><%= producto.title %></td>
-                                <td>
-                                    <span class="badge bg-secondary">
-                                        <%
-                                            const categoria = categorias.find(c => c.id === producto.id_category);
-                                        %>
-                                        <%= categoria ? categoria.name : 'N/A' %>
-                                    </span>
-                                </td>
+                                <td><%= producto.color %></td>
                                 <td>$<%= producto.price %></td>
                                 <td><%= producto.stock %></td>
                                 <td>
@@ -127,6 +126,7 @@
                                     <% } %>
                                 </td>
                             </tr>
+                            
                             <!-- Modal para DESACTIVAR -->
                             <% if (producto.status) { %>
                             <div class="modal fade" id="modalDesactivar<%= producto.id %>" tabindex="-1" aria-labelledby="modalDesactivarLabel<%= producto.id %>" aria-hidden="true">
@@ -180,6 +180,7 @@
                 </div>
             </div>
         </div>
+        <% }); %>
 
         <div class="card mt-4">
             <div class="card-header">
