@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { register } = require('../../controllers/admin/authController');
+const { register, login } = require('../../controllers/admin/authController');
 const { 
     getAllProducts, 
     getProductById, 
@@ -15,6 +15,7 @@ const upload = require('../../middleware/upload');
 const authApi = require('../../middleware/authApi');
 
 router.post('/api/register', validateUser, register);
+router.post('/api/login', validateUser, login);
 
 router.get('/api/products', authApi, getAllProducts);
 router.get('/api/products/:id', authApi, getProductById);
