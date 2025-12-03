@@ -125,31 +125,31 @@ function insertCartProduct(product, quantity)
                 </div>
 
                 <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-auto d-flex justify-content-center align-items-center">
+                    <div class="col-12 md:col-auto d-flex justify-content-center align-items-center">
                         <span class="mx-10 price fs-5">$${product.price}</span>
                     </div>
 
-                    <div class="col-auto d-flex align-items-center justify-content-center">
+                    <div class="col-3 md:col-auto d-flex align-items-center justify-content-center">
                         <button class="btn btn-dark btn-delete">
                             <i class="bi bi-dash"></i>
                         </button>
                     </div>
 
-                    <div class="col d-flex align-items-center justify-content-center">
+                    <div class="col-6 md:col d-flex align-items-center justify-content-center">
                         <span class="mx-10 quantity">${quantity}</span>
                     </div>
 
-                    <div class="col-auto d-flex align-items-center justify-content-center">
+                    <div class="col-3 md:col-auto d-flex align-items-center justify-content-center">
                         <button class="btn btn-dark btn-add">
                             <i class="bi bi-plus"></i>
                         </button>
                     </div>
 
-                    <div class="col-auto d-flex align-items-center justify-content-center">
-                        <span class="mx-10 fs-5">=</span>
+                    <div class="col-6 md:col-auto d-flex align-items-center justify-content-center">
+                        <span class="mx-10 fs-5">Total: </span>
                     </div>
 
-                    <div class="col-auto d-flex align-items-center justify-content-center">
+                    <div class="col-6 md:col-auto d-flex align-items-center justify-content-center">
                         <span class="mx-10 subtotal-price fs-5">$${product.price * quantity}</span>
                     </div>
                 </div>
