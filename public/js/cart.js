@@ -140,7 +140,7 @@ export class Cart
 
     static confirmOrder()
     {
-        const USER = 'fulanito';
+        const USER = localStorage.getItem('nombreUsuario');
         const PRODUCTS = Cart.getAllProducts();
 
         if(USER && PRODUCTS.length > 0)
