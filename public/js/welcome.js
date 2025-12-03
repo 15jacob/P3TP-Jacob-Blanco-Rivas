@@ -1,3 +1,9 @@
+window.addEventListener('load', function()
+{
+    if(localStorage.getItem('nombreUsuario') !== null)
+        this.location.href = '/home';
+})
+
 class Modelo {
     Nombre;
 

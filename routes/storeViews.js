@@ -1,5 +1,5 @@
 const express = require('express');
-const { viewLogin, viewHome, viewCart, viewTicket, getCartProducts } = require('../controllers/storeController');
+const { viewLogin, viewHome, viewCart, viewTicket, getCartProducts } = require('../controllers/client/storeController.js');
 
 const router = express.Router();
 

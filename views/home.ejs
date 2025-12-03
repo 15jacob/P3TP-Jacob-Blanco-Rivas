@@ -5,18 +5,16 @@
 <body class="min-vh-100 text-white">
     <%- include('./misc/header.ejs', { nav: true, categories, id_category: params.id_category }); %>
 
-    <main>
-        <div class="container">
-            <div id="contenedorProductos" class="row">
+    <main class="container">
+        <div class="row">
 
-                <% for (let i = 0; i < products.length; i++) { %>
-                    <%- include('./misc/product/item.ejs', { product: products[i] }) %>
-                <% } %>
+            <% for (let i = 0; i < products.length; i++) { %>
+                <%- include('./misc/home/item.ejs', { product: products[i] }) %>
+            <% } %>
 
-            </div>
-
-            <%- include('./misc/product/pager.ejs', { page: params.page, total_pages: params.total_pages, id_category: params.id_category }) %>
         </div>
+
+        <%- include('./misc/home/pager.ejs', { page: params.page, total_pages: params.total_pages, id_category: params.id_category }) %>
     </main>
 
     <%- include('./misc/scripts.ejs', { js: ['tema.js', 'store.js'] }); %>
