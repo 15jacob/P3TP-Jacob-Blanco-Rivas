@@ -164,7 +164,12 @@ export class Cart
             .then(function(parsedResponse)
             {
                 if(parsedResponse.id_order > 0)
+                {
+                    localStorage.removeItem('cart');
+                    localStorage.removeItem('nombreUsuario');
+                    
                     location.href = `/ticket/id=${parsedResponse.id_order}`;
+                }
             })
             .catch(error => console.log(error));
         }

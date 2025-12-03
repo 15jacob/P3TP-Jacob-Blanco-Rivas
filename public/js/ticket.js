@@ -10,7 +10,7 @@ function initTicketButtons()
 
     if(BTN_HOME && BTN_DOWNLOAD_TICKET)
     {
-        BTN_HOME.addEventListener('click', () => location.href = '/home');
+        BTN_HOME.addEventListener('click', () => location.href = '/');
         BTN_DOWNLOAD_TICKET.addEventListener('click', downloadTicket);
     }
 }
