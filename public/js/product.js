@@ -12,20 +12,33 @@ export class Product
 
     async addProductCart()
     {
-        await Cart.addProduct(this)
-        .then(() => Product.inCart(this.id, true));
+        const THIS = this;
+
+        await Cart.addProduct(THIS)
+        .then(function()
+        {
+            Product.inCart(THIS.id, true);
+            Cart.updateTotal();
+        });
     }
 
     async deleteProductCart()
     {
-        Cart.deleteProduct(this.id)
-        .then(quantity => Product.inCart(this.id, quantity > 0));
+        const THIS = this;
+
+        Cart.deleteProduct(THIS.id)
+        .then(function(quantity)
+        {
+            Product.inCart(THIS.id, quantity > 0);
+            Cart.updateTotal();
+        });
     }
 
     removeProductCart()
     {
         Cart.removeProduct(this.id);
         Product.inCart(this.id, false);
+        Cart.updateTotal();
     }
 
     static getProductCard(id)
@@ -39,20 +52,34 @@ export class Product
 
         if(PRODUCT_CARD)
         {
-            const ADD = PRODUCT_CARD.querySelector(`.add-container`);
-            const DELETE = PRODUCT_CARD.querySelector(`.delete-container`);
+            const ADD_CONTAINER = PRODUCT_CARD.querySelector(`.add-container`);
+            const DELETE_CONTAINER = PRODUCT_CARD.querySelector(`.delete-container`);
+            const SPAN_QUANTITY = PRODUCT_CARD.querySelector('span.quantity');
+            const SPAN_SUBTOTAL_PRICE = PRODUCT_CARD.querySelector('span.subtotal-price');
 
-            if(status === true)
-            {
-                DELETE.classList.remove('d-none');
-                ADD.classList.add('d-none');
+            const PRODUCT = Cart.getProduct(id);
+            const SUBTOTAL_PRICE = parseInt(PRODUCT.quantity) * parseInt(PRODUCT.price);
 
-                PRODUCT_CARD.querySelector('span.quantity').textContent = Cart.getProduct(id).quantity;
-            }
-            else
+            SPAN_QUANTITY.textContent = PRODUCT.quantity;
+
+            if(SPAN_SUBTOTAL_PRICE && SUBTOTAL_PRICE > 0)
+                SPAN_SUBTOTAL_PRICE.textContent = `$${SUBTOTAL_PRICE}`;
+
+            if(!SUBTOTAL_PRICE && PRODUCT_CARD.dataset.cart == 'true')
+                PRODUCT_CARD.classList.add('fade-out');
+
+            if(ADD_CONTAINER && DELETE_CONTAINER)
             {
-                DELETE.classList.add('d-none');
-                ADD.classList.remove('d-none');
+                if(status === true)
+                {
+                    DELETE_CONTAINER.classList.remove('d-none');
+                    ADD_CONTAINER.classList.add('d-none');
+                }
+                else
+                {
+                    DELETE_CONTAINER.classList.add('d-none');
+                    ADD_CONTAINER.classList.remove('d-none');
+                }
             }
         }
     }

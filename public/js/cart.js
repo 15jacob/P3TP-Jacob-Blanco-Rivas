@@ -73,6 +73,9 @@ export class Cart
         const ID = String(id);
         const PRODUCTS = Cart.getAllProducts().filter(product => String(product.id) !== ID);
 
+        if(PRODUCTS.length === 0)
+            Cart.noProductsWarning(true);
+
         Cart.saveProducts(PRODUCTS);
     }
 
@@ -94,5 +97,31 @@ export class Cart
     static updateCounter(productQuantity)
     {
         document.getElementById('cart-counter').textContent = productQuantity;
+    }
+
+    static updateTotal()
+    {
+        const CART_TOTAL = document.getElementById('cart-total');
+
+        if(CART_TOTAL)
+        {
+            CART_TOTAL.classList.remove('d-none');
+            CART_TOTAL.innerText = `Total: $${Cart.getTotal()}`;
+        }
+    }
+    
+    static spinner(status)
+    {
+        document.getElementById('loading-spinner').classList.toggle('d-none', !status);
+    }
+
+    static noProductsWarning(status)
+    {
+        document.getElementById('cart-no-products').classList.toggle('d-none', !status);
+    }
+
+    static enableCheckout(status)
+    {
+        document.getElementById('btn-checkout').classList.toggle('disabled', !status);
     }
 }
