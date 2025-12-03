@@ -7,3 +7,9 @@ export function uint(value)
 
     return 0;
 }
+
+export function checkLogin()
+{
+    if(!localStorage.getItem('nombreUsuario'))
+        location.href = '/';
+}

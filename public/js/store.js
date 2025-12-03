@@ -1,9 +1,11 @@
 
 import { Cart } from "./cart.js";
 import { Product } from "./product.js";
+import { checkLogin } from "./misc.js";
 
 window.addEventListener('load', function()
 {
+    checkLogin();
     initNavLinks();
     initPageSelectors();
     initProductEvents();
@@ -125,31 +127,31 @@ function insertCartProduct(product, quantity)
                 </div>
 
                 <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-12 md:col-auto d-flex align-items-center">
+                    <div class="col-12 md:col-auto d-flex align-items-center mb-2">
                         <span class="mx-10 price fs-5">$${product.price}</span>
                     </div>
 
-                    <div class="col-3 md:col-auto d-flex align-items-center justify-content-center">
+                    <div class="col-3 md:col-auto d-flex align-items-center justify-content-center md:justify-content-start">
                         <button class="btn btn-dark btn-delete">
                             <i class="bi bi-dash"></i>
                         </button>
                     </div>
 
-                    <div class="col-6 md:col d-flex align-items-center justify-content-center">
+                    <div class="col-6 md:col d-flex align-items-center justify-content-center md:justify-content-start">
                         <span class="mx-10 quantity">${quantity}</span>
                     </div>
 
-                    <div class="col-3 md:col-auto d-flex align-items-center justify-content-center">
+                    <div class="col-3 md:col-auto d-flex align-items-center justify-content-center md:justify-content-start">
                         <button class="btn btn-dark btn-add">
                             <i class="bi bi-plus"></i>
                         </button>
                     </div>
 
-                    <div class="col-auto md:col-auto d-flex align-items-center">
+                    <div class="col-auto md:col-auto d-flex align-items-center mt-2">
                         <span class="mx-10 fs-5">Total: </span>
                     </div>
 
-                    <div class="col md:col-auto d-flex align-items-center">
+                    <div class="col md:col-auto d-flex align-items-center mt-2">
                         <span class="mx-10 subtotal-price fs-5">$${product.price * quantity}</span>
                     </div>
                 </div>

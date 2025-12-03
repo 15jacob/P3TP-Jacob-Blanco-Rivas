@@ -1,5 +1,8 @@
+import { checkLogin } from "./misc";
+
 window.addEventListener('load', function()
 {
+    checkLogin();
     initTicketButtons();
 });
 
