@@ -173,6 +173,14 @@ function insertCartProduct(product, quantity)
 
 function initCartButtons()
 {
-    document.getElementById('btn-home').addEventListener('click', () => location.href = '/home');
-    document.getElementById('btn-checkout').addEventListener('click', () => location.href = '/ticket');
+    Cart.updateCounter();
+
+    const BTN_HOME = document.getElementById('btn-home');
+    const BTN_CHECKOUT = document.getElementById('btn-checkout');
+
+    if(BTN_HOME && BTN_CHECKOUT)
+    {
+        BTN_HOME.addEventListener('click', () => location.href = '/home');
+        BTN_CHECKOUT.addEventListener('click', () => Cart.confirmOrder());
+    }
 }

@@ -18,7 +18,11 @@ export class Cart
     static saveProducts(products)
     {
         localStorage.setItem('cart', JSON.stringify(products));
-        Cart.updateCounter(products.length);
+
+        Cart.updateCounter();
+        Cart.noProductsWarning(products.length === 0);
+        Cart.enableCheckout(products.length !== 0);
+        Cart.updateTotal();
     }
 
     static async addProduct(that)
@@ -73,9 +77,6 @@ export class Cart
         const ID = String(id);
         const PRODUCTS = Cart.getAllProducts().filter(product => String(product.id) !== ID);
 
-        if(PRODUCTS.length === 0)
-            Cart.noProductsWarning(true);
-
         Cart.saveProducts(PRODUCTS);
     }
 
@@ -94,9 +95,12 @@ export class Cart
         return Cart.getAllProducts().reduce((total, product) => total + product.quantity, 0);
     }
 
-    static updateCounter(productQuantity)
+    static updateCounter()
     {
-        document.getElementById('cart-counter').textContent = productQuantity;
+        const CART_COUNTER = document.getElementById('cart-counter');
+        
+        if(CART_COUNTER)
+            CART_COUNTER.innerText = Cart.getAllProducts().length;
     }
 
     static updateTotal()
@@ -112,16 +116,57 @@ export class Cart
     
     static spinner(status)
     {
-        document.getElementById('loading-spinner').classList.toggle('d-none', !status);
+        const LOADING_SPINNER = document.getElementById('loading-spinner');
+
+        if(LOADING_SPINNER)
+            LOADING_SPINNER.classList.toggle('d-none', !status);
     }
 
     static noProductsWarning(status)
     {
-        document.getElementById('cart-no-products').classList.toggle('d-none', !status);
+        const NO_PRODUCTS_WARNING = document.getElementById('cart-no-products');
+
+        if(NO_PRODUCTS_WARNING)
+            NO_PRODUCTS_WARNING.classList.toggle('d-none', !status);
     }
 
     static enableCheckout(status)
     {
-        document.getElementById('btn-checkout').classList.toggle('disabled', !status);
+        const BTN_CHECKOUT = document.getElementById('btn-checkout');
+
+        if(BTN_CHECKOUT)
+            BTN_CHECKOUT.classList.toggle('disabled', !status);
+    }
+
+    static confirmOrder()
+    {
+        const USER = 'fulanito';
+        const PRODUCTS = Cart.getAllProducts();
+
+        if(USER && PRODUCTS.length > 0)
+        {
+            fetch('http://localhost:3000/cart/confirm-order',
+            {
+                method: 'POST',
+                headers:
+                {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify
+                (
+                    {
+                        user: USER,
+                        products: PRODUCTS
+                    }
+                )
+            })
+            .then(response => response.json())
+            .then(function(parsedResponse)
+            {
+                if(parsedResponse.id_order > 0)
+                    location.href = `/ticket/id=${parsedResponse.id_order}`;
+            })
+            .catch(error => console.log(error));
+        }
     }
 }
