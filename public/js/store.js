@@ -113,7 +113,7 @@ function insertCartProduct(product, quantity)
     const DOM_PARSER = new DOMParser();
     const HTML_STRING = `  
         <div class="product-card row p-3 bg-success rounded-3 mb-2" data-id="${product.id}" data-price="${product.price}" data-cart="true">
-            <div class="col-9 col-md-4 d-flex flex-wrap justify-content-center p-0">
+            <div class="col-12 col-md-4 d-flex flex-wrap justify-content-center p-0">
                 <img class="img-fluid block rounded-3 w-100" src="${product.image_url}" alt="${product.title}">
             </div>
 
@@ -125,7 +125,7 @@ function insertCartProduct(product, quantity)
                 </div>
 
                 <div class="row d-flex align-items-center justify-content-center">
-                    <div class="col-12 md:col-auto d-flex justify-content-center align-items-center">
+                    <div class="col-12 md:col-auto d-flex align-items-center">
                         <span class="mx-10 price fs-5">$${product.price}</span>
                     </div>
 
@@ -145,11 +145,11 @@ function insertCartProduct(product, quantity)
                         </button>
                     </div>
 
-                    <div class="col-6 md:col-auto d-flex align-items-center justify-content-center">
+                    <div class="col-auto md:col-auto d-flex align-items-center">
                         <span class="mx-10 fs-5">Total: </span>
                     </div>
 
-                    <div class="col-6 md:col-auto d-flex align-items-center justify-content-center">
+                    <div class="col md:col-auto d-flex align-items-center">
                         <span class="mx-10 subtotal-price fs-5">$${product.price * quantity}</span>
                     </div>
                 </div>
