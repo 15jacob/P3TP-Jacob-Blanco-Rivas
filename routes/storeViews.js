@@ -1,5 +1,5 @@
 const express = require('express');
-const { viewLogin, viewHome, viewCart, viewTicket, getCartProducts } = require('../controllers/client/storeController.js');
+const { viewLogin, viewHome, viewCart, viewTicket, getCartProducts, createOrder } = require('../controllers/client/storeController.js');
 
 const router = express.Router();
 
@@ -11,7 +11,11 @@ router.get('/home/id=:id/page=:page', viewHome);
 
 router.get('/cart', viewCart);
 router.post('/cart/products', getCartProducts);
+router.post('/cart/confirm-order', createOrder);
 
-router.get('/ticket', viewTicket);
+router.get('/ticket/id=:id', viewTicket);
+
+//Testing con GET, pasar mas tarde a POST
+//router.get('/download-ticket', downloadTicket);
 
 module.exports = router;
