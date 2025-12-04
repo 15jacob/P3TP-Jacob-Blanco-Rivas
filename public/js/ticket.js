@@ -19,6 +19,6 @@ function initTicketButtons()
 }
 
 function downloadTicket()
- {
-    
- }
+{
+
+}
