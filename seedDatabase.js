@@ -26,14 +26,14 @@ const seedDatabase = async () => {
             { id: 6, id_category: 1, title: 'Gorra Verde Snapback', color: 'Verde', price: '12200', stock: 5, image_url: '/assets/img/snapback-verde.webp', attributes: { tipo: 'Snapback' }, status: true },
             { id: 7, id_category: 1, title: 'Gorra Negra Fitted', color: 'Negro', price: '11500', stock: 11, image_url: '/assets/img/fitted-negra.webp', attributes: { tipo: 'Fitted' }, status: true },
             { id: 8, id_category: 1, title: 'Gorra Verde Fitted', color: 'Verde', price: '13000', stock: 4, image_url: '/assets/img/fitted-verde.webp', attributes: { tipo: 'Fitted' }, status: true },
-            { id: 9, id_category: 2, title: 'Media Negra Corta', color: 'Negro', price: '3500', stock: 20, image_url: '/assets/img/corta-negro.webp', attributes: { caña: 'Corta' }, status: true },
-            { id: 10, id_category: 2, title: 'Media Blanca Corta', color: 'Blanco', price: '3600', stock: 18, image_url: '/assets/img/corta-blanco.webp', attributes: { caña: 'Corta' }, status: true },
-            { id: 11, id_category: 2, title: 'Media Azul Corta', color: 'Azul', price: '3400', stock: 22, image_url: '/assets/img/corta-azul.webp', attributes: { caña: 'Corta' }, status: true },
-            { id: 12, id_category: 2, title: 'Media Negra Media', color: 'Negro', price: '3300', stock: 25, image_url: '/assets/img/media-negra.jpg', attributes: { caña: 'Media' }, status: true },
-            { id: 13, id_category: 2, title: 'Media Azul Media', color: 'Azul', price: '3400', stock: 20, image_url: '/assets/img/media-azul.webp', attributes: { caña: 'Media' }, status: true },
-            { id: 14, id_category: 2, title: 'Media Verde Media', color: 'Verde', price: '3700', stock: 17, image_url: '/assets/img/media-verde.webp', attributes: { caña: 'Media' }, status: true },
-            { id: 15, id_category: 2, title: 'Media Negra Larga', color: 'Negro', price: '3800', stock: 15, image_url: '/assets/img/larga-negro.webp', attributes: { caña: 'Larga' }, status: true },
-            { id: 16, id_category: 2, title: 'Media Azul Larga', color: 'Azul', price: '4000', stock: 10, image_url: '/assets/img/larga-azul.webp', attributes: { caña: 'Larga' }, status: true }
+            { id: 9, id_category: 2, title: 'Media Negra Corta', color: 'Negro', price: '3500', stock: 20, image_url: '/assets/img/corta-negro.webp', attributes: { cania: 'Corta' }, status: true },
+            { id: 10, id_category: 2, title: 'Media Blanca Corta', color: 'Blanco', price: '3600', stock: 18, image_url: '/assets/img/corta-blanco.webp', attributes: { cania: 'Corta' }, status: true },
+            { id: 11, id_category: 2, title: 'Media Azul Corta', color: 'Azul', price: '3400', stock: 22, image_url: '/assets/img/corta-azul.webp', attributes: { cania: 'Corta' }, status: true },
+            { id: 12, id_category: 2, title: 'Media Negra Media', color: 'Negro', price: '3300', stock: 25, image_url: '/assets/img/media-negra.jpg', attributes: { cania: 'Media' }, status: true },
+            { id: 13, id_category: 2, title: 'Media Azul Media', color: 'Azul', price: '3400', stock: 20, image_url: '/assets/img/media-azul.webp', attributes: { cania: 'Media' }, status: true },
+            { id: 14, id_category: 2, title: 'Media Verde Media', color: 'Verde', price: '3700', stock: 17, image_url: '/assets/img/media-verde.webp', attributes: { cania: 'Media' }, status: true },
+            { id: 15, id_category: 2, title: 'Media Negra Larga', color: 'Negro', price: '3800', stock: 15, image_url: '/assets/img/larga-negro.webp', attributes: { cania: 'Larga' }, status: true },
+            { id: 16, id_category: 2, title: 'Media Azul Larga', color: 'Azul', price: '4000', stock: 10, image_url: '/assets/img/larga-azul.webp', attributes: { cania: 'Larga' }, status: true }
         ]);
 
         await Order.bulkCreate([

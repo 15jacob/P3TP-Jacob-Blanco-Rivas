@@ -117,7 +117,7 @@ const crearProducto = async (req, res) => {
             stock: parseInt(stock),
             status: status === 'on',
             attributes: attributes,
-            image_url: req.file ? `/assets/img/${req.file.filename}` : '/assets/img/placeholder.jpg'
+            image_url: req.file ? `/assets/img/${req.file.filename}` : '/assets/img/placeholder.png'
         });
         res.redirect('/admin/dashboard?success=Producto creado correctamente');
     } catch (error) {

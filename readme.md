@@ -247,7 +247,7 @@ Content-Type: application/json
   "price": "12000",
   "stock": 10,
   "status": true,
-  "image_url": "/assets/img/placeholder.jpg",
+  "image_url": "/assets/img/placeholder.png",
   "attributes": {
     "tipo": "Trucker"
   }
