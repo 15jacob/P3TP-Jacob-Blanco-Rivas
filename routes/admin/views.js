@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/login', function(req, res)
 {
     if(req.session.user)
-        return res.redirect('/admin/dashboard/dashboard.ejs');
+        return res.redirect('/admin/dashboard/');
     
     res.render('admin/login/login.ejs',
     {
