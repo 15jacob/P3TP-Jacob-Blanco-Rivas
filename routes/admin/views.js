@@ -5,13 +5,16 @@ const requireAuth = require('../../middleware/authViews');
 const upload = require('../../middleware/upload'); 
 const router = express.Router();
 
-router.get('/login', function(req, res)
-{
-    if(req.session.user)
-        return res.redirect('/admin/dashboard/');
-    
-    res.render('admin/login/login.ejs',
-    {
+router.get('/', (req, res) => {
+    if (req.session.user) {
+        return res.redirect('/admin/dashboard');
+    }
+    return res.redirect('/admin/login');
+});
+
+router.get('/login', function(req, res) {
+    if (req.session.user) return res.redirect('/admin/dashboard');
+    res.render('admin/login/login.ejs', {
         error: req.query.error,
         testUser: 'admin',
         testPass: 'ClaveSecreta'
