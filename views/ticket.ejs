@@ -97,7 +97,7 @@
             <% if(typeof download == 'undefined'){ %>
                 <div class="text-center mt-4">
                     <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
-                        <button id="btn-download-ticket" class="btn btn-success d-flex align-items-center justify-content-center gap-2">
+                        <button id="btn-download-ticket" class="btn btn-success d-flex align-items-center justify-content-center gap-2" data-id="<%- order.id %>">
                             <i class="bi bi-download"></i>
                             Descargar PDF
                         </button>

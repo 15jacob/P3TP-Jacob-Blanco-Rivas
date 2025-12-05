@@ -11,14 +11,13 @@ function initTicketButtons()
     if(BTN_HOME && BTN_DOWNLOAD_TICKET)
     {
         BTN_HOME.addEventListener('click', () => location.href = '/');
-        BTN_DOWNLOAD_TICKET.addEventListener('click', btn => downloadTicket(btn.dataset.id));
+        BTN_DOWNLOAD_TICKET.addEventListener('click', () => downloadTicket(BTN_DOWNLOAD_TICKET.dataset.id));
     }
 }
 
-
-
 async function downloadTicket(id)
 {
+    console.log(id)
     if(id > 0)
         location.href = `http://localhost:3000/ticket/pdf/id=${id}`;
 }
