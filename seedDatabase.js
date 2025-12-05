@@ -52,7 +52,9 @@ const seedDatabase = async () => {
             { quantity: 1, price: '13000', id_order: 2, id_product: 3 },
             
             { quantity: 2, price: '11500', id_order: 3, id_product: 7 },
-            { quantity: 4, price: '3400', id_order: 3, id_product: 11 }
+            { quantity: 4, price: '3400', id_order: 3, id_product: 11 },
+
+            { quantity: 1, price: '12200', id_order: 4, id_product: 6 } 
         ]);
 
         console.log('🎉 Base de datos inicializada correctamente');
