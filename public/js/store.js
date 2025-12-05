@@ -140,7 +140,7 @@ function insertCartProduct(product, quantity)
                             </div>
 
                             <div class="col-6 md:col d-flex align-items-center justify-content-center md:justify-content-start">
-                                <span class="mx-10 quantity fs-5">x${quantity}</span>
+                                <span class="mx-10 quantity fs-5">${quantity}</span>
                             </div>
 
                             <div class="col-3 md:col-auto d-flex align-items-center justify-content-center md:justify-content-start">
