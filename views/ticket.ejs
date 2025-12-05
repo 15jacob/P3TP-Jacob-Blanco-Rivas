@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('./misc/head.ejs', { title: 'Gracias por tu compra! - Cap&Sock' }); %>
+<%- include('./misc/head.ejs', { title: `Gracias por tu compra! - Orden Nº ${(`0000${order.id}`).slice(-5)} - Cap&Sock` }); %>
 
 <body class="min-vh-100">
-    <%- include('./misc/header.ejs', { categories: [], id_category: 0 }); %>
+    <% if(typeof download == 'undefined'){ %>
+        <%- include('./misc/header.ejs', { categories: [], id_category: 0 }); %>
+    <% } %>
 
     <main>
         <div class="container py-4">
-            <div class="text-center mb-4 text-success">
-                <i class="bi bi-check-circle-fill text-success display-4"></i>
-                <h1 class="h2 mt-3">¡Compra realizada con éxito!</h1>
-                <p>Tu ticket ha sido generado correctamente</p>
-            </div>
+            <% if(typeof download == 'undefined'){ %>
+                <div class="text-center mb-4 text-success">
+                    <i class="bi bi-check-circle-fill text-success display-4"></i>
+                    <h1 class="h2 mt-3">¡Compra realizada con éxito!</h1>
+                    <p>Tu ticket ha sido generado correctamente</p>
+                </div>
+            <% } %>
 
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
                     <div id="ticketContent" class="text-dark rounded-3 p-4 shadow">
                         <div class="text-center mb-4">
-                            <img src="/assets/img/favicon.svg" alt="Cap&Sock" class="mb-3" width="60" style="filter: invert(44%) sepia(98%) saturate(391%) hue-rotate(85deg) brightness(95%) contrast(87%);">
+                            <img
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NiIgaGVpZ2h0PSI1NiIgdmlld0JveD0iMCAwIDU2IDU2IiBmaWxsPSIjZmZmZmZmIj48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfMzQ4NF8zODgpIj48cGF0aCBkPSJNOS4wMzk3NyAyNy45M1YyNy44OUM4LjkzOTc3IDI0LjEzIDExLjkwOTggMjEuMDEgMTUuNjU5OCAyMC45MUMxNS43Mjk4IDIwLjkxIDE1Ljc5OTggMjAuOTEgMTUuODY5OCAyMC45MUMxNy42Mzk4IDIwLjg2IDE5LjM2OTggMjEuNDkgMjAuNjg5OCAyMi42NkMyMC44Nzk4IDIyLjgxIDIwLjk4OTggMjMuMDQgMjAuOTk5OCAyMy4yOEMyMC45ODk4IDIzLjcgMjAuNjQ5OCAyNC4wMyAyMC4yMjk4IDI0LjAzQzIwLjA0OTggMjQuMDMgMTkuODc5OCAyMy45NiAxOS43Mjk4IDIzLjg2QzE4LjY4OTggMjIuODYgMTcuMjk5OCAyMi4zMSAxNS44NDk4IDIyLjMyQzEyLjkxOTggMjIuMzYgMTAuNTc5OCAyNC43NiAxMC42MTk4IDI3LjY5QzEwLjYxOTggMjcuNzUgMTAuNjE5OCAyNy44MSAxMC42MTk4IDI3Ljg2VjI3LjlDMTAuNDg5OCAzMC44NCAxMi43NTk4IDMzLjM0IDE1LjY5OTggMzMuNDdDMTUuNzQ5OCAzMy40NyAxNS43OTk4IDMzLjQ3IDE1LjgzOTggMzMuNDdDMTcuMzM5OCAzMy40OSAxOC43ODk4IDMyLjkgMTkuODQ5OCAzMS44M0MxOS45Nzk4IDMxLjcgMjAuMTQ5OCAzMS42MiAyMC4zMjk4IDMxLjYyQzIwLjcyOTggMzEuNjMgMjEuMDQ5OCAzMS45NSAyMS4wNTk4IDMyLjM1QzIxLjA1OTggMzIuNTYgMjAuOTY5OCAzMi43NiAyMC44MDk4IDMyLjg5QzE5LjQ3OTggMzQuMjEgMTcuNjY5OCAzNC45MiAxNS43ODk4IDM0Ljg4QzEyLjA2OTggMzQuOTEgOS4wMjk3NyAzMS45MSA5LjAwOTc3IDI4LjE5QzkuMDA5NzcgMjguMSA5LjAwOTc3IDI4LjAyIDkuMDA5NzcgMjcuOTNIOS4wMzk3N1oiPjwvcGF0aD48cGF0aCBkPSJNMzMuMjc5OCAzNC41NDk5TDMxLjUyOTggMzIuNzE5OUMzMC40Mjk4IDM0LjAzOTkgMjguODA5OCAzNC44MDk5IDI3LjA4OTggMzQuODM5OUMyNC42NTk4IDM0LjgzOTkgMjIuODM5OCAzMy4zMTk5IDIyLjgzOTggMzEuMDU5OVYzMS4wMTk5QzIyLjgzOTggMjkuMjE5OSAyNC4wMzk4IDI3LjkyOTkgMjYuMDk5OCAyNy4xMTk5QzI1LjI3OTggMjYuMzM5OSAyNC43OTk4IDI1LjI3OTkgMjQuNzQ5OCAyNC4xNDk5VjI0LjEwOTlDMjQuNzk5OCAyMi4yODk5IDI2LjMxOTggMjAuODQ5OSAyOC4xMzk4IDIwLjg5OTlDMjguMTk5OCAyMC44OTk5IDI4LjI1OTggMjAuODk5OSAyOC4zMTk4IDIwLjkwOTlDMzAuMDM5OCAyMC44MTk5IDMxLjUwOTggMjIuMTQ5OSAzMS41OTk4IDIzLjg2OTlDMzEuNTk5OCAyMy44OTk5IDMxLjU5OTggMjMuOTI5OSAzMS41OTk4IDIzLjk1OTlWMjMuOTk5OUMzMS41OTk4IDI1LjcxOTkgMzAuMzc5OCAyNi44MTk5IDI4LjQxOTggMjcuNTA5OUwzMS41MDk4IDMwLjY1OTlDMzIuMDQ5OCAyOS44Mzk5IDMyLjUxOTggMjguOTg5OSAzMi45MTk4IDI4LjA4OTlDMzMuMDc5OCAyNy43Mzk5IDMzLjQ4OTggMjcuNTg5OSAzMy44Mjk4IDI3Ljc0OTlDMzQuMDc5OCAyNy44NTk5IDM0LjIyOTggMjguMTA5OSAzNC4yMjk4IDI4LjM3OTlDMzQuMjI5OCAyOC40OTk5IDM0LjE4OTggMjguNjE5OSAzNC4xMjk4IDI4LjcyOTlDMzMuNjY5OCAyOS43Mzk5IDMzLjA5OTggMzAuNzA5OSAzMi40NDk4IDMxLjYwOTlMMzQuMzE5OCAzMy41MTk5QzM0LjQ5OTggMzMuNjY5OSAzNC42MDk4IDMzLjg4OTkgMzQuNjA5OCAzNC4xMTk5QzM0LjYwOTggMzQuNTA5OSAzNC4zMDk4IDM0LjgyOTkgMzMuOTE5OCAzNC44Mjk5QzMzLjkxOTggMzQuODI5OSAzMy44OTk4IDM0LjgyOTkgMzMuODg5OCAzNC44Mjk5QzMzLjY0OTggMzQuODI5OSAzMy40Mjk4IDM0LjcyOTkgMzMuMjY5OCAzNC41NDk5SDMzLjI3OThaTTMwLjU5OTggMzEuNzc5OUwyNi45Njk4IDI4LjA2OTlDMjUuMTY5OCAyOC43MTk5IDI0LjM3OTggMjkuODI5OSAyNC4zNzk4IDMwLjk1OTlWMzAuOTk5OUMyNC40MDk4IDMyLjQzOTkgMjUuNTg5OCAzMy41Nzk5IDI3LjAyOTggMzMuNTU5OUMyNy4wNzk4IDMzLjU1OTkgMjcuMTM5OCAzMy41NTk5IDI3LjE4OTggMzMuNTU5OUMyOC41Mjk4IDMzLjQ4OTkgMjkuNzY5OCAzMi44NDk5IDMwLjU4OTggMzEuNzg5OUwzMC41OTk4IDMxLjc3OTlaTTMwLjE3OTggMjQuMDc5OVYyNC4wMzk5QzMwLjE5OTggMjMuMDE5OSAyOS4zODk4IDIyLjE4OTkgMjguMzc5OCAyMi4xNjk5QzI4LjMzOTggMjIuMTY5OSAyOC4yOTk4IDIyLjE2OTkgMjguMjY5OCAyMi4xNjk5QzI3LjIwOTggMjIuMTA5OSAyNi4yODk4IDIyLjkxOTkgMjYuMjI5OCAyMy45Nzk5QzI2LjIyOTggMjQuMDI5OSAyNi4yMjk4IDI0LjA2OTkgMjYuMjI5OCAyNC4xMTk5VjI0LjE1OTlDMjYuMjI5OCAyNC45NDk5IDI2LjU1OTggMjUuNTQ5OSAyNy41Nzk4IDI2LjY0OTlDMjkuMjk5OCAyNi4wNTk5IDMwLjE4OTggMjUuMjQ5OSAzMC4xODk4IDI0LjA3OTlIMzAuMTc5OFoiPjwvcGF0aD48cGF0aCBkPSJNMzYuNDA5OCAzMy4wMjk5QzM2LjIxOTggMzIuODk5OSAzNi4xMDk4IDMyLjY3OTkgMzYuMTE5OCAzMi40NDk5QzM2LjExOTggMzIuMDM5OSAzNi40Mjk4IDMxLjcwOTkgMzYuODM5OCAzMS42OTk5QzM2LjgzOTggMzEuNjk5OSAzNi44Mzk4IDMxLjY5OTkgMzYuODQ5OCAzMS42OTk5QzM3LjAxOTggMzEuNjk5OSAzNy4xODk4IDMxLjc1OTkgMzcuMzA5OCAzMS44Njk5QzM4LjQ2OTggMzIuOTI5OSAzOS45OTk4IDMzLjQ5OTkgNDEuNTY5OCAzMy40Njk5QzQzLjM3OTggMzMuNDY5OSA0NC41Nzk4IDMyLjQ5OTkgNDQuNTc5OCAzMS4xNjk5VjMxLjEyOTlDNDQuNTc5OCAyOS44Njk5IDQzLjg5OTggMjkuMTU5OSA0MS4wNjk4IDI4LjU1OTlDMzcuOTU5OCAyNy44Nzk5IDM2LjUzOTggMjYuODc5OSAzNi41Mzk4IDI0LjY1OTlWMjQuNjE5OUMzNi41Mzk4IDIyLjQ5OTkgMzguNDA5OCAyMC45Mzk5IDQwLjk3OTggMjAuOTM5OUM0Mi41MTk4IDIwLjg4OTkgNDQuMDM5OCAyMS4zNTk5IDQ1LjI3OTggMjIuMjY5OUM0NS40Nzk4IDIyLjQwOTkgNDUuNTk5OCAyMi42Mzk5IDQ1LjYwOTggMjIuODc5OUM0NS42MDk4IDIzLjI4OTkgNDUuMjc5OCAyMy42MDk5IDQ0Ljg3OTggMjMuNjE5OUM0NC43MTk4IDIzLjYxOTkgNDQuNTY5OCAyMy41Nzk5IDQ0LjQzOTggMjMuNDc5OUM0My40Mzk4IDIyLjcwOTkgNDIuMjA5OCAyMi4yOTk5IDQwLjk0OTggMjIuMjk5OUMzOS4xODk4IDIyLjI5OTkgMzguMDY5OCAyMy4yNTk5IDM4LjA2OTggMjQuNDc5OVYyNC41MTk5QzM4LjA2OTggMjUuNzg5OSAzOC43Njk4IDI2LjUwOTkgNDEuNzI5OCAyNy4xMzk5QzQ0LjczOTggMjcuNzk5OSA0Ni4xMjk4IDI4Ljg5OTkgNDYuMTI5OCAzMC45NTk5VjMwLjk5OTlDNDYuMTI5OCAzMy4zMTk5IDQ0LjE5OTggMzQuODE5OSA0MS41MTk4IDM0LjgxOTlDMzkuNjQ5OCAzNC44Mzk5IDM3LjgzOTggMzQuMTk5OSAzNi4zOTk4IDMzLjAwOTlMMzYuNDA5OCAzMy4wMjk5WiI+PC9wYXRoPjxwYXRoIGQ9Ik0yOC4wMSA1Ni4wMUMxMi41NCA1Ni4wMSAwIDQzLjQ4IDAgMjguMDFDMCAxMi41NCAxMi41MyAwIDI4IDBDNDMuNDcgMCA1Ni4wMSAxMi41MyA1Ni4wMSAyOEM1NS45OSA0My40NyA0My40NyA1NS45OSAyOC4wMSA1Ni4wMVpNMjguMDEgMS4yNUMxMy4yMyAxLjI1IDEuMjUgMTMuMjIgMS4yNSAyOEMxLjI1IDQyLjc4IDEzLjIyIDU0Ljc2IDI4IDU0Ljc2QzQyLjc4IDU0Ljc2IDU0Ljc2IDQyLjc5IDU0Ljc2IDI4LjAxQzU0Ljc0IDEzLjI0IDQyLjc4IDEuMjcgMjguMDEgMS4yNVoiPjwvcGF0aD48L2c+PC9zdmc+"
+                                alt="Cap&Sock"
+                                class="mb-3"
+                                width="60"
+                                style="filter: invert(44%) sepia(98%) saturate(391%) hue-rotate(85deg) brightness(95%) contrast(87%);">
                             <h4 class="text-success mb-1">Cap&Sock</h4>
                         </div>
 
@@ -69,7 +78,7 @@
                                 <% } %>
                             </div>
                         </div>
-
+                        
                         <div class="text-end text-muted ">
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="fw-bold fs-5">TOTAL:</span>
@@ -85,21 +94,25 @@
                 </div>
             </div>
 
-            <div class="text-center mt-4">
-                <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
-                    <button id="btn-download-ticket" class="btn btn-success d-flex align-items-center justify-content-center gap-2">
-                        <i class="bi bi-download"></i>
-                        Descargar PDF
-                    </button>
-                    
-                    <button id="btn-home" class="btn btn-warning">
-                        Nueva compra
-                    </button>
+            <% if(typeof download == 'undefined'){ %>
+                <div class="text-center mt-4">
+                    <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                        <button id="btn-download-ticket" class="btn btn-success d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-download"></i>
+                            Descargar PDF
+                        </button>
+                        
+                        <button id="btn-home" class="btn btn-warning">
+                            Nueva compra
+                        </button>
+                    </div>
                 </div>
-            </div>
+            <% } %>
         </div>
     </main>
 
-    <%- include('./misc/scripts.ejs', { js: ['tema.js', 'ticket.js'] }); %>
+    <% if(typeof download == 'undefined'){ %>
+        <%- include('./misc/scripts.ejs', { js: ['tema.js', 'ticket.js'] }); %>
+    <% } %>
 </body>
 </html>

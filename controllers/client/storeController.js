@@ -1,6 +1,7 @@
 import { ProductItem, ProductCategory, Order, OrderProduct } from '../../models/index.js';
 import { uint } from '../../public/js/misc.js';
 import puppeteer from 'puppeteer';
+import ejs from 'ejs';
 
 export async function viewLogin(req, res)
 {
@@ -180,49 +181,71 @@ export async function viewTicket(req, res)
     }
 }
 
+    import fs from "fs";
+
 export async function downloadTicket(req, res)
 {
-    const BROWSER = await puppeteer.launch({ headless: true });
-    const PAGE = await BROWSER.newPage();
-
-    await PAGE.setContent(ticket()); 
-
-    const PDF_BUFFER = await PAGE.pdf(
-        {
-            format: "A4",
-            printBackground: true,
-            margin:
+    const ORDER = await Order.findByPk(req.params.id, {            
+        include: [                
             {
-                top: "20px",
-                bottom: "20px",
-                right: "20px",
-                left: "20px",
-            },
-            headerTemplate: "<h1>Descarga</h1>",
-            footerTemplate: "<h1>Footer</h1>",
-        }
-    );
-
-    await BROWSER.close();
-
-    res.set({
-        "Content-Type": "Application/pdf",
-        "Content-Disposition": `attachment; filename="ticket100.pdf"`,
+                model: OrderProduct,
+                as: 'orderProducts',
+                include:
+                {
+                    model: ProductItem,
+                    as: 'product',
+                    include:
+                    {
+                        model: ProductCategory,
+                        as: 'category'
+                    }
+                }
+            }
+        ], 
     });
 
-    res.send(PDF_BUFFER);
+    if(ORDER)
+    {
+        const BROWSER = await puppeteer.launch({ headless: true });
+        const PAGE = await BROWSER.newPage();
+
+        const HTML = await ejs.renderFile('views/ticket.ejs',
+        {
+            order: ORDER,
+            download: true
+        });
+
+        await PAGE.setContent(HTML);
+
+        const PDF_BUFFER = await PAGE.pdf(
+            {
+                format: "A4",
+                printBackground: true,
+                margin: '2cm',
+            }
+        );
+
+        await BROWSER.close();
+
+        res.set({
+            "Content-Type": "Application/pdf",
+            "Content-Disposition": `attachment; filename="Cap&Sock - Orden Num. ${(`0000${req.params.id}`).slice(-5)}.pdf"`,
+        });
+
+        res.send(PDF_BUFFER);
+    }
+
+    res.status(500).json({ error: 'No se ha encontrado una orden con el ID indicado' });
 }
 
-function ticket()
+function getTicket()
 {
-    //Idealmente aca fetcheariamos la data de una orden por su ID
-
     const HTML_STRING = `  
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8">
                 <div id="ticketContent" class="text-dark rounded-3 p-4 shadow">
                     <div class="text-center mb-4">
-                        <img src="assets/img/favicon.svg" alt="Cap&Sock" class="mb-3" width="60" style="filter: invert(44%) sepia(98%) saturate(391%) hue-rotate(85deg) brightness(95%) contrast(87%);">
+                        <img src="/assets/img/favicon.svg" alt="Cap&Sock" class="mb-3" width="60" style="filter: invert(44%) sepia(98%) saturate(391%) hue-rotate(85deg) brightness(95%) contrast(87%);">
                         <h4 class="text-success mb-1">Cap&Sock</h4>
                     </div>
 
