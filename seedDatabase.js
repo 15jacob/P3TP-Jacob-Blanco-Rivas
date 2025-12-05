@@ -37,9 +37,10 @@ const seedDatabase = async () => {
         ]);
 
         await Order.bulkCreate([
-            { id: 1, name: 'Cliente A', date: new Date('2025-11-20 10:30:00') },
-            { id: 2, name: 'Cliente B', date: new Date('2025-11-20 11:45:00') },
-            { id: 3, name: 'Cliente C', date: new Date('2025-11-21 14:20:00') }
+            { id: 1, name: 'Horacio', date: new Date('2025-11-20 10:30:00') },
+            { id: 2, name: 'Fernando', date: new Date('2025-11-20 11:45:00') },
+            { id: 3, name: 'Amanda', date: new Date('2025-11-21 14:20:00') },
+            { id: 4, name: 'Lara', date: new Date('2025-11-22 09:33:00') }
         ]);
 
         await OrderProduct.bulkCreate([
