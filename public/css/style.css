@@ -72,10 +72,29 @@
     #temaFlotante {
         transition: all 0.3s ease;
         border: 2px solid transparent;
+        margin-bottom: 1rem;
     }
 
     #temaFlotante:hover {
         transform: scale(1.1);
         border-color: rgba(255, 255, 255, 0.5);
     }
+}
+
+footer
+{
+    background: rgba(0, 0, 0, 7.06);
+    background: -webkit-linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    background: -moz-linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(0deg,rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(
+    startColorstr="#000000",
+    endColorstr="#FFFFFF",
+    GradientType=0
+    );
+}
+
+footer span
+{
+    text-shadow: 2px 2px 2px #000;
 }

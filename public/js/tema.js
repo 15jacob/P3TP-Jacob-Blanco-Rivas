@@ -19,7 +19,7 @@ class TemaManager {
         const boton = document.createElement('button');
         boton.id = 'temaFlotante';
         boton.className = 'btn btn-success bg-success-subtle position-fixed bottom-0 end-0 m-3 rounded-circle shadow';
-        boton.style = 'width: 50px; height: 50px; z-index: 1000;';
+        boton.style = 'width: 50px; height: 50px; z-index: 1000; bottom: 4rem!important';
         boton.innerHTML = '<i class="bi bi-moon-stars"></i>';
         boton.title = 'Cambiar tema';
 

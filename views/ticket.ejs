@@ -112,6 +112,7 @@
     </main>
 
     <% if(typeof download == 'undefined'){ %>
+        <%- include('./misc/footer.ejs'); %>
         <%- include('./misc/scripts.ejs', { js: ['tema.js', 'ticket.js'] }); %>
     <% } %>
 </body>

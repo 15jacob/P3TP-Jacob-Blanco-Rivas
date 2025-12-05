@@ -304,5 +304,5 @@ Authorization: Bearer {token}
 
 ## 👥 Autores
 
-- Cristian Jacob
+- Cristopher Jacob
 - Tomás Blanco
